@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BusinessBuzz.Core/BusinessBuzz.Core.csproj" />
+  <Project Path="BusinessBuzz.Infrastructure/BusinessBuzz.Infrastructure.csproj" />
+  <Project Path="BusinessBuzz.Web/BusinessBuzz.Web.csproj" />
+</Solution>
