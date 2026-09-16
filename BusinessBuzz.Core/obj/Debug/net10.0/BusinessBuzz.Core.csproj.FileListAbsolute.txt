@@ -1,0 +1,12 @@
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\bin\Debug\net10.0\BusinessBuzz.Core.deps.json
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\bin\Debug\net10.0\BusinessBuzz.Core.dll
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\bin\Debug\net10.0\BusinessBuzz.Core.pdb
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.AssemblyInfoInputs.cache
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.AssemblyInfo.cs
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.csproj.CoreCompileInputs.cache
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.sourcelink.json
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.dll
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\refint\BusinessBuzz.Core.dll
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\BusinessBuzz.Core.pdb
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Core\obj\Debug\net10.0\ref\BusinessBuzz.Core.dll
