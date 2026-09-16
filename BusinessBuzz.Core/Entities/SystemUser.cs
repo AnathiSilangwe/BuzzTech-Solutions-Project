@@ -1,4 +1,4 @@
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace BusinessBuzz.Core.Entities;
 
@@ -16,13 +16,5 @@ public class SystemUser
     public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
     public ICollection<FundingAssessment> FundingAssessments { get; set; } = new List<FundingAssessment>();
     public ICollection<ApprovalReview> ApprovalReviews { get; set; } = new List<ApprovalReview>();
-    public void Login()
-    {
-        //JWT Autheitcation to be implemented here
-    } 
-    public void Logout()
-    {
-        //Logout logis will be here
-    }
-    
+   
 }

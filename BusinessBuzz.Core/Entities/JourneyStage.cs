@@ -12,4 +12,9 @@ public class JourneyStage
     
     //Navigation property
     public ICollection<Application> Applications { get; set; } = new List<Application>();
+
+    public string GetStageDetails()
+    {
+        return StageDescription;
+    }
 }

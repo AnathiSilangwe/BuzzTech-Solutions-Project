@@ -1,4 +1,11 @@
+using BusinessBuzz.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<BusinessBuzzDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("BusinessBuzzConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
