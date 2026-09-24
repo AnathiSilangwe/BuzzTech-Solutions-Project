@@ -2,7 +2,6 @@ using BusinessBuzz.Core.Entities;
 using BusinessBuzz.Core.Services;
 using BusinessBuzz.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.PasswordHasher;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessBuzz.Infrastructure.Services;
@@ -10,12 +9,12 @@ namespace BusinessBuzz.Infrastructure.Services;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly BusinessBuzzDbContext _context;
-    private readonly PasswordHasher<SystemUser> _passwordHasher;
+    private readonly Microsoft.AspNetCore.Identity.PasswordHasher<SystemUser> _passwordHasher;
 
     public AuthenticationService(BusinessBuzzDbContext context)
     {
         _context = context;
-        _passwordHasher = new PasswordHasher<SystemUser>();
+        _passwordHasher = new Microsoft.AspNetCore.Identity.PasswordHasher<SystemUser>();
     }
 
     public async Task<SystemUser?> RegisterAsync(
@@ -66,7 +65,7 @@ public class AuthenticationService : IAuthenticationService
             user.PasswordHash,
             password);
 
-        if (result == PasswordVerificationResult.Failed)
+        if (result == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed)
         {
             return null;
         }
