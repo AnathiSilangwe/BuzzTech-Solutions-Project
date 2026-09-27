@@ -6,19 +6,62 @@
 }
 
 <div class="container py-5">
-    <h1>Welcome to Business Buzz</h1>
 
-    <p>
-        This is your entrepreneur dashboard.
-    </p>
+    <h1>Welcome to Business Buzz</h1>
 
     <p>
         Logged in as: <strong>@Model.UserEmail</strong>
     </p>
 
-    <p>
-        From here, you will be able to manage your business profile,
-        follow your personalised journey, access documents, and interact
-        with BuzzGuide.
-    </p>
+    @if (!Model.HasBusinessProfile)
+    {
+        <div class="alert alert-info">
+            <h4>Complete your business profile</h4>
+
+            <p>
+                Tell us about your business so we can personalise your journey.
+            </p>
+
+            <a asp-page="/BusinessProfile/Create" class="btn btn-primary">
+                Create Business Profile
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="card p-4 mt-4">
+            <h3>Your Business Profile</h3>
+
+            <p>
+                <strong>Business Name:</strong>
+                @Model.BusinessName
+            </p>
+
+            <p>
+                <strong>Business Type:</strong>
+                @Model.BusinessType
+            </p>
+
+            <p>
+                <strong>Industry:</strong>
+                @Model.Industry
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                @Model.BusinessLocation
+            </p>
+
+            <p>
+                <strong>Employs People:</strong>
+                @(Model.EmploysPeople == true ? "Yes" : "No")
+            </p>
+
+            <p>
+                <strong>Profile Confirmed:</strong>
+                @(Model.IsProfileConfirmed == true ? "Yes" : "No")
+            </p>
+        </div>
+    }
+
 </div>
