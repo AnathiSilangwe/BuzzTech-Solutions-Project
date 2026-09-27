@@ -85,6 +85,12 @@ public class BusinessBuzzDbContext : DbContext
             .HasOne(b => b.BusinessType)
             .WithMany(t => t.BusinessProfiles)
             .HasForeignKey(b => b.BusinessTypeId);
+        // SystemUser to BusinessProfile
+        modelBuilder.Entity<BusinessProfile>()
+            .HasOne(b => b.SystemUser)
+            .WithMany(u => u.BusinessProfiles)
+            .HasForeignKey(b => b.SystemUserId)
+            .OnDelete(DeleteBehavior.Cascade);
         //BusinessProfile to Document
         modelBuilder.Entity<Document>()
             .HasOne(d => d.BusinessProfile)

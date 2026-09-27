@@ -1,0 +1,82 @@
+@page
+@model BusinessBuzz.Web.Pages.BusinessProfile.CreateModel
+
+@{
+    ViewData["Title"] = "Create Business Profile";
+}
+
+<div class="container py-5">
+
+    <h1>Create Your Business Profile</h1>
+
+    <p>
+        Tell us about your business so Business Buzz can personalise your journey.
+    </p>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @Model.ErrorMessage
+        </div>
+    }
+
+    <form method="post">
+
+        <div class="mb-3">
+            <label asp-for="BusinessProfile.BusinessName" class="form-label">
+                Business Name
+            </label>
+
+            <input asp-for="BusinessProfile.BusinessName"
+                   class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BusinessProfile.BusinessTypeId" class="form-label">
+                Business Type
+            </label>
+
+            <select asp-for="BusinessProfile.BusinessTypeId"
+                    asp-items="Model.BusinessTypes"
+                    class="form-select">
+                <option value="">Select a business type</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BusinessProfile.Industry" class="form-label">
+                Industry
+            </label>
+
+            <input asp-for="BusinessProfile.Industry"
+                   class="form-control"
+                   placeholder="e.g. Information Technology" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BusinessProfile.BusinessLocation" class="form-label">
+                Business Location
+            </label>
+
+            <input asp-for="BusinessProfile.BusinessLocation"
+                   class="form-control"
+                   placeholder="e.g. Gqeberha" />
+        </div>
+
+        <div class="form-check mb-4">
+            <input asp-for="BusinessProfile.EmploysPeople"
+                   class="form-check-input" />
+
+            <label asp-for="BusinessProfile.EmploysPeople"
+                   class="form-check-label">
+                Does the business employ people?
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Business Profile
+        </button>
+
+    </form>
+
+</div>
