@@ -53,6 +53,6 @@ public class LoginModel : PageModel
         HttpContext.Session.SetInt32("UserId", user.SystemUserId);
         HttpContext.Session.SetInt32("RoleId", user.RoleId);
 
-        return RedirectToPage("Dashboard/Index");
+        return RedirectToPage("/Dashboard/Index");
     }
 }
