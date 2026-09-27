@@ -49,6 +49,10 @@ public class LoginModel : PageModel
             return Page();
         }
 
-        return Page();
+        //return Page();
+        HttpContext.Session.SetInt32("UserId", user.SystemUserId);
+        HttpContext.Session.SetInt32("RoleId", user.RoleId);
+
+        return RedirectToPage("Dashboard/Index");
     }
 }
