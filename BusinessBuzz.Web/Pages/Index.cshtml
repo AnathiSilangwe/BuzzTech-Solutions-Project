@@ -7,64 +7,111 @@ ViewData["Title"] = "Home";
 <div class="container py-5">
     <div class="row align-items-center min-vh-75">
 
-```
-    <div class="col-lg-7">
-        <p class="text-uppercase fw-bold text-primary mb-2">
-            Business Buzz
-        </p>
 
-        <h1 class="display-4 fw-bold mb-4">
-            Turn your business idea into a real business.
-        </h1>
+        <div class="col-lg-7">
+            <p class="text-uppercase fw-bold text-primary mb-2">
+                Business Buzz
+            </p>
 
-        <p class="lead mb-4">
-            Business Buzz helps first-time entrepreneurs understand the
-            steps involved in starting a business, from registration and
-            compliance to funding readiness.
-        </p>
+            <h1 class="display-4 fw-bold mb-4">
+                @Model.PageTitle
+            </h1>
 
-        <div class="d-flex gap-3">
-            <a asp-page="/Account/Register" class="btn btn-primary btn-lg">
-                Get Started
-            </a>
+            <p class="lead mb-4">
+            @Model.Introduction
+            </p>
 
-            <a asp-page="/Account/Login" class="btn btn-outline-primary btn-lg">
-                Login
-            </a>
-        </div>
-    </div>
+            @* <h1 class="display-4 fw-bold mb-4">
+                Turn your business idea into a real business.
+            </h1>
 
-    <div class="col-lg-5 mt-5 mt-lg-0">
-        <div class="card shadow-sm border-0 p-4">
-            <h3 class="fw-bold mb-3">Your journey starts here</h3>
+            <p class="lead mb-4">
+                Business Buzz helps first-time entrepreneurs understand the
+                steps involved in starting a business, from registration and
+                compliance to funding readiness.
+            </p> *@
 
-            <div class="mb-3">
-                <h5>1. Tell us about your idea</h5>
-                <p class="text-muted mb-0">
-                    Build your entrepreneur profile and provide information
-                    about your business.
-                </p>
-            </div>
+            <div class="d-flex gap-3">
+                <a asp-page="/Account/Register" class="btn btn-primary btn-lg">
+                    Get Started
+                </a>
 
-            <div class="mb-3">
-                <h5>2. Get your roadmap</h5>
-                <p class="text-muted mb-0">
-                    BuzzGuide helps identify the steps relevant to your
-                    business journey.
-                </p>
-            </div>
-
-            <div>
-                <h5>3. Complete your journey</h5>
-                <p class="text-muted mb-0">
-                    Work through documents, approvals, compliance and
-                    funding-readiness tasks.
-                </p>
+                <a asp-page="/Account/Login" class="btn btn-outline-primary btn-lg">
+                    Login
+                </a>
             </div>
         </div>
+
+        <div class="col-lg-5 mt-5 mt-lg-0">
+            <div class="card shadow-sm border-0 p-4">
+                <h3 class="fw-bold mb-3">Your journey starts here</h3>
+
+                <div class="mb-3">
+                    <h5>1. Tell us about your idea</h5>
+                    <p class="text-muted mb-0">
+                        Build your entrepreneur profile and provide information
+                        about your business.
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <h5>2. Get your roadmap</h5>
+                    <p class="text-muted mb-0">
+                        BuzzGuide helps identify the steps relevant to your
+                        business journey.
+                    </p>
+                </div>
+
+                <div>
+                    <h5>3. Complete your journey</h5>
+                    <p class="text-muted mb-0">
+                        Work through documents, approvals, compliance and
+                        funding-readiness tasks.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
+
 
 </div>
-```
 
+<div class="row mt-5 pt-5">
+    <div class="col-12 text-center mb-4">
+        <h2 class="fw-bold">Everything you need to start with confidence</h2>
+        <p class="text-muted">
+            Business Buzz brings the important parts of your business journey together.
+        </p>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 p-4">
+            <h4 class="fw-bold">BuzzGuide</h4>
+            <p class="text-muted">
+                Get personalised guidance based on your business idea and
+                where you are in your entrepreneurial journey.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 p-4">
+            <h4 class="fw-bold">Business Documents</h4>
+            <p class="text-muted">
+                Keep track of the documents you need and access generated
+                documents through your Business Buzz profile.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 p-4">
+            <h4 class="fw-bold">Funding Readiness</h4>
+            <p class="text-muted">
+                Understand what may be required when preparing your business
+                for potential funding opportunities.
+            </p>
+        </div>
+    </div>
 </div>
