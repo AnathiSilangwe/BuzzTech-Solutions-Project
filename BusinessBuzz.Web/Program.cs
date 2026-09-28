@@ -14,7 +14,7 @@ builder.Services.AddDbContext<BusinessBuzzDbContext>(options =>
         builder.Configuration.GetConnectionString("BusinessBuzzConnection")));
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+builder.Services.AddScoped<IJourneyService, JourneyService>();
 
 var app = builder.Build();
 

@@ -137,6 +137,9 @@ namespace BusinessBuzz.Infrastructure.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("SeeksFunding")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SystemUserId")
                         .HasColumnType("int");
 

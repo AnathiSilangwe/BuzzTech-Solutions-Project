@@ -2,16 +2,20 @@ using BusinessBuzz.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using BusinessBuzz.Core.Entities;
+using BusinessBuzz.Core.Services;
 
 namespace BusinessBuzz.Web.Pages.Dashboard;
 
 public class IndexModel : PageModel
 {
     private readonly BusinessBuzzDbContext _context;
+    private readonly IJourneyService _journeyService;
 
-    public IndexModel(BusinessBuzzDbContext context)
+    public IndexModel(BusinessBuzzDbContext context, IJourneyService journeyService)
     {
         _context = context;
+        _journeyService = journeyService;
     }
 
     public int? UserId { get; private set; }
@@ -27,6 +31,8 @@ public class IndexModel : PageModel
     public bool? IsProfileConfirmed { get; private set; }
 
     public bool HasBusinessProfile { get; private set; }
+
+    public List<JourneyStage> PersonalisedJourney { get; private set; } = new();
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -64,7 +70,11 @@ public class IndexModel : PageModel
             BusinessLocation = profile.BusinessLocation;
             EmploysPeople = profile.EmploysPeople;
             IsProfileConfirmed = profile.IsConfirmed;
+
+            PersonalisedJourney = await _journeyService.GetPersonalisedJourneyAsync(profile.BusinessProfileId);
         }
+
+
 
         return Page();
     }

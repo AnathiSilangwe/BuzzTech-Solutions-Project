@@ -27,6 +27,45 @@
             </a>
         </div>
     }
+        @if (Model.HasBusinessProfile)
+    {
+        <div class="card p-4 mt-4">
+            <h3>Your Business Journey</h3>
+
+            @if (Model.PersonalisedJourney.Count == 0)
+            {
+                <p>No journey stages are currently available.</p>
+            }
+            else
+            {
+                @foreach (var stage in Model.PersonalisedJourney)
+                {
+                    <div class="mb-4">
+                        <h4>@stage.StageOrder. @stage.StageName</h4>
+
+                        <p>
+                            <strong>Institution:</strong>
+                            @stage.InstitutionName
+                        </p>
+
+                        <p>
+                            @stage.StageDescription
+                        </p>
+
+                        <p>
+                            <strong>Type:</strong>
+                            @stage.StageType
+                        </p>
+
+                        <p>
+                            <strong>Required:</strong>
+                            @(stage.IsRequired ? "Yes" : "No")
+                        </p>
+                    </div>
+                }
+            }
+        </div>
+    }
     else
     {
         <div class="card p-4 mt-4">

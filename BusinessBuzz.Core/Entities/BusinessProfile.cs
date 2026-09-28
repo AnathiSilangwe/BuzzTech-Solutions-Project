@@ -11,6 +11,7 @@ public class BusinessProfile
     public string Industry { get; set; } = string.Empty;
     public string BusinessLocation { get; set; } = string.Empty;
     public bool EmploysPeople { get; set; }
+    public bool SeeksFunding {get; set; }
     public bool IsConfirmed { get; set; }
 
     //Navigation property
