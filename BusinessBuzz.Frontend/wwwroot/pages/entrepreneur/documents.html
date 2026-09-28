@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Documents | Business Buzz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/entrepreneur.css">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="entrepreneur-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="entrepreneur-sidebar">
+
+            <div>
+
+                <div class="sidebar-brand">
+                    <a href="/index.html">Business Buzz</a>
+                    <span>ENTREPRENEUR PORTAL</span>
+                </div>
+
+                <nav class="sidebar-nav">
+
+                    <a href="/pages/entrepreneur/dashboard.html"
+                       class="sidebar-link">
+                        <span>▦</span>
+                        Dashboard
+                    </a>
+
+                    <a href="/pages/entrepreneur/cipc-registration.html"
+                       class="sidebar-link">
+                        <span>↗</span>
+                        My Journey
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>♙</span>
+                        Business Profile
+                    </a>
+
+                    <a href="/pages/entrepreneur/documents.html"
+                       class="sidebar-link active">
+                        <span>▤</span>
+                        Documents
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>✓</span>
+                        Compliance
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>♢</span>
+                        Notifications
+
+                        <span class="notification-count">
+                            2
+                        </span>
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>☆</span>
+                        Business Readiness
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>◉</span>
+                        Funding Readiness
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar">
+                    N
+                </div>
+
+                <div>
+                    <strong>Noni Dlamini</strong>
+                    <small>noni@example.co.za</small>
+                </div>
+
+                <a href="#"
+                   class="account-settings">
+                    Account Settings
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main documents-page">
+
+            <a href="/pages/entrepreneur/cipc-registration.html"
+               class="back-dashboard-link">
+                ← Back to CIPC Registration
+            </a>
+
+
+            <!-- PAGE HEADER -->
+            <section class="documents-header">
+
+                <div>
+
+                    <span class="section-label">
+                        DIGITAL DOCUMENT CENTRE
+                    </span>
+
+                    <h1>Your Documents</h1>
+
+                    <p>
+                        Create and manage documents using the
+                        information stored in your Business Buzz
+                        profile.
+                    </p>
+
+                </div>
+
+                <span class="documents-count">
+                    1 Document
+                </span>
+
+            </section>
+
+
+            <!-- INFORMATION BANNER -->
+            <section class="document-info-banner">
+
+                <div class="document-info-icon">
+                    i
+                </div>
+
+                <div>
+                    <strong>
+                        Your information, ready when you need it.
+                    </strong>
+
+                    <p>
+                        Business Buzz uses the information you have
+                        already provided to prepare digital documents.
+                        You can review them before printing or using
+                        them as part of your simulated business
+                        registration journey.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- DOCUMENT CARD -->
+            <section class="generated-document-card">
+
+                <div class="document-card-top">
+
+                    <div class="document-file-icon">
+                        PDF
+                    </div>
+
+                    <div class="document-card-information">
+
+                        <span class="document-type-label">
+                            REGISTRATION DOCUMENT
+                        </span>
+
+                        <h2>
+                            CIPC Registration Preparation Document
+                        </h2>
+
+                        <p>
+                            Generated from your Business Buzz
+                            business profile.
+                        </p>
+
+                    </div>
+
+                    <span class="document-ready-badge">
+                        Ready
+                    </span>
+
+                </div>
+
+
+                <div class="document-details">
+
+                    <div>
+                        <span>Business</span>
+                        <strong>Noni's Student Catering</strong>
+                    </div>
+
+                    <div>
+                        <span>Business Type</span>
+                        <strong>Sole Proprietor</strong>
+                    </div>
+
+                    <div>
+                        <span>Stage</span>
+                        <strong>CIPC Registration</strong>
+                    </div>
+
+                    <div>
+                        <span>Version</span>
+                        <strong>1.0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="document-card-actions">
+
+                    <button type="button"
+                            id="previewDocumentBtn"
+                            class="document-secondary-btn">
+                        Preview
+                    </button>
+
+                    <button type="button"
+                            id="printDocumentBtn"
+                            class="document-secondary-btn">
+                        Print
+                    </button>
+
+                    <button type="button"
+                            id="downloadDocumentBtn"
+                            class="document-primary-btn">
+                        Download PDF
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- DOCUMENT PREVIEW -->
+            <section id="documentPreview"
+                     class="document-preview-section">
+
+                <div class="preview-heading">
+
+                    <div>
+                        <span class="section-label">
+                            DOCUMENT PREVIEW
+                        </span>
+
+                        <h2>
+                            CIPC Registration Preparation
+                        </h2>
+                    </div>
+
+                    <button type="button"
+                            id="closePreviewBtn"
+                            class="preview-close-btn">
+                        ×
+                    </button>
+
+                </div>
+
+
+                <div class="paper-preview">
+
+                    <div class="paper-header">
+
+                        <div>
+                            <strong>Business Buzz</strong>
+                            <span>
+                                Business Registration Preparation
+                            </span>
+                        </div>
+
+                        <span class="paper-draft-label">
+                            PROTOTYPE
+                        </span>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="paper-title">
+
+                        <h2>
+                            CIPC Registration Preparation Document
+                        </h2>
+
+                        <p>
+                            Prepared using information captured in
+                            Business Buzz.
+                        </p>
+
+                    </div>
+
+
+                    <div class="paper-section">
+
+                        <h3>Business Information</h3>
+
+                        <div class="paper-information-grid">
+
+                            <div>
+                                <span>Business Name</span>
+                                <strong>
+                                    Noni's Student Catering
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Business Type</span>
+                                <strong>
+                                    Sole Proprietor
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Industry</span>
+                                <strong>
+                                    Food &amp; Beverage
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Province</span>
+                                <strong>
+                                    Gauteng
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="paper-section">
+
+                        <h3>Business Description</h3>
+
+                        <p>
+                            Provides affordable prepared meals to
+                            university students near campus.
+                        </p>
+
+                    </div>
+
+
+                    <div class="paper-section">
+
+                        <h3>Registration Preparation Status</h3>
+
+                        <p>
+                            This document contains information prepared
+                            for the simulated CIPC registration stage
+                            within Business Buzz.
+                        </p>
+
+                    </div>
+
+
+                    <div class="prototype-notice">
+
+                        <strong>
+                            Academic Prototype Notice
+                        </strong>
+
+                        <p>
+                            This document is generated by the Business
+                            Buzz academic prototype. It is not an
+                            official CIPC registration certificate and
+                            does not represent approval by CIPC or any
+                            South African government institution.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- EMPTY / FUTURE DOCUMENT AREA -->
+            <section class="future-documents-card">
+
+                <span class="section-label">
+                    COMING LATER IN YOUR JOURNEY
+                </span>
+
+                <h2>More documents will appear here</h2>
+
+                <p>
+                    Documents related to later registration,
+                    compliance and business-readiness stages will
+                    become available as you progress through your
+                    Business Buzz journey.
+                </p>
+
+            </section>
+
+
+            <div class="documents-bottom-navigation">
+
+                <a href="/pages/entrepreneur/cipc-registration.html"
+                   class="secondary-action-btn">
+                    ← CIPC Registration
+                </a>
+
+                <a href="/pages/entrepreneur/dashboard.html"
+                   class="document-primary-link">
+                    Return to Dashboard
+                </a>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="/js/documents.js"></script>
+
+</body>
+
+</html>

@@ -1,10 +1,152 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Business Buzz</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Business Buzz CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
-<body>
+
+<body class="auth-body">
+
+    <main class="auth-page">
+
+        <!-- Business Buzz Logo -->
+        <a href="/index.html" class="auth-logo">
+            Business Buzz
+        </a>
+
+        <div class="auth-heading">
+
+            <h1>Create your account</h1>
+
+            <p>
+                Start your entrepreneurship journey today.
+            </p>
+
+        </div>
+
+
+        <!-- Sign-Up Card -->
+        <div class="auth-card">
+
+            <form id="signupForm">
+
+                <!-- Full Name -->
+                <div class="mb-3">
+
+                    <label for="fullName"
+                           class="form-label">
+                        Full Name
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="fullName"
+                           name="fullName"
+                           placeholder="Noni Dlamini"
+                           required>
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="mb-3">
+
+                    <label for="email"
+                           class="form-label">
+                        Email Address
+                    </label>
+
+                    <input type="email"
+                           class="form-control"
+                           id="email"
+                           name="email"
+                           placeholder="noni@example.co.za"
+                           required>
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="mb-3">
+
+                    <label for="password"
+                           class="form-label">
+                        Password
+                    </label>
+
+                    <input type="password"
+                           class="form-control"
+                           id="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           required>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+
+                    <label for="confirmPassword"
+                           class="form-label">
+                        Confirm Password
+                    </label>
+
+                    <input type="password"
+                           class="form-control"
+                           id="confirmPassword"
+                           name="confirmPassword"
+                           placeholder="Confirm your password"
+                           required>
+
+                </div>
+
+
+                <!-- Create Account -->
+                <button type="submit"
+                        class="btn auth-primary-btn w-100">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div class="auth-divider"></div>
+
+
+            <p class="auth-switch">
+                Already have an account?
+
+                <a href="/pages/login.html">
+                    Log In
+                </a>
+            </p>
+
+        </div>
+
+
+        <p class="auth-terms">
+            By continuing, you agree to our Terms of Service and Privacy Policy.
+        </p>
+
+    </main>
+
+
+    <script src="/js/signup.js"></script>
 
 </body>
+
 </html>

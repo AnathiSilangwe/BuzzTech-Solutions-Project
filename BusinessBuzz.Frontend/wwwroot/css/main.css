@@ -1,10 +1,212 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿
+    /* ================================
+   BUSINESS BUZZ GLOBAL STYLES
+   ================================ */
 
-</body>
-</html>
+:root{
+    --bb-navy: #07112f;
+    --bb-gold: #f4ad24;
+    --bb-white: #ffffff;
+    --bb-light-text: #c9cfdd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--bb-navy);
+    color: var(--bb-white);
+}
+
+
+/* ================================
+   HEADER
+   ================================ */
+
+.main-header {
+    background-color: var(--bb-navy);
+    padding: 18px 0;
+}
+
+.business-logo {
+    color: var(--bb-white);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+    .business-logo:hover {
+        color: var(--bb-gold);
+    }
+
+.login-link {
+    color: var(--bb-white);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .login-link:hover {
+        color: var(--bb-gold);
+    }
+
+
+/* ================================
+   HERO
+   ================================ */
+
+.hero-section {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    padding: 80px 20px 50px;
+}
+
+.hero-label {
+    color: var(--bb-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+.hero-description {
+    max-width: 620px;
+    margin: 0 auto 35px;
+    color: var(--bb-light-text);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   HERO BUTTONS
+   ================================ */
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-start {
+    background-color: var(--bb-gold);
+    color: var(--bb-navy);
+    border: 2px solid var(--bb-gold);
+    padding: 12px 24px;
+    font-weight: 700;
+}
+
+    .btn-start:hover {
+        background-color: transparent;
+        color: var(--bb-gold);
+        border-color: var(--bb-gold);
+    }
+
+.btn-learn {
+    background-color: transparent;
+    color: var(--bb-white);
+    border: 1px solid #6c7693;
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+    .btn-learn:hover {
+        border-color: var(--bb-gold);
+        color: var(--bb-gold);
+    }
+
+
+/* ================================
+   BUSINESS JOURNEY
+   ================================ */
+
+.journey-section {
+    padding: 30px 20px 70px;
+}
+
+.journey-label {
+    color: var(--bb-light-text);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.journey-steps {
+    max-width: 950px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journey-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    font-size: 0.8rem;
+    color: var(--bb-light-text);
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bb-gold);
+    border-radius: 50%;
+    color: var(--bb-gold);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.journey-line {
+    height: 2px;
+    background-color: #555f7b;
+    flex: 1;
+    margin: 0 5px 25px;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+
+    .hero-title {
+        font-size: 2.7rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .journey-steps {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .journey-line {
+        width: 2px;
+        height: 25px;
+        flex: none;
+        margin: 0;
+    }
+}
+

@@ -1,0 +1,179 @@
+﻿/* ========================================
+   BUSINESS BUZZ AUTHENTICATION PAGES
+   ======================================== */
+
+.auth-body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--bb-navy);
+    display: flex;
+    justify-content: center;
+    color: var(--bb-white);
+}
+
+
+/* Main authentication container */
+
+.auth-page {
+    width: 100%;
+    max-width: 480px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Business Buzz logo */
+
+.auth-logo {
+    color: var(--bb-gold);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+    .auth-logo:hover {
+        color: var(--bb-white);
+    }
+
+
+/* Heading */
+
+.auth-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .auth-heading h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .auth-heading p {
+        color: var(--bb-light-text);
+        margin: 0;
+    }
+
+
+/* White form card */
+
+.auth-card {
+    width: 100%;
+    background-color: #ffffff;
+    color: #1f2937;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+
+    /* Form labels */
+
+    .auth-card .form-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+
+    /* Form inputs */
+
+    .auth-card .form-control {
+        min-height: 48px;
+        border: 1px solid #d7dce5;
+        border-radius: 7px;
+        padding: 10px 12px;
+    }
+
+        .auth-card .form-control:focus {
+            border-color: var(--bb-gold);
+            box-shadow: 0 0 0 0.2rem rgba(244, 173, 36, 0.15);
+        }
+
+
+/* Main authentication button */
+
+.auth-primary-btn {
+    background-color: var(--bb-gold);
+    color: var(--bb-navy);
+    border: 2px solid var(--bb-gold);
+    min-height: 50px;
+    font-weight: 700;
+    border-radius: 7px;
+}
+
+    .auth-primary-btn:hover {
+        background-color: #e49b10;
+        border-color: #e49b10;
+        color: var(--bb-navy);
+    }
+
+
+/* Divider */
+
+.auth-divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 25px 0 20px;
+}
+
+
+/* Login / Sign-Up switching */
+
+.auth-switch {
+    text-align: center;
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+    .auth-switch a {
+        color: var(--bb-navy);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .auth-switch a:hover {
+            color: var(--bb-gold);
+        }
+
+
+/* Terms */
+
+.auth-terms {
+    color: #8d96aa;
+    text-align: center;
+    font-size: 0.75rem;
+    margin-top: 20px;
+}
+
+.forgot-password {
+    color: #8a93a5;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+    .forgot-password:hover {
+        color: var(--bb-gold);
+    }
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 576px) {
+
+    .auth-page {
+        padding: 30px 16px;
+    }
+
+    .auth-card {
+        padding: 24px 20px;
+    }
+
+    .auth-heading h1 {
+        font-size: 1.55rem;
+    }
+}

@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Entrepreneur Dashboard | Business Buzz</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Business Buzz CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/entrepreneur.css">
+</head>
+
+
+<body class="dashboard-body">
+
+    <div class="entrepreneur-layout">
+
+        <!-- =========================
+             SIDEBAR
+             ========================= -->
+
+        <aside class="entrepreneur-sidebar">
+
+            <div>
+
+                <!-- Logo -->
+                <div class="sidebar-brand">
+
+                    <a href="/index.html">
+                        Business Buzz
+                    </a>
+
+                    <span>
+                        ENTREPRENEUR PORTAL
+                    </span>
+
+                </div>
+
+
+                <!-- Navigation -->
+                <nav class="sidebar-nav">
+
+                    <a href="/pages/entrepreneur/dashboard.html"
+                       class="sidebar-link active">
+                        <span>▦</span>
+                        Dashboard
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>↗</span>
+                        My Journey
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>♙</span>
+                        Business Profile
+                    </a>
+
+                    <a href="/pages/entrepreneur/documents.html"
+                       class="sidebar-link">
+                        <span>▤</span>
+                        Documents
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>✓</span>
+                        Compliance
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+
+                        <span>♢</span>
+
+                        Notifications
+
+                        <span class="notification-count">
+                            2
+                        </span>
+
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>☆</span>
+                        Business Readiness
+                    </a>
+
+                    <a href="#"
+                       class="sidebar-link">
+                        <span>◉</span>
+                        Funding Readiness
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+            <!-- User -->
+            <div class="sidebar-user">
+
+                <div class="user-avatar">
+                    N
+                </div>
+
+                <div>
+                    <strong>Noni Dlamini</strong>
+
+                    <small>
+                        noni@example.co.za
+                    </small>
+                </div>
+
+                <a href="#"
+                   class="account-settings">
+                    Account Settings
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN DASHBOARD
+             ========================= -->
+
+        <main class="dashboard-main">
+
+            <!-- Greeting -->
+
+            <section class="dashboard-heading">
+
+                <h1>
+                    Good morning, Noni 👋
+                </h1>
+
+                <p>
+                    We've created this journey based on the
+                    information in your business profile.
+                </p>
+
+            </section>
+
+
+            <!-- NEXT STEP -->
+
+            <section class="next-step-card">
+
+                <div>
+
+                    <span class="next-step-label">
+                        YOUR NEXT STEP
+                    </span>
+
+                    <h2>
+                        CIPC Registration
+                    </h2>
+
+                    <p>
+                        You're ready to prepare your business
+                        registration information.
+                    </p>
+
+                    <a href="/pages/entrepreneur/cipc-registration.html"
+                       class="dashboard-continue-link">
+                        Continue →
+                    </a>
+                   
+
+                </div>
+
+
+                <span class="progress-badge">
+                    ● In Progress
+                </span>
+
+            </section>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- BUSINESS JOURNEY -->
+
+                <section class="dashboard-card journey-card">
+
+                    <div class="card-heading">
+
+                        <h2>
+                            Your Business Journey
+                        </h2>
+
+                        <span>
+                            2 / 7 stages
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 1 -->
+
+                    <div class="business-stage completed">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Business Profile
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status complete">
+                            ✓ Complete
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 2 -->
+
+                    <div class="business-stage completed">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Identity & Information Preparation
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status complete">
+                            ✓ Complete
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 3 -->
+
+                    <div class="business-stage current">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon current-icon">
+                                3
+                            </span>
+
+                            <div>
+
+                                <span>
+                                    CIPC Registration
+                                </span>
+
+                                <small>
+                                    Your business is not yet registered.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <span class="stage-status in-progress">
+                            ● In Progress
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 4 -->
+
+                    <div class="business-stage">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon pending">
+                                4
+                            </span>
+
+                            <span>
+                                SARS Registration
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status upcoming">
+                            Upcoming
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 5 -->
+
+                    <div class="business-stage">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon pending">
+                                5
+                            </span>
+
+                            <span>
+                                Ongoing Compliance
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status locked">
+                            Locked
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 6 -->
+
+                    <div class="business-stage">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon pending">
+                                6
+                            </span>
+
+                            <span>
+                                Business Readiness
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status locked">
+                            Locked
+                        </span>
+
+                    </div>
+
+
+                    <!-- Stage 7 -->
+
+                    <div class="business-stage">
+
+                        <div class="stage-left">
+
+                            <span class="stage-icon pending">
+                                7
+                            </span>
+
+                            <span>
+                                Funding Readiness
+                            </span>
+
+                        </div>
+
+                        <span class="stage-status locked">
+                            Locked
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RIGHT COLUMN -->
+
+                <div class="dashboard-side-column">
+
+
+                    <!-- PROGRESS -->
+
+                    <section class="dashboard-card progress-card">
+
+                        <h2>
+                            Overall Progress
+                        </h2>
+
+                        <div class="progress-circle">
+
+                            <div>
+
+                                <strong>
+                                    29%
+                                </strong>
+
+                                <span>
+                                    Ready
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-summary">
+
+                            <div>
+                                <span>Completed</span>
+                                <strong>2 stages</strong>
+                            </div>
+
+                            <div>
+                                <span>In Progress</span>
+                                <strong>1 stage</strong>
+                            </div>
+
+                            <div>
+                                <span>Upcoming</span>
+                                <strong>4 stages</strong>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- NOTIFICATIONS -->
+
+                    <section class="dashboard-card notifications-card">
+
+                        <div class="card-heading">
+
+                            <h2>
+                                Recent Notifications
+                            </h2>
+
+                            <a href="#">
+                                View all
+                            </a>
+
+                        </div>
+
+
+                        <div class="notification-item warning">
+
+                            <strong>
+                                Proof of Residence is still required.
+                            </strong>
+
+                            <small>
+                                2h ago
+                            </small>
+
+                        </div>
+
+
+                        <div class="notification-item success">
+
+                            <strong>
+                                Business information is complete.
+                            </strong>
+
+                            <small>
+                                5h ago
+                            </small>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="/js/dashboard.js"></script>
+
+</body>
+
+</html>
