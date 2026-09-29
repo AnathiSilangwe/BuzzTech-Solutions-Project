@@ -102,5 +102,56 @@
             </p>
         </div>
     }
+    <hr />
+
+        <h3>BuzzGuide Context Test</h3>
+
+        @if (Model.BuzzGuideContext != null)
+        {
+            <p>
+                <strong>Business Name:</strong>
+                @Model.BuzzGuideContext.BusinessName
+            </p>
+
+            <p>
+                <strong>Business Type:</strong>
+                @Model.BuzzGuideContext.BusinessType
+            </p>
+
+            <p>
+                <strong>Industry:</strong>
+                @Model.BuzzGuideContext.Industry
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                @Model.BuzzGuideContext.BusinessLocation
+            </p>
+
+            <p>
+                <strong>Employs People:</strong>
+                @Model.BuzzGuideContext.EmploysPeople
+            </p>
+
+            <p>
+                <strong>Seeks Funding:</strong>
+                @Model.BuzzGuideContext.SeeksFunding
+            </p>
+
+            <h4>Journey Context</h4>
+
+            @foreach (var stage in Model.BuzzGuideContext.Journey)
+            {
+                <div>
+                    <strong>@stage.StageOrder. @stage.StageName</strong>
+                    - @stage.InstitutionName
+                    - @stage.StageType
+                </div>
+            }
+        }
+        else
+        {
+            <p>BuzzGuide context could not be loaded.</p>
+        }
 
 </div>
