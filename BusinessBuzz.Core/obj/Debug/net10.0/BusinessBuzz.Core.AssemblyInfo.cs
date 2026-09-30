@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BusinessBuzz.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa3d0ed46db04c980271ebd20385a7176a0f9510")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+050f3cfbafa0415a56d0a64121c729130a44a98c")]
 [assembly: System.Reflection.AssemblyProductAttribute("BusinessBuzz.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BusinessBuzz.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
