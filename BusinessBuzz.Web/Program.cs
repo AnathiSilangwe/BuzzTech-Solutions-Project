@@ -16,6 +16,7 @@ builder.Services.AddDbContext<BusinessBuzzDbContext>(options =>
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<IBuzzGuideContextService, BuzzGuideContextService>();
+builder.Services.AddScoped<IBuzzGuideService, BuzzGuideService>();
 
 var app = builder.Build();
 

@@ -13,12 +13,14 @@ public class IndexModel : PageModel
     private readonly BusinessBuzzDbContext _context;
     private readonly IJourneyService _journeyService;
     private readonly IBuzzGuideContextService _buzzGuideContextService;
+    private readonly IBuzzGuideService _buzzGuideService;
 
-    public IndexModel( BusinessBuzzDbContext context, IJourneyService journeyService, IBuzzGuideContextService buzzGuideContextService)
+    public IndexModel( BusinessBuzzDbContext context, IJourneyService journeyService, IBuzzGuideContextService buzzGuideContextService, IBuzzGuideService buzzGuideService)
     {
         _context = context;
         _journeyService = journeyService;
         _buzzGuideContextService = buzzGuideContextService;
+        _buzzGuideService = buzzGuideService;
     }
 
     public int? UserId { get; private set; }
@@ -33,6 +35,7 @@ public class IndexModel : PageModel
     public bool? EmploysPeople { get; private set; }
     public bool? IsProfileConfirmed { get; private set; }
     public BuzzGuideContext? BuzzGuideContext { get; private set; }
+    public string? BuzzGuideResponse { get; private set; }
 
     public bool HasBusinessProfile { get; private set; }
 
@@ -77,6 +80,10 @@ public class IndexModel : PageModel
 
             PersonalisedJourney = await _journeyService.GetPersonalisedJourneyAsync(profile.BusinessProfileId);
             BuzzGuideContext = await _buzzGuideContextService.GetContextAsync( profile.BusinessProfileId);
+            if (BuzzGuideContext != null)
+            {
+                BuzzGuideResponse = await _buzzGuideService.GetResponseAsync( BuzzGuideContext, "Tell me about my business.");
+            }
         }
 
 
