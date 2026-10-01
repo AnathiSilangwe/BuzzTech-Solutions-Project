@@ -140,13 +140,23 @@
 
             <h4>Journey Context</h4>
 
-            @foreach (var stage in Model.BuzzGuideContext.Journey)
+           @foreach (var stage in Model.BuzzGuideContext.Journey)
             {
                 <div>
-                    <strong>@stage.StageOrder. @stage.StageName</strong>
+                    <strong>
+                        @stage.StageOrder. @stage.StageName
+                    </strong>
+
                     - @stage.InstitutionName
                     - @stage.StageType
+
+                    <br />
+
+                    <strong>Application Status:</strong>
+                    @(stage.ApplicationStatus ?? "Not Started")
                 </div>
+
+                <br />
             }
         }
         else
