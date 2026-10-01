@@ -34,6 +34,10 @@ public class BuzzGuideContextService : IBuzzGuideContextService
         var journey = await _journeyService
             .GetPersonalisedJourneyAsync(businessProfileId);
 
+        var applications = await _context.Applications
+            .Where(a => a.BusinessProfileId == businessProfileId)
+            .ToListAsync();
+
         var context = new BuzzGuideContext
         {
             BusinessName = businessProfile.BusinessName,
@@ -46,6 +50,9 @@ public class BuzzGuideContextService : IBuzzGuideContextService
 
         foreach (var stage in journey)
         {
+            var application = applications
+                .FirstOrDefault(a => a.JourneyStageId == stage.JourneyStageId);
+
             context.Journey.Add(new JourneyStageContext
             {
                 StageName = stage.StageName,
@@ -53,10 +60,10 @@ public class BuzzGuideContextService : IBuzzGuideContextService
                 StageDescription = stage.StageDescription,
                 StageOrder = stage.StageOrder,
                 IsRequired = stage.IsRequired,
-                StageType = stage.StageType
+                StageType = stage.StageType,
+                ApplicationStatus = application?.Status
             });
         }
-
         return context;
     }
 }
