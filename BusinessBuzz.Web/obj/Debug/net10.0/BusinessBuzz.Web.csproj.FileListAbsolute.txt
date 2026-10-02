@@ -234,3 +234,4 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\refint\BusinessBuz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\BusinessBuzz.Web.pdb
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\BusinessBuzz.Web.genruntimeconfig.cache
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\ref\BusinessBuzz.Web.dll
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\OpenAI.dll
