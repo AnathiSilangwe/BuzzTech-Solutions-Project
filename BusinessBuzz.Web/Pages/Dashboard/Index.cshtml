@@ -163,5 +163,34 @@
         {
             <p>BuzzGuide context could not be loaded.</p>
         }
+    <hr />
 
+<h3>BuzzGuide</h3>
+
+<p>
+    Ask BuzzGuide a question about your business journey.
+</p>
+
+<form method="post" asp-page-handler="AskBuzzGuide">
+
+    <div>
+        <label asp-for="BuzzGuideQuestion"></label>
+        <input asp-for="BuzzGuideQuestion"
+               placeholder="Ask BuzzGuide something..."
+               autocomplete="off" />
+    </div>
+
+    <button type="submit">
+        Ask BuzzGuide
+    </button>
+
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.BuzzGuideResponse))
+{
+    <div>
+        <strong>BuzzGuide:</strong>
+        <p>@Model.BuzzGuideResponse</p>
+    </div>
+}
 </div>

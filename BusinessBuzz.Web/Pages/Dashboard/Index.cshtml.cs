@@ -35,6 +35,7 @@ public class IndexModel : PageModel
     public bool? EmploysPeople { get; private set; }
     public bool? IsProfileConfirmed { get; private set; }
     public BuzzGuideContext? BuzzGuideContext { get; private set; }
+    public string? BuzzGuideQuestion { get; set; }
     public string? BuzzGuideResponse { get; private set; }
 
     public bool HasBusinessProfile { get; private set; }
@@ -80,13 +81,52 @@ public class IndexModel : PageModel
 
             PersonalisedJourney = await _journeyService.GetPersonalisedJourneyAsync(profile.BusinessProfileId);
             BuzzGuideContext = await _buzzGuideContextService.GetContextAsync( profile.BusinessProfileId);
-            if (BuzzGuideContext != null)
+            /* if (BuzzGuideContext != null)
             {
                 BuzzGuideResponse = await _buzzGuideService.GetResponseAsync( BuzzGuideContext, "Tell me about my business.");
-            }
+            } */
         }
 
 
+
+        return Page();
+    }
+    public async Task<IActionResult> OnPostAskBuzzGuideAsync()
+    {
+        var userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        if (string.IsNullOrWhiteSpace(BuzzGuideQuestion))
+        {
+            return Page();
+        }
+
+        var profile = await _context.BusinessProfiles
+            .Include(b => b.BusinessType)
+            .FirstOrDefaultAsync(b => b.SystemUserId == userId.Value);
+
+        if (profile == null)
+        {
+            return Page();
+        }
+
+        BuzzGuideContext =
+            await _buzzGuideContextService
+                .GetContextAsync(profile.BusinessProfileId);
+
+        if (BuzzGuideContext == null)
+        {
+            return Page();
+        }
+
+        BuzzGuideResponse =
+            await _buzzGuideService.GetResponseAsync(
+                BuzzGuideContext,
+                BuzzGuideQuestion);
 
         return Page();
     }
