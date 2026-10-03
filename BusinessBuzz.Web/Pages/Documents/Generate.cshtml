@@ -1,0 +1,69 @@
+@page
+@model BusinessBuzz.Web.Pages.Documents.GenerateModel
+
+@{
+    ViewData["Title"] = "Generate DigiDoc";
+}
+
+<h2>Generate DigiDoc</h2>
+
+<p>
+    Generate a Business Information Document using your existing
+    business profile.
+</p>
+
+<div>
+    <p>
+        <strong>Business:</strong>
+        @Model.BusinessName
+    </p>
+
+    <p>
+        <strong>Business Type:</strong>
+        @Model.BusinessTypeName
+    </p>
+</div>
+
+<form method="post">
+
+    <div>
+        <label asp-for="IdNumber">
+            South African ID Number
+        </label>
+
+        <input asp-for="IdNumber"
+               maxlength="13"
+               inputmode="numeric"
+               autocomplete="off"
+               placeholder="Enter your 13-digit ID number" />
+
+        <span asp-validation-for="IdNumber"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">
+        Generate DigiDoc
+    </button>
+
+</form>
+
+<div asp-validation-summary="All"></div>
+
+@if (Model.GeneratedDocument != null)
+{
+    <hr />
+
+    <h3>Generated Business Information Document</h3>
+
+    <pre>@Model.GeneratedDocument.FilePath</pre>
+
+    <p>
+        This document is a Business Buzz demonstration document
+        and is not an official government-issued document.
+    </p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

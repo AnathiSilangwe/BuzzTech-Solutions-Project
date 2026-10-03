@@ -319,6 +319,12 @@ namespace BusinessBuzz.Infrastructure.Migrations
                             DocumentTypeId = 4,
                             IsRequired = false,
                             TypeName = "Tax Document"
+                        },
+                        new
+                        {
+                            DocumentTypeId = 5,
+                            IsRequired = false,
+                            TypeName = "Business Information Document"
                         });
                 });
 
