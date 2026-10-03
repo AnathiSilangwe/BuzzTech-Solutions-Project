@@ -17,6 +17,8 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<IBuzzGuideContextService, BuzzGuideContextService>();
 builder.Services.AddScoped<IBuzzGuideService, BuzzGuideService>();
+builder.Services.AddScoped<IBuzzGuideConversationService, BuzzGuideConversationService>();
+builder.Services.AddScoped<IDigiDocsService, DigiDocsService>();
 
 var app = builder.Build();
 

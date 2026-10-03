@@ -14,13 +14,15 @@ public class IndexModel : PageModel
     private readonly IJourneyService _journeyService;
     private readonly IBuzzGuideContextService _buzzGuideContextService;
     private readonly IBuzzGuideService _buzzGuideService;
+    private readonly IBuzzGuideConversationService _buzzGuideConversationService;
 
-    public IndexModel( BusinessBuzzDbContext context, IJourneyService journeyService, IBuzzGuideContextService buzzGuideContextService, IBuzzGuideService buzzGuideService)
+    public IndexModel( BusinessBuzzDbContext context, IJourneyService journeyService, IBuzzGuideContextService buzzGuideContextService, IBuzzGuideService buzzGuideService, IBuzzGuideConversationService buzzGuideConversationService)
     {
         _context = context;
         _journeyService = journeyService;
         _buzzGuideContextService = buzzGuideContextService;
         _buzzGuideService = buzzGuideService;
+        _buzzGuideConversationService = buzzGuideConversationService;
     }
 
     public int? UserId { get; private set; }
@@ -40,6 +42,7 @@ public class IndexModel : PageModel
 
     public bool HasBusinessProfile { get; private set; }
 
+    public List<BuzzGuideMessage> BuzzGuideConversation { get; private set; } = new();
     public List<JourneyStage> PersonalisedJourney { get; private set; } = new();
 
     public async Task<IActionResult> OnGetAsync()
@@ -85,6 +88,7 @@ public class IndexModel : PageModel
             {
                 BuzzGuideResponse = await _buzzGuideService.GetResponseAsync( BuzzGuideContext, "Tell me about my business.");
             } */
+            BuzzGuideConversation = await _buzzGuideConversationService.GetConversationAsync(profile.BusinessProfileId);
         }
 
 
@@ -123,10 +127,27 @@ public class IndexModel : PageModel
             return Page();
         }
 
+        await _buzzGuideConversationService.AddMessageAsync(
+            profile.BusinessProfileId,
+            "Entrepreneur",
+            BuzzGuideQuestion);
+
         BuzzGuideResponse =
             await _buzzGuideService.GetResponseAsync(
                 BuzzGuideContext,
+                BuzzGuideConversation,
                 BuzzGuideQuestion);
+
+        await _buzzGuideConversationService.AddMessageAsync(
+            profile.BusinessProfileId,
+            "BuzzGuide",
+            BuzzGuideResponse);
+
+        BuzzGuideConversation =
+            await _buzzGuideConversationService
+                .GetConversationAsync(profile.BusinessProfileId);
+
+        BuzzGuideQuestion = string.Empty;
 
         return Page();
     }

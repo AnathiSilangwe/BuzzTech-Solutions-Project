@@ -22,6 +22,7 @@ public class BusinessProfile
     public ICollection<ComplianceRecord> ComplianceRecords { get; set; } = new List<ComplianceRecord>();
     public ICollection<ReadinessTask> ReadinessTasks { get; set; } = new List<ReadinessTask>();
     public ICollection<FundingAssessment> FundingAssessments { get; set; } = new List<FundingAssessment>();
+    public ICollection<BuzzGuideMessage> BuzzGuideMessages { get; set; } = new List<BuzzGuideMessage>();
 
     public void CreateProfile()
     {

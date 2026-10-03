@@ -1,6 +1,7 @@
 using BusinessBuzz.Core.DTOs;
 using BusinessBuzz.Core.Services;
 using Microsoft.Extensions.Configuration;
+using BusinessBuzz.Core.Entities;
 using OpenAI.Chat;
 
 namespace BusinessBuzz.Infrastructure.Services;
@@ -14,11 +15,9 @@ public class BuzzGuideService : IBuzzGuideService
         _configuration = configuration;
     }
 
-    public async Task<string> GetResponseAsync(
-        BuzzGuideContext context,
-        string question)
+    public Task<string> GetResponseAsync( BuzzGuideContext context, List<BuzzGuideMessage> conversation, string question)
     {
-        var apiKey = _configuration["OpenAI:ApiKey"];
+        /* var apiKey = _configuration["OpenAI:ApiKey"];
         var model = _configuration["OpenAI:Model"];
 
         if (string.IsNullOrWhiteSpace(apiKey))
@@ -70,6 +69,28 @@ public class BuzzGuideService : IBuzzGuideService
         ChatCompletion completion =
             await client.CompleteChatAsync(prompt);
 
-        return completion.Content[0].Text;
+        return completion.Content[0].Text; */
+
+         try
+        {
+            var previousMessages = conversation.Count;
+
+            var response =
+                $"Development response: I received your question " +
+                $"\"{question}\". " +
+                $"Your business is {context.BusinessName}, " +
+                $"a {context.BusinessType} in the {context.Industry} industry. " +
+                $"Your personalised journey currently contains " +
+                $"{context.Journey.Count} stages. " +
+                $"I can also see {previousMessages} previous conversation messages.";
+
+            return Task.FromResult(response);
+        }
+        catch (Exception)
+        {
+            return Task.FromResult(
+                "BuzzGuide is temporarily unavailable. " +
+                "Please try again later.");
+        }
     }
 }

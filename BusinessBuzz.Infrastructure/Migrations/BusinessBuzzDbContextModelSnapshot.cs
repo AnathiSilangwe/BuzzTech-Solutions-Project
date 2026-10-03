@@ -186,6 +186,35 @@ namespace BusinessBuzz.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BusinessBuzz.Core.Entities.BuzzGuideMessage", b =>
+                {
+                    b.Property<int>("BuzzGuideMessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BuzzGuideMessageId"));
+
+                    b.Property<int>("BusinessProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BuzzGuideMessageId");
+
+                    b.HasIndex("BusinessProfileId");
+
+                    b.ToTable("BuzzGuideMessages");
+                });
+
             modelBuilder.Entity("BusinessBuzz.Core.Entities.ComplianceRecord", b =>
                 {
                     b.Property<int>("ComplianceRecordId")
@@ -650,6 +679,17 @@ namespace BusinessBuzz.Infrastructure.Migrations
                     b.Navigation("SystemUser");
                 });
 
+            modelBuilder.Entity("BusinessBuzz.Core.Entities.BuzzGuideMessage", b =>
+                {
+                    b.HasOne("BusinessBuzz.Core.Entities.BusinessProfile", "BusinessProfile")
+                        .WithMany("BuzzGuideMessages")
+                        .HasForeignKey("BusinessProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessProfile");
+                });
+
             modelBuilder.Entity("BusinessBuzz.Core.Entities.ComplianceRecord", b =>
                 {
                     b.HasOne("BusinessBuzz.Core.Entities.BusinessProfile", "BusinessProfile")
@@ -761,6 +801,8 @@ namespace BusinessBuzz.Infrastructure.Migrations
             modelBuilder.Entity("BusinessBuzz.Core.Entities.BusinessProfile", b =>
                 {
                     b.Navigation("Applications");
+
+                    b.Navigation("BuzzGuideMessages");
 
                     b.Navigation("ComplianceRecords");
 

@@ -165,32 +165,39 @@
         }
     <hr />
 
-<h3>BuzzGuide</h3>
+        <h3>BuzzGuide</h3>
 
-<p>
-    Ask BuzzGuide a question about your business journey.
-</p>
+        <p>
+            Ask BuzzGuide a question about your business journey.
+        </p>
 
-<form method="post" asp-page-handler="AskBuzzGuide">
+        @if (Model.BuzzGuideConversation.Any())
+        {
+            <div>
+                @foreach (var message in Model.BuzzGuideConversation)
+                {
+                    <div>
+                        <strong>@message.Role:</strong>
+                        <p>@message.Message</p>
+                        <small>@message.CreatedAt.ToLocalTime().ToString("g")</small>
+                    </div>
+                }
+            </div>
+        }
 
-    <div>
-        <label asp-for="BuzzGuideQuestion"></label>
-        <input asp-for="BuzzGuideQuestion"
-               placeholder="Ask BuzzGuide something..."
-               autocomplete="off" />
-    </div>
+        <form method="post" asp-page-handler="AskBuzzGuide">
 
-    <button type="submit">
-        Ask BuzzGuide
-    </button>
+            <div>
+                <label asp-for="BuzzGuideQuestion"></label>
 
-</form>
+                <input asp-for="BuzzGuideQuestion"
+                    placeholder="Ask BuzzGuide something..."
+                    autocomplete="off" />
+            </div>
 
-@if (!string.IsNullOrWhiteSpace(Model.BuzzGuideResponse))
-{
-    <div>
-        <strong>BuzzGuide:</strong>
-        <p>@Model.BuzzGuideResponse</p>
-    </div>
-}
+            <button type="submit">
+                Ask BuzzGuide
+            </button>
+
+        </form>
 </div>

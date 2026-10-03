@@ -24,6 +24,7 @@ public class BusinessBuzzDbContext : DbContext
     public DbSet<FundingAssessment> FundingAssessments { get; set; }
     public DbSet<ApprovalReview> ApprovalReviews { get; set; }
     public DbSet<InformationRequest> InformationRequests { get; set; }
+    public DbSet<BuzzGuideMessage> BuzzGuideMessages {get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -243,6 +244,12 @@ public class BusinessBuzzDbContext : DbContext
                 DocumentTypeId = 4,
                 TypeName = "Tax Document",
                 IsRequired = false
+            },
+            new DocumentType
+            {
+                DocumentTypeId = 5,
+                TypeName = "Business Information Document",
+                IsRequired = false                
             }
         );
 
@@ -309,6 +316,11 @@ public class BusinessBuzzDbContext : DbContext
                 StageType = "Funding"
             }
         );
+        modelBuilder.Entity<BuzzGuideMessage>()
+            .HasOne(m => m.BusinessProfile)
+            .WithMany(b => b.BuzzGuideMessages)
+            .HasForeignKey(m => m.BusinessProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }
