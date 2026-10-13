@@ -44,6 +44,7 @@ public class IndexModel : PageModel
 
     public List<BuzzGuideMessage> BuzzGuideConversation { get; private set; } = new();
     public List<JourneyStage> PersonalisedJourney { get; private set; } = new();
+    public Dictionary<int, string> ApplicationStatuses {get; private set; } = new();
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -83,6 +84,17 @@ public class IndexModel : PageModel
             IsProfileConfirmed = profile.IsConfirmed;
 
             PersonalisedJourney = await _journeyService.GetPersonalisedJourneyAsync(profile.BusinessProfileId);
+             var applications = await _context.Applications
+                .Where(a => a.BusinessProfileId == profile.BusinessProfileId)
+                .ToListAsync();
+
+            ApplicationStatuses = applications
+                .GroupBy(a => a.JourneyStageId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.OrderByDescending(a => a.SubmissionDate)
+                                .First().Status
+                );
             BuzzGuideContext = await _buzzGuideContextService.GetContextAsync( profile.BusinessProfileId);
             /* if (BuzzGuideContext != null)
             {
@@ -151,4 +163,75 @@ public class IndexModel : PageModel
 
         return Page();
     }
+    
+    public async Task<IActionResult> OnPostSubmitApplicationAsync(int journeyStageId)
+    {
+        var userId = HttpContext.Session.GetInt32("UserId");
+        var roleId = HttpContext.Session.GetInt32("RoleId");
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        if (roleId != 1)
+        {
+            return Forbid();
+        }
+
+        var profile = await _context.BusinessProfiles
+            .FirstOrDefaultAsync(b => b.SystemUserId == userId.Value);
+
+        if (profile == null)
+        {
+            return RedirectToPage("/BusinessProfile/Create");
+        }
+
+        // For this first version, only CIPC Registration is actionable.
+        var stage = await _context.JourneyStages
+            .FirstOrDefaultAsync(s =>
+                s.JourneyStageId == journeyStageId &&
+                s.StageName == "CIPC Registration");
+
+        if (stage == null)
+        {
+            return NotFound();
+        }
+
+        var application = await _context.Applications
+            .FirstOrDefaultAsync(a =>
+                a.BusinessProfileId == profile.BusinessProfileId &&
+                a.JourneyStageId == stage.JourneyStageId);
+
+        if (application == null)
+        {
+            application = new Application
+            {
+                BusinessProfileId = profile.BusinessProfileId,
+                JourneyStageId = stage.JourneyStageId
+            };
+
+            application.SubmitApplication();
+            _context.Applications.Add(application);
+        }
+        else if (application.Status == "Rejected")
+        {
+            // Allow the entrepreneur to resubmit after a rejection.
+            application.SubmitApplication();
+        }
+        else if (application.Status != "Submitted")
+        {
+            return RedirectToPage("/Dashboard/Index");
+        }
+        else
+        {
+            // Already submitted; don't create a duplicate.
+            return RedirectToPage("/Dashboard/Index");
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("/Dashboard/Index");
+    }
+
 }

@@ -61,6 +61,47 @@
                             <strong>Required:</strong>
                             @(stage.IsRequired ? "Yes" : "No")
                         </p>
+                        
+                        <p>
+                            <strong>Application Status:</strong>
+                            @(Model.ApplicationStatuses.GetValueOrDefault(
+                                stage.JourneyStageId, "Not Started"))
+                        </p>
+
+                        @if (stage.StageName == "CIPC Registration")
+                        {
+                            var status = Model.ApplicationStatuses.GetValueOrDefault(
+                                stage.JourneyStageId, "Not Started");
+
+                            @if (status == "Not Started" || status == "Rejected")
+                            {
+                                <p>
+                                    After submitting through the official institution's website,
+                                    return here to record your submission.
+                                </p>
+
+                                <form method="post"
+                                    asp-page-handler="SubmitApplication"
+                                    asp-route-journeyStageId="@stage.JourneyStageId">
+                                    <button type="submit" class="btn btn-primary">
+                                        I've submitted my application
+                                    </button>
+                                </form>
+                            }
+                            else if (status == "Submitted")
+                            {
+                                <p class="text-success">
+                                    Your submission has been recorded and is awaiting an institutional outcome.
+                                </p>
+                            }
+                            else if (status == "Approved" || status == "Completed")
+                            {
+                                <p class="text-success">
+                                    This stage has been marked as complete.
+                                </p>
+                            }
+                        }
+
                     </div>
                 }
             }
@@ -149,6 +190,7 @@
 
                     - @stage.InstitutionName
                     - @stage.StageType
+                    
 
                     <br />
 
