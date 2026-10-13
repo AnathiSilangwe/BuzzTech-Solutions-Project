@@ -9,9 +9,14 @@
 <h1>Approver Dashboard</h1>
 
 <p>
-    Review applications submitted by entrepreneurs and record the
-    outcome after checking the relevant official institutional system.
+    Review submitted applications and record the outcome after checking
+    the relevant official institutional system.
 </p>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
 
 @if (!Model.SubmittedApplications.Any())
 {
@@ -28,6 +33,7 @@ else
                 <th>Application Stage</th>
                 <th>Submission Date</th>
                 <th>Status</th>
+                <th>Record Decision</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +47,44 @@ else
                             .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
                     </td>
                     <td>@application.Status</td>
+                    <td>
+                        <form method="post"
+                              asp-page-handler="RecordDecision"
+                              class="d-flex flex-column gap-2">
+
+                            <input type="hidden"
+                                   name="ApplicationId"
+                                   value="@application.ApplicationId" />
+
+                            <label for="decision-@application.ApplicationId">
+                                Decision
+                            </label>
+
+                            <select id="decision-@application.ApplicationId"
+                                    name="Decision"
+                                    class="form-select"
+                                    required>
+                                <option value="">Select a decision</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Action required">Action required</option>
+                            </select>
+
+                            <label for="reason-@application.ApplicationId">
+                                Reason or notes
+                            </label>
+
+                            <textarea id="reason-@application.ApplicationId"
+                                      name="ReasonText"
+                                      class="form-control"
+                                      rows="3"
+                                      placeholder="Required for rejection or action required"></textarea>
+
+                            <button type="submit" class="btn btn-primary">
+                                Save Decision
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>
