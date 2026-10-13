@@ -99,7 +99,12 @@ public class IndexModel : PageModel
 
         var now = DateTime.UtcNow;
         var reason = ReasonText.Trim();
-
+        if (application.BusinessProfile == null || application.JourneyStage == null)
+            {
+                Message = "The application is missing its business profile or journey stage.";
+                await LoadSubmittedApplicationsAsync();
+                return Page();
+            }
         var review = new ApprovalReview
         {
             ApplicationId = application.ApplicationId,
