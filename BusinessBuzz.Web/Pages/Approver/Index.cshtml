@@ -1,0 +1,48 @@
+
+@page
+@model BusinessBuzz.Web.Pages.Approver.IndexModel
+
+@{
+    ViewData["Title"] = "Approver Dashboard";
+}
+
+<h1>Approver Dashboard</h1>
+
+<p>
+    Review applications submitted by entrepreneurs and record the
+    outcome after checking the relevant official institutional system.
+</p>
+
+@if (!Model.SubmittedApplications.Any())
+{
+    <div class="alert alert-info">
+        There are currently no submitted applications awaiting review.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Business</th>
+                <th>Application Stage</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var application in Model.SubmittedApplications)
+            {
+                <tr>
+                    <td>@application.BusinessProfile.BusinessName</td>
+                    <td>@application.JourneyStage.StageName</td>
+                    <td>
+                        @(application.SubmissionDate?.ToLocalTime()
+                            .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
+                    </td>
+                    <td>@application.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

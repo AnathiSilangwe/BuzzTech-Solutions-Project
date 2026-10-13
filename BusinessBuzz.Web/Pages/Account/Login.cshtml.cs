@@ -53,6 +53,26 @@ public class LoginModel : PageModel
         HttpContext.Session.SetInt32("UserId", user.SystemUserId);
         HttpContext.Session.SetInt32("RoleId", user.RoleId);
 
-        return RedirectToPage("/Dashboard/Index");
+
+        if (user.RoleId == 1)
+        {
+            return RedirectToPage("/Dashboard/Index");
+        }
+
+        if (user.RoleId == 2)
+        {
+            return RedirectToPage("/Approver/Index");
+        }
+
+        if (user.RoleId == 3)
+        {
+            // We'll create the Bank User dashboard later.
+            return RedirectToPage("/Dashboard/Index");
+        }
+
+        HttpContext.Session.Clear();
+        ErrorMessage = "Your account has an unrecognised role.";
+        return Page();
+
     }
 }
