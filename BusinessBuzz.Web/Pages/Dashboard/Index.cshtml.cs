@@ -187,7 +187,7 @@ public class IndexModel : PageModel
             return RedirectToPage("/BusinessProfile/Create");
         }
 
-        // For this first version, only CIPC Registration is actionable.
+        // Only CIPC Registration is actionable in this version.
         var stage = await _context.JourneyStages
             .FirstOrDefaultAsync(s =>
                 s.JourneyStageId == journeyStageId &&
@@ -216,17 +216,32 @@ public class IndexModel : PageModel
         }
         else if (application.Status == "Rejected")
         {
-            // Allow the entrepreneur to resubmit after a rejection.
+            // Allow resubmission after rejection.
             application.SubmitApplication();
-        }
-        else if (application.Status != "Submitted")
-        {
-            return RedirectToPage("/Dashboard/Index");
         }
         else
         {
-            // Already submitted; don't create a duplicate.
+            // Prevent duplicate notifications for an already submitted
+            // or otherwise non-resubmittable application.
             return RedirectToPage("/Dashboard/Index");
+        }
+
+        // Find all registered approver accounts.
+        var approverIds = await _context.SystemUsers
+            .Where(u => u.RoleId == 2)
+            .Select(u => u.SystemUserId)
+            .ToListAsync();
+
+        // Create an unread notification for each approver.
+        foreach (var approverId in approverIds)
+        {
+            _context.Notifications.Add(new Notification
+            {
+                SystemUserId = approverId,
+                Message = "A CIPC Registration application has been submitted and is awaiting review.",
+                IsRead = false,
+                CreatedAt = DateTime.UtcNow
+            });
         }
 
         await _context.SaveChangesAsync();
