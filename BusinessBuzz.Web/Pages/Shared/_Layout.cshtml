@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.EntityFrameworkCore
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+    var roleId = Context.Session.GetInt32("RoleId");
+    var isLoggedIn = userId.HasValue;
+    var unreadNotificationCount = 0;
+
+    if (userId.HasValue)
+    {
+        var dbContext = Context.RequestServices
+            .GetRequiredService<BusinessBuzz.Infrastructure.Data.BusinessBuzzDbContext>();
+
+        unreadNotificationCount = dbContext.Notifications
+            .Count(n => n.SystemUserId == userId.Value && !n.IsRead);
+    }
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,31 +41,69 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">
-                                Home
-                            </a>
+                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
                         </li>
 
+                        @if (isLoggedIn && roleId == 1)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Dashboard/Index">
+                                    My Dashboard
+                                </a>
+                            </li>
+                        }
+
+                        @if (isLoggedIn && roleId == 2)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Approver/Index">
+                                    Review Applications
+                                </a>
+                            </li>
+                        }
+
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Notifications/Index">
+                                    Notifications
+                                    @if (unreadNotificationCount > 0)
+                                    {
+                                        <span class="badge bg-danger ms-1">
+                                            @unreadNotificationCount
+                                        </span>
+                                    }
+                                </a>
+                            </li>
+                        }
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">
-                                About
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area=""asp-page="/Notifications/Index">
-                                Notifications
-                            </a>
+                            <a class="nav-link text-dark" asp-page="/Privacy">About</a>
                         </li>
                     </ul>
+                    
 
                     <div class="d-flex gap-2">
-                        <a asp-page="/Account/Login" class="btn btn-outline-primary">
-                            Login
-                        </a>
+                        @if (!isLoggedIn)
+                        {
+                            <a asp-page="/Account/Login" class="btn btn-outline-primary">
+                                Login
+                            </a>
 
-                        <a asp-page="/Account/Register" class="btn btn-primary">
-                            Get Started
-                        </a>
+                            <a asp-page="/Account/Register" class="btn btn-primary">
+                                Get Started
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="navbar-text me-2">Signed in</span>
+
+                            <form method="post" asp-page="/Account/Logout">
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    Logout
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
