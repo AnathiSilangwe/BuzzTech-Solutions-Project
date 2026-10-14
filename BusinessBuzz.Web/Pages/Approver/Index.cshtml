@@ -8,6 +8,13 @@
 
 <h1>Approver Dashboard</h1>
 
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class = "alert-success" role = "alert">
+        @Model.SuccessMessage
+    </div>
+}
+
 <p>
     Review submitted applications and record the outcome after checking
     the relevant official institutional system.
@@ -84,6 +91,54 @@ else
                                 Save Decision
                             </button>
                         </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<hr class="my-4" />
+
+<h2>Review History</h2>
+
+<p>
+    Applications with a recorded decision are listed here
+    for reference.
+</p>
+
+@if (!Model.ReviewedApplications.Any())
+{
+    <div class="alert alert-info">
+        No applications have been reviewed yet.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Business</th>
+                <th>Application Stage</th>
+                <th>Submission Date</th>
+                <th>Decision</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var application in Model.ReviewedApplications)
+            {
+                <tr>
+                    <td>
+                        @application.BusinessProfile.BusinessName
+                    </td>
+                    <td>
+                        @application.JourneyStage.StageName
+                    </td>
+                    <td>
+                        @(application.SubmissionDate?.ToLocalTime()
+                            .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
+                    </td>
+                    <td>
+                        @application.Status
                     </td>
                 </tr>
             }

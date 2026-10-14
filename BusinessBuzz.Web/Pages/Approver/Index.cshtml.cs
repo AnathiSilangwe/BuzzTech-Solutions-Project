@@ -19,6 +19,10 @@ public class IndexModel : PageModel
     public List<Application> SubmittedApplications { get; private set; }
         = new();
 
+    public List <Application> ReviewedApplications {get; private set; } = new();
+    [TempData]
+    public string? SuccessMessage{ get; set; }
+
     [BindProperty]
     public int ApplicationId { get; set; }
 
@@ -45,7 +49,7 @@ public class IndexModel : PageModel
         if (!IsApprover())
             return Forbid();
 
-        await LoadSubmittedApplicationsAsync();
+        await LoadApplicationsAsync();
 
         return Page();
     }
@@ -71,7 +75,7 @@ public class IndexModel : PageModel
             string.IsNullOrWhiteSpace(ReasonText))
         {
             Message = "Please provide a reason for this decision.";
-            await LoadSubmittedApplicationsAsync();
+            await LoadApplicationsAsync();
             return Page();
         }
 
@@ -87,7 +91,7 @@ public class IndexModel : PageModel
         if (application.Status != "Submitted")
         {
             Message = "This application is no longer awaiting review.";
-            await LoadSubmittedApplicationsAsync();
+            await LoadApplicationsAsync();
             return Page();
         }
 
@@ -102,7 +106,7 @@ public class IndexModel : PageModel
         if (application.BusinessProfile == null || application.JourneyStage == null)
             {
                 Message = "The application is missing its business profile or journey stage.";
-                await LoadSubmittedApplicationsAsync();
+                await LoadApplicationsAsync();
                 return Page();
             }
         var review = new ApprovalReview
@@ -138,16 +142,29 @@ public class IndexModel : PageModel
 
         await _context.SaveChangesAsync();
 
+        TempData["SuccessMessage"] = $"Decision '{Decision}' saved successfully.";
+
         return RedirectToPage("/Approver/Index");
     }
 
-    private async Task LoadSubmittedApplicationsAsync()
+        private async Task LoadApplicationsAsync()
     {
+        // Applications that still need a decision.
         SubmittedApplications = await _context.Applications
             .Include(a => a.BusinessProfile)
             .Include(a => a.JourneyStage)
             .Where(a => a.Status == "Submitted")
             .OrderBy(a => a.SubmissionDate)
+            .ToListAsync();
+
+        // Applications that have already been reviewed.
+        ReviewedApplications = await _context.Applications
+            .Include(a => a.BusinessProfile)
+            .Include(a => a.JourneyStage)
+            .Where(a => a.Status == "Approved"
+                    || a.Status == "Rejected"
+                    || a.Status == "Action required")
+            .OrderByDescending(a => a.SubmissionDate)
             .ToListAsync();
     }
 }
