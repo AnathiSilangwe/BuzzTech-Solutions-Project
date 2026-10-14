@@ -98,7 +98,7 @@ public class IndexModel : PageModel
             return RedirectToPage("/Account/Login");
 
         var now = DateTime.UtcNow;
-        var reason = ReasonText.Trim();
+        var reason = ReasonText?.Trim() ?? string.Empty;
         if (application.BusinessProfile == null || application.JourneyStage == null)
             {
                 Message = "The application is missing its business profile or journey stage.";
