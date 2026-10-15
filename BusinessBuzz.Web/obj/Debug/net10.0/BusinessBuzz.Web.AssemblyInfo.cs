@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BusinessBuzz.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bef7c24f1cf0d11ba8e1253497096cfcb78805eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b99741ad8be9d5c09d6909cca94874ae666694cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("BusinessBuzz.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BusinessBuzz.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
