@@ -1,0 +1,107 @@
+
+@page
+@model BusinessBuzz.Web.Pages.BuzzGuide.IndexModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "BuzzGuide AI";
+}
+
+<link rel="stylesheet" href="~/css/buzzguide.css" asp-append-version="true" />
+
+<div class="buzzguide-page">
+    <header class="buzzguide-header">
+        <div>
+            <span class="buzzguide-eyebrow">YOUR BUSINESS COMPANION</span>
+            <h1>BuzzGuide AI</h1>
+            <p>Personalised guidance for @Model.BusinessName</p>
+        </div>
+        <a asp-page="/Dashboard/Index" class="buzzguide-back">← Dashboard</a>
+    </header>
+
+    <section class="buzzguide-chat">
+        <div class="buzzguide-welcome">
+            <div class="buzzguide-avatar">B</div>
+            <div>
+                <h2>Hello, entrepreneur!</h2>
+                <p>
+                    I'm BuzzGuide. Ask me about business registration,
+                    compliance, preparing documents, or funding your business.
+                    I'll use your business information to tailor my guidance.
+                </p>
+            </div>
+        </div>
+
+        <div class="buzzguide-suggestions">
+            <button type="button"
+                    onclick="useSuggestion('What are the steps to register my business?')">
+                Business registration
+            </button>
+            <button type="button"
+                    onclick="useSuggestion('How can I prepare my business for funding?')">
+                Funding guidance
+            </button>
+            <button type="button"
+                    onclick="useSuggestion('What compliance requirements should I consider?')">
+                Compliance requirements
+            </button>
+        </div>
+
+        <div class="buzzguide-messages" id="chatMessages" aria-live="polite">
+            @if (Model.Conversation.Count == 0)
+            {
+                <div class="buzzguide-empty">
+                    Your conversation will appear here. What would you like help with?
+                </div>
+            }
+
+            @foreach (var message in Model.Conversation)
+            {
+                var isUser = message.Role == "Entrepreneur";
+
+                <div class="buzzguide-message @(isUser ? "user-message" : "ai-message")">
+                    <span class="message-sender">
+                        @(isUser ? "You" : "BuzzGuide")
+                    </span>
+                    <div class="message-bubble">@message.Message</div>
+                </div>
+            }
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <p class="buzzguide-error" role="alert">@Model.ErrorMessage</p>
+        }
+
+        <form method="post" asp-page-handler="Ask" class="buzzguide-composer">
+            <label for="Question" class="visually-hidden">Ask BuzzGuide a question</label>
+            <textarea id="Question"
+                      name="Question"
+                      asp-for="Question"
+                      rows="2"
+                      maxlength="2000"
+                      placeholder="Ask BuzzGuide about your business..."
+                      required></textarea>
+            <button type="submit">Send ↑</button>
+        </form>
+
+        <p class="buzzguide-disclaimer">
+            BuzzGuide provides guidance, not official approval. Verify
+            requirements with the relevant institution.
+        </p>
+    </section>
+</div>
+
+<script>
+    function useSuggestion(question) {
+        document.getElementById("Question").value = question;
+        document.getElementById("Question").focus();
+    }
+
+    window.addEventListener("load", function () {
+        const messages = document.getElementById("chatMessages");
+        if (messages) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    });
+</script>

@@ -237,3 +237,4 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\ref\BusinessBuzz.W
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\OpenAI.dll
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\mq5vl1iwvq-{0}-o2aiuzmz7y-o2aiuzmz7y.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\e352pcoepn-{0}-22e2pz2q9g-22e2pz2q9g.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\2cxxb56bfg-{0}-gtz41zdvfq-gtz41zdvfq.gz
