@@ -1,0 +1,382 @@
+﻿
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #07112f;
+}
+
+.bank-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.bank-sidebar {
+    width: 250px;
+    background: #07112f;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.bank-brand h2 {
+    color: #f4ad24;
+    margin: 0;
+}
+
+.bank-brand p {
+    color: #c9cfdd;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.bank-navigation {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .bank-navigation a {
+        display: block;
+        color: #c9cfdd;
+        text-decoration: none;
+        padding: 14px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+        .bank-navigation a:hover,
+        .bank-navigation a.active {
+            background: #18274e;
+            color: #f4ad24;
+        }
+
+.logout-button {
+    margin-top: auto;
+    background: transparent;
+    color: white;
+    border: 1px solid #56617d;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+    .logout-button:hover {
+        background: #18274e;
+    }
+
+.bank-main {
+    flex: 1;
+    min-width: 0;
+    padding: 35px;
+}
+
+.bank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+    .bank-header h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+    }
+
+    .bank-header p {
+        color: #667085;
+        margin: 0;
+    }
+
+.demo-badge {
+    background: #fff4d6;
+    color: #875b00;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bank-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+    .stat-card h3 {
+        margin: 0 0 15px;
+        color: #667085;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    .stat-card strong {
+        font-size: 32px;
+        color: #07112f;
+    }
+
+.bank-panel {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.panel-heading h2 {
+    margin: 0 0 8px;
+}
+
+.panel-heading p {
+    color: #667085;
+    margin: 0 0 25px;
+    font-size: 14px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc;
+    color: #475467;
+    padding: 15px;
+    font-size: 13px;
+}
+
+td {
+    padding: 16px 15px;
+    border-bottom: 1px solid #eaecf0;
+    font-size: 14px;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #fff4d6;
+    color: #875b00;
+}
+
+.status-under-review {
+    background: #e8f1ff;
+    color: #175cd3;
+}
+
+.status-approved {
+    background: #dcfae6;
+    color: #067647;
+}
+
+.status-declined {
+    background: #fee4e2;
+    color: #b42318;
+}
+
+.review-button {
+    display: inline-block;
+    background: #07112f;
+    color: white;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+    .review-button:hover {
+        background: #18274e;
+    }
+
+.empty-message {
+    color: #667085;
+    padding: 20px 0;
+}
+
+.bank-footer {
+    color: #667085;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+@media (max-width: 1100px) {
+    .bank-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .bank-layout {
+        flex-direction: column;
+    }
+
+    .bank-sidebar {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .bank-navigation {
+        margin-top: 10px;
+    }
+
+    .logout-button {
+        margin-top: 10px;
+    }
+
+    .bank-main {
+        padding: 20px;
+    }
+
+    .bank-header {
+        flex-direction: column;
+    }
+
+    .bank-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bank Funding Review */
+
+#reviewContent {
+    display: grid;
+    gap: 20px;
+}
+
+    #reviewContent[hidden] {
+        display: none;
+    }
+
+.funding-detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eaecf0;
+}
+
+    .funding-detail strong {
+        color: #475467;
+        font-size: 14px;
+    }
+
+    .funding-detail span {
+        font-size: 14px;
+        text-align: right;
+    }
+
+#fundingDecisionForm label {
+    display: block;
+    margin: 20px 0 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#fundingDecisionForm select,
+#fundingDecisionForm textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.bank-primary-button {
+    margin-top: 20px;
+    background: #07112f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    .bank-primary-button:hover {
+        background: #18274e;
+    }
+
+.form-error {
+    color: #b42318;
+    margin-top: 12px;
+}
+
+.form-success {
+    color: #067647;
+    margin-top: 12px;
+}
+
+.decision-history-item {
+    border-bottom: 1px solid #eaecf0;
+    padding: 15px 0;
+}
+
+    .decision-history-item p {
+        color: #475467;
+        margin: 8px 0;
+    }
+
+    .decision-history-item small {
+        color: #667085;
+    }
+
+/* Additional Funding Review Information */
+
+.funding-description {
+    margin-top: 20px;
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+    .funding-description strong {
+        display: block;
+        color: #344054;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .funding-description p {
+        color: #475467;
+        line-height: 1.7;
+        font-size: 14px;
+        margin: 0;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+@media (max-width: 600px) {
+    .funding-detail {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+        .funding-detail span {
+            text-align: left;
+        }
+}

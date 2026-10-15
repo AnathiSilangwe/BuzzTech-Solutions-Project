@@ -1,0 +1,174 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Profile | Business Buzz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/entrepreneur.css">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-brand">Business Buzz</div>
+
+            <nav class="sidebar-nav">
+                <a href="/pages/entrepreneur/dashboard.html" class="sidebar-link">Dashboard</a>
+                <a href="/pages/entrepreneur/dashboard.html" class="sidebar-link">My Journey</a>
+                <a href="/pages/entrepreneur/business-profile.html" class="sidebar-link active">Business Profile</a>
+                <a href="/pages/entrepreneur/documents.html" class="sidebar-link">Documents</a>
+                <a href="/pages/entrepreneur/compliance-readiness.html" class="sidebar-link">Compliance</a>
+                <a href="/pages/entrepreneur/business-readiness.html" class="sidebar-link">Business Readiness</a>
+                <a href="/pages/entrepreneur/funding-readiness.html" class="sidebar-link">Funding Readiness</a>
+            </nav>
+        </aside>
+
+        <main class="business-profile-main">
+
+            <a href="/pages/entrepreneur/dashboard.html" class="secondary-navigation-btn">
+                ← Back to Dashboard
+            </a>
+
+            <header class="business-profile-header">
+                <div>
+                    <p class="page-eyebrow">ENTREPRENEUR PORTAL</p>
+                    <h1>Business Profile</h1>
+                    <p>Review and maintain your business information.</p>
+                </div>
+
+                <span class="status-pill complete" id="profileStatus">
+                    Profile Available
+                </span>
+            </header>
+
+
+            <div class="compliance-info-banner">
+                <span class="info-icon">i</span>
+                <p>
+                    This profile starts with demonstration information.
+                    Your changes are saved in this browser and can be
+                    used to generate your BusinessBuzz Business Profile PDF.
+                    Information is not yet saved to the central database.
+                </p>
+            </div>
+
+
+            <section class="business-profile-card">
+                <div class="profile-card-heading">
+                    <div>
+                        <p class="page-eyebrow">BUSINESS INFORMATION</p>
+                        <h2>Your Business Details</h2>
+                    </div>
+
+                    <button type="button" class="profile-edit-btn" id="editProfileBtn">
+                        Edit Profile
+                    </button>
+                </div>
+
+                <form id="businessProfileForm">
+
+                    <div class="business-profile-grid">
+
+                        <div class="profile-field">
+                            <label for="businessName">Business Name</label>
+                            <input id="businessName" name="businessName"
+                                   type="text" value="Noni's Student Catering" required disabled>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="businessType">Business Structure</label>
+                            <select id="businessType" name="businessType" disabled required>
+                                <option value="Sole Proprietor" selected>Sole Proprietor</option>
+                                <option value="Private Company (Pty) Ltd">Private Company (Pty) Ltd</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="industry">Industry</label>
+                            <select id="industry" name="industry" disabled required>
+                                <option value="Food & Beverage" selected>Food &amp; Beverage</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Professional Services">Professional Services</option>
+                                <option value="Construction">Construction</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="province">Province</label>
+                            <select id="province" name="province" disabled required>
+                                <option value="Gauteng" selected>Gauteng</option>
+                                <option value="Eastern Cape">Eastern Cape</option>
+                                <option value="Western Cape">Western Cape</option>
+                                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                <option value="Free State">Free State</option>
+                                <option value="Limpopo">Limpopo</option>
+                                <option value="Mpumalanga">Mpumalanga</option>
+                                <option value="North West">North West</option>
+                                <option value="Northern Cape">Northern Cape</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="employsPeople">Employment Status</label>
+                            <select id="employsPeople" name="employsPeople" disabled required>
+                                <option value="No" selected>No employees — just me</option>
+                                <option value="Yes">Employs people</option>
+                            </select>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="interestedInFunding">Interested in Funding?</label>
+                            <select id="interestedInFunding" name="interestedInFunding" disabled required>
+                                <option value="Yes" selected>Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div id="profileMessage" class="tax-form-message"
+                         role="status" aria-live="polite"></div>
+
+                    <div class="profile-form-actions" id="profileFormActions" hidden>
+                        <button type="button" class="secondary-navigation-btn" id="cancelProfileBtn">
+                            Cancel
+                        </button>
+
+                        <button type="submit" class="profile-save-btn">
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <section class="business-profile-card">
+                <p class="page-eyebrow">PROFILE OVERVIEW</p>
+                <h2>Why keep your profile updated?</h2>
+                <p class="profile-supporting-text">
+                    Your business details help Business Buzz organise your registration
+                    preparation, compliance checklist, and funding enquiry information.
+                    Keeping them accurate will support the simulated workflow.
+                </p>
+                <a href="/pages/entrepreneur/compliance-readiness.html"
+                   class="secondary-navigation-btn">
+                    View Compliance →
+                </a>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/business-profile.js"></script>
+</body>
+</html>

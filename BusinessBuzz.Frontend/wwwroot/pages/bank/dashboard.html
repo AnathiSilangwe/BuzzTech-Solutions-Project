@@ -1,0 +1,130 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bank Dashboard | BusinessBuzz</title>
+
+    <link rel="stylesheet" href="/css/bank.css">
+</head>
+
+<body>
+
+    <div class="bank-layout">
+
+        <aside class="bank-sidebar">
+            <div class="bank-brand">
+                <h2>BusinessBuzz</h2>
+                <p>Bank Portal</p>
+            </div>
+
+            <nav class="bank-navigation">
+                <a href="/pages/bank/dashboard.html"
+                   class="active">
+                    Dashboard
+                </a>
+
+                <a href="#fundingEnquiries">
+                    Funding Enquiries
+                </a>
+            </nav>
+
+            <button id="bankLogout" class="logout-button">
+                Logout
+            </button>
+        </aside>
+
+        <main class="bank-main">
+
+            <header class="bank-header">
+                <div>
+                    <h1>Bank Dashboard</h1>
+                    <p>
+                        Review and manage simulated
+                        business funding enquiries.
+                    </p>
+                </div>
+
+                <span class="demo-badge">
+                    Frontend Demonstration
+                </span>
+            </header>
+
+            <section class="bank-stats">
+
+                <article class="stat-card">
+                    <h3>Total Enquiries</h3>
+                    <strong id="totalEnquiries">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <h3>Pending Review</h3>
+                    <strong id="pendingEnquiries">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <h3>Under Review</h3>
+                    <strong id="underReviewEnquiries">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <h3>Decisions Recorded</h3>
+                    <strong id="decidedEnquiries">0</strong>
+                </article>
+
+            </section>
+
+            <section class="bank-panel"
+                     id="fundingEnquiries">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Funding Enquiries</h2>
+                        <p>
+                            View business funding requests
+                            submitted for demonstration.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Business</th>
+                                <th>Amount</th>
+                                <th>Purpose</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="fundingEnquiriesTable">
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="bankEmptyMessage"
+                   class="empty-message"
+                   hidden>
+                    No funding enquiries available.
+                </p>
+
+            </section>
+
+            <footer class="bank-footer">
+                BusinessBuzz prototype —
+                No real bank submissions or funding approvals.
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="/js/bank-dashboard.js"></script>
+</body>
+</html>

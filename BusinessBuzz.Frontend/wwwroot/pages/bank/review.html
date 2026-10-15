@@ -1,0 +1,187 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Funding Review | BusinessBuzz</title>
+
+    <link rel="stylesheet" href="/css/bank.css">
+</head>
+
+<body>
+
+    <div class="bank-layout">
+
+        <aside class="bank-sidebar">
+            <div class="bank-brand">
+                <h2>BusinessBuzz</h2>
+                <p>Bank Portal</p>
+            </div>
+
+            <nav class="bank-navigation">
+                <a href="/pages/bank/dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="/pages/bank/dashboard.html#fundingEnquiries"
+                   class="active">
+                    Funding Enquiries
+                </a>
+            </nav>
+
+            <button id="bankLogout" class="logout-button">
+                Logout
+            </button>
+        </aside>
+
+        <main class="bank-main">
+
+            <header class="bank-header">
+                <div>
+                    <h1>Funding Enquiry Review</h1>
+                    <p>
+                        Review funding information and
+                        record a simulated decision.
+                    </p>
+                </div>
+
+                <span class="demo-badge">
+                    Frontend Demonstration
+                </span>
+            </header>
+
+            <p id="reviewError" class="empty-message" hidden>
+                Funding enquiry not found.
+            </p>
+
+            <div id="reviewContent">
+
+                <section class="bank-panel">
+                    <h2>Funding Enquiry Details</h2>
+
+                    <div class="funding-detail">
+                        <strong>Reference</strong>
+                        <span id="reviewReference"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Business Name</strong>
+                        <span id="reviewBusiness"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Amount Requested</strong>
+                        <span id="reviewAmount"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Funding Purpose</strong>
+                        <span id="reviewPurpose"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Current Status</strong>
+                        <span id="reviewStatus"></span>
+                    </div>
+
+                    <!-- Additional Entrepreneur Funding Information -->
+
+                    <div class="funding-detail">
+                        <strong>Monthly Revenue</strong>
+                        <span id="reviewMonthlyRevenue"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Currently Trading</strong>
+                        <span id="reviewTrading"></span>
+                    </div>
+
+                    <div class="funding-detail">
+                        <strong>Submission Date</strong>
+                        <span id="reviewSubmissionDate"></span>
+                    </div>
+
+                    <div class="funding-description">
+                        <strong>Funding Description</strong>
+                        <p id="reviewDescription"></p>
+                    </div>
+
+                </section>
+
+                <section class="bank-panel">
+                    <h2>Record Funding Decision</h2>
+
+                    <form id="fundingDecisionForm">
+
+                        <label for="fundingDecision">
+                            Decision
+                        </label>
+
+                        <select id="fundingDecision" required>
+                            <option value="">
+                                Choose a decision
+                            </option>
+                            <option value="Under Review">
+                                Under Review
+                            </option>
+                            <option value="More Information Required">
+                                More Information Required
+                            </option>
+                            <option value="Approved in Simulation">
+                                Approved in Simulation
+                            </option>
+                            <option value="Declined in Simulation">
+                                Declined in Simulation
+                            </option>
+                        </select>
+
+                        <label for="fundingDecisionReason">
+                            Reason / Comments
+                        </label>
+
+                        <textarea id="fundingDecisionReason"
+                                  rows="5"
+                                  required
+                                  placeholder="Explain the funding decision...">
+                        </textarea>
+
+                        <p id="fundingDecisionError"
+                           class="form-error"
+                           hidden>
+                            Please select a decision and provide a reason.
+                        </p>
+
+                        <button type="submit" class="bank-primary-button">
+                            Save Decision
+                        </button>
+
+                        <p id="fundingDecisionSuccess"
+                           class="form-success"
+                           hidden></p>
+
+                    </form>
+                </section>
+
+                <section class="bank-panel">
+                    <h2>Decision History</h2>
+                    <div id="fundingDecisionHistory"></div>
+                </section>
+
+            </div>
+
+            <footer class="bank-footer">
+                BusinessBuzz prototype —
+                Decisions are simulated and do not
+                represent real bank approvals.
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="/js/bank-review.js"></script>
+</body>
+</html>

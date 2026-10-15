@@ -1,0 +1,195 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Review | Business Buzz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/approver.css">
+</head>
+
+<body class="approver-body">
+    <div class="approver-layout">
+
+        <aside class="approver-sidebar">
+            <a href="/index.html" class="approver-brand">
+                Business Buzz
+                <span>APPROVER PORTAL</span>
+            </a>
+
+            <nav class="approver-nav">
+                <a href="/pages/approver/dashboard.html"
+                   class="approver-nav-link">▦ Dashboard</a>
+                <a href="/pages/approver/dashboard.html#applications"
+                   class="approver-nav-link active">▤ Applications</a>
+                <a href="/pages/approver/dashboard.html#activity"
+                   class="approver-nav-link">◷ Activity History</a>
+            </nav>
+
+            <div class="approver-sidebar-bottom">
+                <button type="button" id="approverLogout"
+                        class="approver-logout-btn">
+                    ↪ Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="approver-main">
+            <a class="review-back-link"
+               href="/pages/approver/dashboard.html#applications">
+                ← Back to Applications
+            </a>
+
+            <header class="approver-header review-page-header">
+                <div>
+                    <p class="approver-eyebrow">APPLICATIONS / REVIEW</p>
+                    <h1>Application Review</h1>
+                    <p>Review the submitted information before recording a decision.</p>
+                </div>
+                <span class="approver-role-badge">Approver</span>
+            </header>
+
+            <div class="approver-demo-notice">
+                <strong>Prototype mode:</strong>
+                This is sample application data. Decisions are simulated and are
+                not official institutional approvals.
+            </div>
+
+            <div id="reviewError" class="review-message review-error" hidden>
+                Application not found. Return to the dashboard and select an application.
+            </div>
+
+            <div id="reviewContent">
+                <section class="review-summary-card">
+                    <div>
+                        <p class="review-label">APPLICATION REFERENCE</p>
+                        <h2 id="reviewReference">—</h2>
+                        <p id="reviewBusiness" class="review-business-name">—</p>
+                    </div>
+                    <span id="reviewStatus" class="approver-status status-pending">
+                        Pending
+                    </span>
+                </section>
+
+                <div class="review-content-grid">
+                    <section class="approver-panel">
+                        <h2>Business Information</h2>
+
+                        <div class="review-detail">
+                            <span>Business Name</span>
+                            <strong id="detailBusiness">—</strong>
+                        </div>
+
+                        <div class="review-detail">
+                            <span>Application Stage</span>
+                            <strong id="detailStage">—</strong>
+                        </div>
+
+                        <div class="review-detail">
+                            <span>Date Received</span>
+                            <strong id="detailDate">—</strong>
+                        </div>
+
+                        <div class="review-detail">
+                            <span>Application Reference</span>
+                            <strong id="detailReference">—</strong>
+                        </div>
+
+                        <div class="review-detail">
+                            <span>Current Status</span>
+                            <strong id="detailStatus">—</strong>
+                        </div>
+
+                        <div class="review-detail">
+                            <span>Review Scope</span>
+                            <strong>Simulated workflow review</strong>
+                        </div>
+
+                        <div class="review-information-note">
+                            The current demo dataset contains limited application
+                            information. Real applicant details and documents will
+                            be displayed after backend integration.
+                        </div>
+                    </section>
+
+                    <section class="approver-panel">
+                        <h2>Record a Decision</h2>
+                        <p class="review-muted">
+                            Select the appropriate outcome and provide a reason.
+                        </p>
+
+
+                        <section class="approver-review-card" id="documentReviewSection">
+                            <h2>Supporting Documents</h2>
+                            <p class="review-muted">
+                                Review the entrepreneur's uploaded documents and
+                                record a verification decision.
+                            </p>
+
+                            <div id="reviewDocuments"></div>
+
+                            <p id="documentReviewMessage"
+                               class="review-muted"
+                               role="status"></p>
+                        </section>
+
+                        <form id="decisionForm">
+                            <label for="decision" class="review-form-label">
+                                Decision
+                            </label>
+                            <select id="decision" class="form-select" required>
+                                <option value="">Choose a decision</option>
+                                <option value="Approved">Approve</option>
+                                <option value="Rejected">Reject</option>
+                                <option value="More Information">
+                                    Request More Information
+                                </option>
+                            </select>
+
+                            <label for="decisionReason" class="review-form-label">
+                                Reason / Comments
+                            </label>
+                            <textarea id="decisionReason"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Explain the decision or information required..."
+                                      required></textarea>
+
+                            <p id="decisionError" class="review-inline-error" hidden>
+                                Please select a decision and provide comments.
+                            </p>
+
+                            <button type="submit" class="review-submit-btn">
+                                Record Decision
+                            </button>
+
+                            <a href="/pages/approver/dashboard.html"
+                               class="review-cancel-link">
+                                Cancel and Return to Dashboard
+                            </a>
+                        </form>
+
+                        <div id="decisionSuccess"
+                             class="review-message review-success"
+                             role="status"
+                             hidden></div>
+                    </section>
+                </div>
+
+                <section class="approver-panel review-history-panel">
+                    <h2>Decision History</h2>
+                    <div id="decisionHistory" class="review-history-list">
+                        <p class="review-muted">No decisions recorded for this application.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/approver-review.js"></script>
+</body>
+</html>

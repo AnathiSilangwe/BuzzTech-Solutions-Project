@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\assets\icons\" />
+    <Folder Include="wwwroot\pages\NewFolder1\" />
   </ItemGroup>
 
 </Project>

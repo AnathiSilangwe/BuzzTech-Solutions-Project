@@ -1,0 +1,157 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Your Portal | BusinessBuzz</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #07112f;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .portal-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 90px 24px;
+            text-align: center;
+        }
+
+        .portal-heading {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .portal-description {
+            color: #c9cfdd;
+            margin-bottom: 50px;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .portal-card {
+            background: #111d40;
+            border: 1px solid #34405e;
+            border-radius: 12px;
+            padding: 40px 25px;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+            .portal-card:hover {
+                border-color: #f4ad24;
+                transform: translateY(-5px);
+            }
+
+            .portal-card h2 {
+                color: #f4ad24;
+                margin-bottom: 15px;
+            }
+
+            .portal-card p {
+                color: #c9cfdd;
+                line-height: 1.6;
+            }
+
+        .portal-button {
+            display: inline-block;
+            margin-top: 25px;
+            background: #f4ad24;
+            color: #07112f;
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="portal-container">
+
+        <h1 class="portal-heading">
+            Welcome to BusinessBuzz
+        </h1>
+
+        <p class="portal-description">
+            Select your portal to continue.
+        </p>
+
+        <div class="portal-grid">
+
+            <a href="/pages/login.html?portal=entrepreneur"
+               class="portal-card">
+
+                <h2>Entrepreneur</h2>
+
+                <p>
+                    Manage your business profile,
+                    registration preparation,
+                    compliance and funding readiness.
+                </p>
+
+                <span class="portal-button">
+                    Entrepreneur Login
+                </span>
+
+            </a>
+
+            <a href="/pages/login.html?portal=approver"
+               class="portal-card">
+
+                <h2>Approver</h2>
+
+                <p>
+                    Review business applications,
+                    verify information and
+                    manage approval decisions.
+                </p>
+
+                <span class="portal-button">
+                    Approver Login
+                </span>
+
+            </a>
+
+            <a href="/pages/login.html?portal=bank"
+               class="portal-card">
+
+                <h2>Bank</h2>
+
+                <p>
+                    Review funding applications,
+                    assess business readiness
+                    and manage funding decisions.
+                </p>
+
+                <span class="portal-button">
+                    Bank Login
+                </span>
+
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

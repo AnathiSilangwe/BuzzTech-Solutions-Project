@@ -1,0 +1,141 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approver Dashboard | Business Buzz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/approver.css">
+</head>
+
+<body class="approver-body">
+    <div class="approver-layout">
+
+        <aside class="approver-sidebar">
+            <a href="/index.html" class="approver-brand">
+                Business Buzz
+                <span>APPROVER PORTAL</span>
+            </a>
+
+
+            <nav class="approver-nav">
+                <a href="/pages/approver/dashboard.html"
+                   class="approver-nav-link active">▦ Dashboard</a>
+
+                <a href="#applications"
+                   class="approver-nav-link">▤ Applications</a>
+
+                <a href="#pending"
+                   class="approver-nav-link">◷ Pending Reviews</a>
+
+                <a href="#activity"
+                   class="approver-nav-link">◷ Activity History</a>
+            </nav>
+
+
+            <div class="approver-sidebar-bottom">
+                <button type="button" id="approverLogout"
+                        class="approver-logout-btn">
+                    ↪ Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="approver-main">
+            <header class="approver-header">
+                <div>
+                    <p class="approver-eyebrow">WORKSPACE / OVERVIEW</p>
+                    <h1>Approver Dashboard</h1>
+                    <p>Review business applications and manage workflow decisions.</p>
+                </div>
+                <span class="approver-role-badge">Approver</span>
+            </header>
+
+            <div class="approver-demo-notice">
+                <strong>Prototype mode:</strong>
+                Applications and decisions on this screen use sample data.
+                No official submissions or approvals are performed.
+            </div>
+
+            <section class="approver-stat-grid">
+                <article class="approver-stat-card">
+                    <span>Pending Applications</span>
+                    <strong id="pendingCount">0</strong>
+                    <small>Awaiting review</small>
+                </article>
+
+                <article class="approver-stat-card">
+                    <span>Approved</span>
+                    <strong id="approvedCount">0</strong>
+                    <small>Simulated decisions</small>
+                </article>
+
+                <article class="approver-stat-card">
+                    <span>Rejected</span>
+                    <strong id="rejectedCount">0</strong>
+                    <small>Simulated decisions</small>
+                </article>
+
+                <article class="approver-stat-card">
+                    <span>More Information</span>
+                    <strong id="informationCount">0</strong>
+                    <small>Awaiting applicant updates</small>
+                </article>
+            </section>
+
+            <section class="approver-panel" id="applications">
+                <div class="approver-panel-heading">
+                    <div>
+                        <h2>Applications for Review</h2>
+                        <p>Review applications assigned to your queue.</p>
+                    </div>
+
+                    <select id="statusFilter" aria-label="Filter applications">
+                        <option value="All">All statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="More Information">More information</option>
+                    </select>
+                </div>
+
+                <div class="approver-table-wrap">
+                    <table class="approver-table">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Business</th>
+                                <th>Stage</th>
+                                <th>Date Received</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicationRows"></tbody>
+                    </table>
+                </div>
+
+                <p id="emptyApplications" class="approver-empty" hidden>
+                    No applications match this filter.
+                </p>
+            </section>
+
+            <section class="approver-panel" id="activity">
+                <div class="approver-panel-heading">
+                    <div>
+                        <h2>Recent Activity</h2>
+                        <p>Latest activity recorded in this demo session.</p>
+                    </div>
+                </div>
+                <div id="activityList" class="approver-activity-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/approver-dashboard.js"></script>
+</body>
+</html>

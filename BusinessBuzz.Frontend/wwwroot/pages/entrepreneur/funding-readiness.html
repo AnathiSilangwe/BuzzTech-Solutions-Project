@@ -1,0 +1,229 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funding Readiness | Business Buzz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/entrepreneur.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-brand">Business Buzz</div>
+
+            <nav class="sidebar-nav">
+                <a href="/pages/entrepreneur/dashboard.html" class="sidebar-link">Dashboard</a>
+                <a href="/pages/entrepreneur/dashboard.html" class="sidebar-link">My Journey</a>
+                <a href="/pages/entrepreneur/profile-confirmation.html" class="sidebar-link">Business Profile</a>
+                <a href="/pages/entrepreneur/documents.html" class="sidebar-link">Documents</a>
+                <a href="/pages/entrepreneur/compliance-readiness.html" class="sidebar-link">Compliance</a>
+                <a href="/pages/entrepreneur/business-readiness.html" class="sidebar-link">Business Readiness</a>
+                <a href="/pages/entrepreneur/funding-readiness.html" class="sidebar-link active">Funding Readiness</a>
+            </nav>
+        </aside>
+
+        <main class="funding-main">
+            <a href="/pages/entrepreneur/business-readiness.html" class="secondary-navigation-btn">
+                ← Business Readiness
+            </a>
+
+            <header class="funding-header">
+                <div>
+                    <p class="page-eyebrow">BUSINESS FUNDING</p>
+                    <h1>Funding Readiness</h1>
+                    <p>Prepare your business information for a simulated funding assessment.</p>
+                </div>
+                <span class="status-pill progress" id="fundingStatus">Preparing</span>
+            </header>
+
+            <div class="compliance-info-banner">
+                <span class="info-icon">i</span>
+                <p>
+                    Business Buzz is an academic prototype. Funding enquiries and assessments
+                    are simulated. No application is submitted to a real bank, and no actual
+                    lending decision is made.
+                </p>
+            </div>
+
+            <section class="funding-overview">
+                <div class="funding-summary-card">
+                    <p class="page-eyebrow">FUNDING PREPARATION</p>
+                    <h2 id="fundingPercentage">0%</h2>
+                    <div class="progress">
+                        <div id="fundingProgressBar" class="progress-bar"
+                             role="progressbar"
+                             aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                    <p id="fundingProgressText"></p>
+                </div>
+
+                <div class="funding-summary-card">
+                    <p class="page-eyebrow">YOUR BUSINESS</p>
+                    <h3>Noni's Student Catering</h3>
+                    <p>Sole Proprietor · Food & Beverage</p>
+                    <p>Funding Interest: Yes</p>
+                    <span class="status-pill progress">Assessment Not Submitted</span>
+                </div>
+            </section>
+
+            <section class="compliance-section">
+                <div class="section-heading">
+                    <div>
+                        <h2>Funding Preparation Checklist</h2>
+                        <p>Review the information commonly considered during a funding enquiry.</p>
+                    </div>
+                </div>
+                <div id="fundingChecklist"></div>
+            </section>
+
+            <section class="funding-form-card" id="fundingEnquirySection">
+                <div class="section-heading">
+                    <div>
+                        <p class="page-eyebrow">FUNDING ENQUIRY</p>
+                        <h2>Request a Funding Assessment</h2>
+                        <p>Complete the information below for the simulated Bank portal.</p>
+                    </div>
+                </div>
+
+                <form id="fundingEnquiryForm">
+                    <div class="funding-form-grid">
+                        <div class="funding-field">
+                            <label for="fundingAmount">Requested Funding Amount (R) *</label>
+                            <input type="number" id="fundingAmount"
+                                   min="1" step="0.01"
+                                   placeholder="e.g. 50000" required>
+                        </div>
+
+                        <div class="funding-field">
+                            <label for="fundingPurpose">Purpose of Funding *</label>
+                            <select id="fundingPurpose" required>
+                                <option value="">Select a purpose</option>
+                                <option value="Equipment">Equipment</option>
+                                <option value="Working Capital">Working Capital</option>
+                                <option value="Business Expansion">Business Expansion</option>
+                                <option value="Inventory">Inventory</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="funding-field">
+                            <label for="monthlyRevenue">Estimated Monthly Revenue (R) *</label>
+                            <input type="number" id="monthlyRevenue"
+                                   min="0" step="0.01"
+                                   placeholder="e.g. 12000" required>
+                        </div>
+
+                        <div class="funding-field">
+                            <label for="businessTrading">Is the Business Currently Trading? *</label>
+                            <select id="businessTrading" required>
+                                <option value="">Select an option</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="funding-field funding-full-width">
+                            <label for="fundingDescription">How Will the Funding Be Used? *</label>
+                            <textarea id="fundingDescription" rows="4"
+                                      maxlength="1000"
+                                      placeholder="Briefly describe how the funding will support your business."
+                                      required></textarea>
+                        </div>
+                    </div>
+
+                    <label class="funding-confirmation">
+                        <input type="checkbox" id="fundingConfirmation" required>
+                        <span>
+                            I confirm that this information is accurate for the Business Buzz
+                            simulated funding enquiry.
+                        </span>
+                    </label>
+
+                    <div id="fundingMessage" class="tax-form-message" role="status" aria-live="polite"></div>
+
+                    <div class="funding-form-actions">
+                        <a href="/pages/entrepreneur/business-readiness.html"
+                           class="secondary-navigation-btn">Back</a>
+                        <button type="submit" class="funding-submit-btn"
+                                id="submitFundingBtn">
+                            Submit Funding Enquiry →
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+
+            <section class="funding-result" id="fundingResult" hidden>
+                <div class="funding-result-heading">
+                    <span class="funding-success-icon">✓</span>
+                    <div>
+                        <p class="page-eyebrow">ENQUIRY STATUS</p>
+                        <h2>Funding Enquiry Prepared</h2>
+                        <p>
+                            Your information has been captured for this frontend demonstration.
+                            It has not been sent to a real bank.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="funding-result-summary">
+                    <h3>Your Enquiry Summary</h3>
+
+                    <div class="funding-result-row">
+                        <span>Reference</span>
+                        <strong id="fundingReference">—</strong>
+                    </div>
+
+                    <div class="funding-result-row">
+                        <span>Requested Amount</span>
+                        <strong id="fundingResultAmount">—</strong>
+                    </div>
+
+                    <div class="funding-result-row">
+                        <span>Funding Purpose</span>
+                        <strong id="fundingResultPurpose">—</strong>
+                    </div>
+
+                    <div class="funding-result-row">
+                        <span>Review Status</span>
+                        <strong>Awaiting simulated review</strong>
+                    </div>
+                </div>
+
+                <p class="funding-result-note">
+                    This is a prototype confirmation, not a loan approval or funding offer.
+                </p>
+
+                <div class="funding-result-actions">
+                    <a href="/pages/entrepreneur/dashboard.html"
+                       class="secondary-navigation-btn">
+                        Return to Dashboard
+                    </a>
+                </div>
+
+                <section class="readiness-card" id="fundingTrackingSection">
+                    <h2>My Funding Enquiries</h2>
+
+                    <p>
+                        Track funding enquiries prepared through BusinessBuzz.
+                        All statuses are part of the frontend demonstration.
+                    </p>
+
+                    <div id="myFundingEnquiries"></div>
+                </section>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/js/funding-readiness.js"></script>
+</body>
+</html>
