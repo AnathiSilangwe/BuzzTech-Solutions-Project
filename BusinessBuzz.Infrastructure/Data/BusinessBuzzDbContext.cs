@@ -1,4 +1,6 @@
+using BusinessBuss.Core.Entities;
 using BusinessBuzz.Core.Entities;
+using BusinessBuzz.Core.Entitites;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessBuzz.Infrastructure.Data;
@@ -25,6 +27,8 @@ public class BusinessBuzzDbContext : DbContext
     public DbSet<ApprovalReview> ApprovalReviews { get; set; }
     public DbSet<InformationRequest> InformationRequests { get; set; }
     public DbSet<BuzzGuideMessage> BuzzGuideMessages {get; set; }
+    public DbSet<KnowledgeStep> KnowledgeSteps {get; set; }= null!;
+    public DbSet<KnowledgeArticle> KnowledgeArticles { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -74,6 +78,13 @@ public class BusinessBuzzDbContext : DbContext
 
         modelBuilder.Entity<InformationRequest>()
             .HasKey(i => i.InformationRequestId);
+
+        modelBuilder.Entity<KnowledgeArticle>()
+            .HasKey(a => a.KnowledgeArticleId);
+
+        modelBuilder.Entity<KnowledgeStep>()
+            .HasKey(s => s.KnowledgeStepId);
+        
 
         //UserRole to SystemUser
         modelBuilder.Entity<SystemUser>()
@@ -177,6 +188,32 @@ public class BusinessBuzzDbContext : DbContext
             .HasOne(a => a.SystemUser)
             .WithMany(u => u.AuditLogs)
             .HasForeignKey(a => a.SystemUserId);
+
+        modelBuilder.Entity<KnowledgeArticle>()
+            .HasMany(a => a.Steps)
+            .WithOne(s => s.KnowledgeArticles)
+            .HasForeignKey(s => s.KnowledgeArticleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<KnowledgeArticle>()
+            .Property(a => a.Title)
+            .HasMaxLength(200)
+            .IsRequired();
+
+        modelBuilder.Entity<KnowledgeArticle>()
+            .Property(a => a.Topic)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        modelBuilder.Entity<KnowledgeArticle>()
+            .Property(a => a.SourceUrl)
+            .HasMaxLength(1000)
+            .IsRequired();
+
+        modelBuilder.Entity<KnowledgeStep>()
+            .Property(s => s.Instruction)
+            .HasMaxLength(2000)
+            .IsRequired();
 
                 // Seed User Roles
         modelBuilder.Entity<UserRole>().HasData(
