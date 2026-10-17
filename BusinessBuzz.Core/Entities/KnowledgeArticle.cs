@@ -1,5 +1,5 @@
 
-using BusinessBuss.Core.Entities;
+using BusinessBuzz.Core.Entities;
 
 namespace BusinessBuzz.Core.Entitites;
 public class KnowledgeArticle

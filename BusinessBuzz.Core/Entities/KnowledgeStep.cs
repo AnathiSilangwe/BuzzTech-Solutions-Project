@@ -1,7 +1,7 @@
 
 using BusinessBuzz.Core.Entitites;
 
-namespace BusinessBuss.Core.Entities;
+namespace BusinessBuzz.Core.Entities;
 
 public class KnowledgeStep
 {

@@ -22,6 +22,32 @@ namespace BusinessBuzz.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BusinessBuss.Core.Entities.KnowledgeStep", b =>
+                {
+                    b.Property<int>("KnowledgeStepId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KnowledgeStepId"));
+
+                    b.Property<string>("Instruction")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("KnowledgeArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("KnowledgeStepId");
+
+                    b.HasIndex("KnowledgeArticleId");
+
+                    b.ToTable("KnowledgeSteps");
+                });
+
             modelBuilder.Entity("BusinessBuzz.Core.Entities.Application", b =>
                 {
                     b.Property<int>("ApplicationId")
@@ -617,6 +643,82 @@ namespace BusinessBuzz.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BusinessBuzz.Core.Entitites.KnowledgeArticle", b =>
+                {
+                    b.Property<int>("KnowledgeArticleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KnowledgeArticleId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Keywords")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastVerifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SourceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SourceUrl")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("KnowledgeArticleId");
+
+                    b.ToTable("KnowledgeArticles");
+
+                    b.HasData(
+                        new
+                        {
+                            KnowledgeArticleId = 1,
+                            Content = "The Companies and Intellectual Property Commission (CIPC) is a South African government agency responsible for company registration and certain intellectual property services. Entrepreneurs establishing a private company generally use CIPC to register the company. Sole proprietors do not register a separate company with CIPC simply to operate as sole proprietors. The appropriate registration route depends on the legal structure of the business.",
+                            IsActive = true,
+                            Keywords = "CIPC, company registration, private company, sole proprietor, business registration",
+                            LastVerifiedAt = new DateTime(2026, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SourceName = "Companies and Intellectual Property Commission",
+                            SourceUrl = "https://www.cipc.co.za/",
+                            Summary = "CIPC administers company registration and related intellectual property services in South Africa.",
+                            Title = "What is CIPC?",
+                            Topic = "Business Registration"
+                        });
+                });
+
+            modelBuilder.Entity("BusinessBuss.Core.Entities.KnowledgeStep", b =>
+                {
+                    b.HasOne("BusinessBuzz.Core.Entitites.KnowledgeArticle", "KnowledgeArticles")
+                        .WithMany("Steps")
+                        .HasForeignKey("KnowledgeArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KnowledgeArticles");
+                });
+
             modelBuilder.Entity("BusinessBuzz.Core.Entities.Application", b =>
                 {
                     b.HasOne("BusinessBuzz.Core.Entities.BusinessProfile", "BusinessProfile")
@@ -850,6 +952,11 @@ namespace BusinessBuzz.Infrastructure.Migrations
             modelBuilder.Entity("BusinessBuzz.Core.Entities.UserRole", b =>
                 {
                     b.Navigation("SystemUsers");
+                });
+
+            modelBuilder.Entity("BusinessBuzz.Core.Entitites.KnowledgeArticle", b =>
+                {
+                    b.Navigation("Steps");
                 });
 #pragma warning restore 612, 618
         }

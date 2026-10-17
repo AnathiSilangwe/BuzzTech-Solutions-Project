@@ -358,6 +358,22 @@ public class BusinessBuzzDbContext : DbContext
             .WithMany(b => b.BuzzGuideMessages)
             .HasForeignKey(m => m.BusinessProfileId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<KnowledgeArticle>().HasData(
+            new KnowledgeArticle
+            {
+                KnowledgeArticleId = 1,
+                Title = "What is CIPC?",
+                Topic = "Business Registration",
+                Summary = "CIPC administers company registration and related intellectual property services in South Africa.",
+                Content = "The Companies and Intellectual Property Commission (CIPC) is a South African government agency responsible for company registration and certain intellectual property services. Entrepreneurs establishing a private company generally use CIPC to register the company. Sole proprietors do not register a separate company with CIPC simply to operate as sole proprietors. The appropriate registration route depends on the legal structure of the business.",
+                Keywords = "CIPC, company registration, private company, sole proprietor, business registration",
+                SourceName = "Companies and Intellectual Property Commission",
+                SourceUrl = "https://www.cipc.co.za/",
+                LastVerifiedAt = new DateTime(2026, 10, 16),
+                IsActive = true
+            }
+        );
     }
 
 }
