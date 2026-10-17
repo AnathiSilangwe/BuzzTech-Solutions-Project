@@ -1,5 +1,4 @@
 using BusinessBuzz.Core.Entities;
-using BusinessBuzz.Core.Entitites;
 using BusinessBuzz.Core.Services;
 using BusinessBuzz.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

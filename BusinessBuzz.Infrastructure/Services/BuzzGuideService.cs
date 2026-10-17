@@ -13,13 +13,16 @@ public class BuzzGuideService : IBuzzGuideService
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger<BuzzGuideService> _logger;
+    private readonly IBuzzGuideKnowledgeService _knowledgeService;
 
     public BuzzGuideService(
         IConfiguration configuration,
-        ILogger<BuzzGuideService> logger)
+        ILogger<BuzzGuideService> logger,
+        IBuzzGuideKnowledgeService knowledgeService)
     {
         _configuration = configuration;
         _logger = logger;
+        _knowledgeService = knowledgeService;
     }
 
     public async Task<string> GetResponseAsync(
@@ -38,6 +41,62 @@ public class BuzzGuideService : IBuzzGuideService
 
         try
         {
+            // Retrieve relevant knowledge articles.
+            List<KnowledgeArticle> articles = new();
+
+            try
+            {
+                articles = await _knowledgeService.SearchAsync(question);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(
+                    ex,
+                    "Could not retrieve BuzzGuide knowledge articles.");
+            }
+
+            var knowledgeText = articles.Count == 0
+                ? "No matching verified knowledge articles were found."
+                : string.Join(
+                    "\n\n",
+                    articles.Select(article =>
+                        $"""
+                        TITLE: {article.Title}
+                        TOPIC: {article.Topic}
+                        SUMMARY: {article.Summary}
+                        CONTENT: {article.Content}
+                        SOURCE: {article.SourceName}
+                        SOURCE URL: {article.SourceUrl}
+                        LAST VERIFIED: {article.LastVerifiedAt:yyyy-MM-dd}
+                        STEPS:
+                        {string.Join(
+                            "\n",
+                            article.Steps
+                                .OrderBy(step => step.StepNumber)
+                                .Select(step =>
+                                    $"{step.StepNumber}. {step.Instruction}"))}
+                        """));
+
+            // Include recent conversation history, avoiding duplication
+            // if the current question is already the last saved message.
+            var history = conversation.ToList();
+
+            if (history.Count > 0 &&
+                string.Equals(
+                    history[^1].Message,
+                    question,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                history.RemoveAt(history.Count - 1);
+            }
+
+            var historyText = history.Count == 0
+                ? "No previous conversation."
+                : string.Join(
+                    "\n",
+                    history.TakeLast(10).Select(message =>
+                        $"{message.Role}: {message.Message}"));
+
             var options = new OpenAIClientOptions
             {
                 Endpoint = new Uri(
@@ -53,15 +112,32 @@ public class BuzzGuideService : IBuzzGuideService
                 You are BuzzGuide, the business guidance assistant
                 within the Business Buzz application.
 
-                Your purpose is to help first-time entrepreneurs
-                understand and navigate their business journey.
+                Help first-time entrepreneurs understand and navigate
+                their business journey.
 
-                Give clear, friendly, practical, step-by-step advice.
-                Use the business context below to personalise your
-                response. Do not invent official requirements,
-                approval outcomes, or funding guarantees.
-                When requirements may change, direct the entrepreneur
-                to the relevant official institution.
+                RESPONSE RULES
+                - Answer the exact question first.
+                - Be concise, practical and friendly.
+                - Use numbered steps for procedures.
+                - Use the supplied business profile and journey
+                  records for questions about personal progress.
+                - Treat application statuses in the supplied journey
+                  as the source of truth.
+                - Use the knowledge articles for general business
+                  guidance when relevant.
+                - Do not invent official requirements, fees, deadlines,
+                  approval outcomes or funding guarantees.
+                - Do not claim that an article is verified unless
+                  its supplied source and verification date support it.
+                - If no relevant knowledge article is available,
+                  say that you do not have verified information for
+                  that question and direct the user to an appropriate
+                  official institution when possible.
+                - Include the supplied official source URL when it
+                  supports your answer.
+                - Do not claim to have searched the live internet.
+                - If information conflicts or appears incomplete,
+                  explain the limitation instead of guessing.
 
                 BUSINESS PROFILE
                 Business name: {context.BusinessName}
@@ -77,15 +153,19 @@ public class BuzzGuideService : IBuzzGuideService
                     context.Journey.Select(stage =>
                         $"- {stage.StageOrder}. {stage.StageName}; " +
                         $"Institution: {stage.InstitutionName}; " +
-                        $"Status: {stage.ApplicationStatus ?? "Not Started"}"
-                    )
-                )}
+                        $"Status: {stage.ApplicationStatus ?? "Not Started"}"))
+                }
 
-                ENTREPRENEUR'S QUESTION
+                KNOWLEDGE BASE
+                {knowledgeText}
+
+                RECENT CONVERSATION
+                {historyText}
+
+                CURRENT QUESTION
                 {question}
 
-                Give a useful answer focused on the entrepreneur's
-                question and their current stage of the journey.
+                Give a focused answer based on the available evidence.
                 """;
 
             ChatCompletion completion =

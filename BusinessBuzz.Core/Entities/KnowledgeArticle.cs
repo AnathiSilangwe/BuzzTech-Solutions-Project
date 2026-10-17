@@ -1,7 +1,7 @@
 
 using BusinessBuzz.Core.Entities;
 
-namespace BusinessBuzz.Core.Entitites;
+namespace BusinessBuzz.Core.Entities;
 public class KnowledgeArticle
 {
     public int KnowledgeArticleId{get; set;}

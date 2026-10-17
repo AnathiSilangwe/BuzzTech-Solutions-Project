@@ -1,5 +1,5 @@
 
-using BusinessBuzz.Core.Entitites;
+using BusinessBuzz.Core.Entities;
 
 namespace BusinessBuzz.Core.Entities;
 
