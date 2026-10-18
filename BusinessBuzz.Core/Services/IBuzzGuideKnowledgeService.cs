@@ -7,3 +7,4 @@ public interface IBuzzGuideKnowledgeService{
 
     Task<List<KnowledgeArticle>> SearchAsync(string question);
 }
+
