@@ -98,11 +98,12 @@
                         {
                             <span class="navbar-text me-2">Signed in</span>
 
-                            <form method="post" asp-page="/Account/Logout">
-                                <button type="submit" class="btn btn-outline-secondary">
+                            <form method="post" asp-page="/Account/Logout" id="logoutForm">
+                                <button type="submit" class="btn btn-outline-danger">
                                     Logout
                                 </button>
                             </form>
+                            <script src="~/js/logout.js" asp-append-version="true"></script>
                         }
                     </div>
                 </div>

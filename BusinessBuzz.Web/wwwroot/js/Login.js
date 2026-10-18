@@ -1,15 +1,22 @@
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-    loginForm.addEventListener("submit", function () {
-        const submitButton = loginForm.querySelector('button[type="submit"]');
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = "Logging in...";
+document.addEventListener("DOMContentLoaded",
+    function () {
+        const loginForm =document.getElementById("loginForm");
+        
+        if (!loginForm) {
+            return;
         }
-
-        // Do not prevent the default form submission.
-        // ASP.NET Razor Pages must receive the POST request.
-    });
-}
+        
+        loginForm.addEventListener("submit", function (event) {
+            if(!loginForm.checkValidity()){
+                event.preventDefault();
+                loginForm.reportValidity();
+                return
+            }
+            const loginButton = loginForm.querySelector('button[type="submit"]');
+            if (loginButton) {
+                loginButton.disabled = true;
+                loginButton.textContent ="Logging in... ";
+            }
+        });
+    }
+);
