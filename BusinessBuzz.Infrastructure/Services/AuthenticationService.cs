@@ -18,6 +18,7 @@ public class AuthenticationService : IAuthenticationService
     }
 
     public async Task<SystemUser?> RegisterAsync(
+        string name,
         string email,
         string password,
         int roleId)
@@ -32,6 +33,7 @@ public class AuthenticationService : IAuthenticationService
 
         var user = new SystemUser
         {
+            Name = name,
             Email = email,
             RoleId = roleId
         };

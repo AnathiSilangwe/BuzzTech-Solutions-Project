@@ -1,0 +1,40 @@
+@page
+@model BusinessBuzz.Web.Pages.Development.CreateBankerModel
+
+@{
+    ViewData["Title"] = "Create Banker";
+}
+
+<h1>Create Banker</h1>
+
+<p>This page is available only in the Development environment.</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="SetupKey" class="form-label">Setup key</label>
+        <input asp-for="SetupKey" type="password" class="form-control" required />
+    </div>
+    <div>
+        <label asp-for="BankerName" class="form-label">Full Name</label>
+        <input asp-for="BankerName" type="bankername" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Banker email</label>
+        <input asp-for="Email" type="email" class="form-control" required />
+    </div>
+
+    
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Banker password</label>
+        <input asp-for="Password" type="password" class="form-control"
+               minlength="8" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Banker Account</button>
+</form>

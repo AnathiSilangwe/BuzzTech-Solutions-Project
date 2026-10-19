@@ -19,6 +19,8 @@ public class CreateApproverModel : PageModel
         _configuration = configuration;
         _environment = environment;
     }
+    [BindProperty]
+    public string ApproverName {get; set;} = string.Empty;
 
     [BindProperty]
     public string SetupKey { get; set; } = string.Empty;
@@ -55,7 +57,7 @@ public class CreateApproverModel : PageModel
 
         if (string.IsNullOrWhiteSpace(Email) ||
             string.IsNullOrWhiteSpace(Password) ||
-            Password.Length < 8)
+            Password.Length < 8 || string.IsNullOrWhiteSpace(ApproverName))
         {
             Message = "Enter an email and a password of at least 8 characters.";
             return Page();
@@ -63,6 +65,7 @@ public class CreateApproverModel : PageModel
 
         // Role 2 = Approver.
         var user = await _authenticationService.RegisterAsync(
+            ApproverName,
             Email.Trim(),
             Password,
             2);

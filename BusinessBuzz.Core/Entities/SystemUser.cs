@@ -5,10 +5,11 @@ namespace BusinessBuzz.Core.Entities;
 public class SystemUser
 {
     public int SystemUserId { get; set; }
+    public string Name {get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public int RoleId { get; set; }
-
+    
     //Navigation property
     public UserRole Role { get; set; } = null!;
     public ICollection<BusinessProfile> BusinessProfiles { get; set; } = new List<BusinessProfile>();

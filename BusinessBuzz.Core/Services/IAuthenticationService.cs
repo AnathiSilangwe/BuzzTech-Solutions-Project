@@ -5,6 +5,7 @@ namespace BusinessBuzz.Core.Services;
 public interface IAuthenticationService
 {
     Task<SystemUser?> RegisterAsync(
+        string name,
         string email,
         string password,
         int roleId);
