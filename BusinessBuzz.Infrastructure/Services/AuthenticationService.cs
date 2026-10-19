@@ -33,8 +33,8 @@ public class AuthenticationService : IAuthenticationService
 
         var user = new SystemUser
         {
-            Name = name,
-            Email = email,
+            Name = name.Trim(),
+            Email = email.Trim(),
             RoleId = roleId
         };
 

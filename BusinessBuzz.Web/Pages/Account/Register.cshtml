@@ -26,6 +26,14 @@
                     }
 
                     <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Full Name</label>
+                            <input asp-for="Name"
+                                class="form-control"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required />
+                        </div>
 
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label">

@@ -12,7 +12,8 @@ public class RegisterModel : PageModel
     {
         _authenticationService = authenticationService;
     }
-
+    [BindProperty]
+    public string Name { get; set; } = string.Empty;
     [BindProperty]
     public string Email { get; set; } = string.Empty;
 
@@ -52,6 +53,7 @@ public class RegisterModel : PageModel
         const int entrepreneurRoleId = 1;
 
         var user = await _authenticationService.RegisterAsync(
+            Name.Trim(),
             Email.Trim(),
             Password,
             entrepreneurRoleId);
