@@ -99,11 +99,11 @@
                             <span class="navbar-text me-2">Signed in</span>
 
                             <form method="post" asp-page="/Account/Logout" id="logoutForm">
-                                <button type="submit" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger" id = "logoutBtn">
                                     Logout
                                 </button>
                             </form>
-                            <script src="~/js/Logout.js" asp-append-version="true"></script>
+                            
                         }
                     </div>
                 </div>
@@ -124,6 +124,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Logout.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

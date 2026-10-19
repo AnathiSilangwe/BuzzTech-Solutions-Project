@@ -8,7 +8,7 @@ public class LogoutModel : PageModel
     public IActionResult OnPost()
     {
         HttpContext.Session.Clear();
-        
+        await HttpContext.Session.CommitAsync();
         return RedirectToPage("/Account/Login");
     }
 }
