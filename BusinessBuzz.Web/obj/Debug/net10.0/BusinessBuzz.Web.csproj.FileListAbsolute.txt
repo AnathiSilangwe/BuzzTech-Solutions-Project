@@ -239,3 +239,5 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\2cxxb56
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\xi90ezmmc0-{0}-o2aiuzmz7y-o2aiuzmz7y.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\e352pcoepn-{0}-cpncg2t199-cpncg2t199.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\d9cpc9yjqn-{0}-3a9sywsckc-3a9sywsckc.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\su0bxmaf5j-{0}-b8kt76gdor-b8kt76gdor.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\zsj8ar2ayp-{0}-spircmgx7e-spircmgx7e.gz
