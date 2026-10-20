@@ -2,67 +2,134 @@
 @model BusinessBuzz.Web.Pages.Notifications.IndexModel
 
 @{
-    ViewData["Title"] = "Notifications";
+    ViewData["Title"] = "My Notifications";
+
+    var unreadCount = Model.Notifications.Count(n => !n.IsRead);
 }
 
-<div class="container py-3">
-    <h2>My Notifications</h2>
-    <p class="text-muted">Updates about your business applications and next steps.</p>
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/notifications.css"
+          asp-append-version="true" />
+}
+
+<div class="notifications-page">
+    <header class="notifications-header">
+        <div>
+            <span class="notifications-eyebrow">BUSINESS BUZZ</span>
+            <h1>My Notifications</h1>
+            <p>Stay up to date with your business applications and next steps.</p>
+        </div>
+
+        <div class="notifications-overview">
+            <span class="notifications-overview-icon" aria-hidden="true">♢</span>
+            <div>
+                <strong>@unreadCount</strong>
+                <span>Unread</span>
+            </div>
+        </div>
+    </header>
 
     @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
     {
-        <div class="alert alert-success" role="alert">
-            @Model.SuccessMessage
+        <div class="notification-alert notification-alert-success"
+             role="status">
+            <span aria-hidden="true">✓</span>
+            <p>@Model.SuccessMessage</p>
         </div>
     }
 
-    @if (Model.Notifications.Count == 0)
-    {
-        <div class="alert alert-info">
-            You have no notifications yet.
+    <section class="notifications-content">
+        <div class="notifications-section-heading">
+            <div>
+                <h2>All notifications</h2>
+                <p>Your latest updates, newest first.</p>
+            </div>
+
+            <span class="notifications-total">
+                @Model.Notifications.Count
+                @(Model.Notifications.Count == 1 ? "notification" : "notifications")
+            </span>
         </div>
-    }
-    else
-    {
-        @foreach (var notification in Model.Notifications)
+
+        @if (Model.Notifications.Count == 0)
         {
-            <div class="card mb-3 @(notification.IsRead ? "" : "border-primary")">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start gap-3">
-                        <div>
-                            <p class="mb-2">@notification.Message</p>
-
-                            <small class="text-muted">
-                                @notification.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, HH:mm")
-                            </small>
+            <div class="notifications-empty">
+                <div class="notifications-empty-icon" aria-hidden="true">♢</div>
+                <h3>You're all caught up!</h3>
+                <p>
+                    You don't have any notifications yet.
+                    Updates about your business journey will appear here.
+                </p>
+                <a asp-page="/Dashboard/Index" class="notifications-primary-btn">
+                    Return to dashboard
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="notifications-list">
+                @foreach (var notification in Model.Notifications)
+                {
+                    <article class="notification-card @(notification.IsRead ? "is-read" : "is-unread")">
+                        <div class="notification-indicator" aria-hidden="true">
+                            @(notification.IsRead ? "✓" : "•")
                         </div>
 
-                        <div class="text-end">
-                            @if (notification.IsRead)
-                            {
-                                <span class="badge bg-secondary">Read</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-primary">Unread</span>
+                        <div class="notification-details">
+                            <div class="notification-title-row">
+                                <h3>
+                                    @(notification.IsRead ? "Notification" : "New update")
+                                </h3>
 
+                                @if (notification.IsRead)
+                                {
+                                    <span class="notification-status read-status">
+                                        Read
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="notification-status unread-status">
+                                        Unread
+                                    </span>
+                                }
+                            </div>
+
+                            <p class="notification-message">
+                                @notification.Message
+                            </p>
+
+                            <time class="notification-date"
+                                  datetime="@notification.CreatedAt.ToUniversalTime().ToString("O")">
+                                <span aria-hidden="true">◷</span>
+                                @notification.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, HH:mm")
+                            </time>
+                        </div>
+
+                        @if (!notification.IsRead)
+                        {
+                            <div class="notification-actions">
                                 <form method="post"
-                                      asp-page-handler="MarkAsRead"
-                                      class="mt-2">
+                                      asp-page-handler="MarkAsRead">
                                     <input type="hidden"
                                            name="notificationId"
                                            value="@notification.NotificationId" />
 
                                     <button type="submit"
-                                            class="btn btn-sm btn-outline-primary">
+                                            class="notification-read-btn">
                                         Mark as read
                                     </button>
                                 </form>
-                            }
-                        </div>
-                    </div>
-                </div>
+                            </div>
+                        }
+                    </article>
+                }
             </div>
         }
-    }
+    </section>
+
+    <footer class="notifications-footer">
+        <a asp-page="/Dashboard/Index">← Back to dashboard</a>
+    </footer>
 </div>
