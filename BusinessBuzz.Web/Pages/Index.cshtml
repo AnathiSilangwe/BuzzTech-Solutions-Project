@@ -4,78 +4,42 @@
 ViewData["Title"] = "Home";
 }
 
-<div class="container py-5">
-    <div class="row align-items-center min-vh-75">
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/main.css"
+          asp-append-version="true" />
+}
 
+<section class="hero-section">
+    <div class="container text-center">
+        <p class="hero-label">
+            SOUTH AFRICAN BUSINESS PLATFORM
+        </p>
 
-        <div class="col-lg-7">
-            <p class="text-uppercase fw-bold text-primary mb-2">
-                Business Buzz
-            </p>
+        <h1 class="hero-title">
+            From Business Idea
+            <br class="d-none d-md-block" />
+            to Business Ready.
+        </h1>
 
-            <h1 class="display-4 fw-bold mb-4">
-                @Model.PageTitle
-            </h1>
+        <p class="hero-description">
+            Business Buzz helps you understand, prepare for and
+            track the steps involved in building your business.
+        </p>
 
-            <p class="lead mb-4">
-            @Model.Introduction
-            </p>
+        <div class="hero-buttons">
+            <a asp-page="/Account/Register"
+               class="btn btn-start">
+                Start Your Journey
+            </a>
 
-            @* <h1 class="display-4 fw-bold mb-4">
-                Turn your business idea into a real business.
-            </h1>
-
-            <p class="lead mb-4">
-                Business Buzz helps first-time entrepreneurs understand the
-                steps involved in starting a business, from registration and
-                compliance to funding readiness.
-            </p> *@
-
-            <div class="d-flex gap-3">
-                <a asp-page="/Account/Register" class="btn btn-primary btn-lg">
-                    Get Started
-                </a>
-
-                <a asp-page="/Account/Login" class="btn btn-outline-primary btn-lg">
-                    Login
-                </a>
-            </div>
+            <a href="#how-it-works"
+               class="btn btn-learn">
+                Learn How It Works
+            </a>
         </div>
-
-        <div class="col-lg-5 mt-5 mt-lg-0">
-            <div class="card shadow-sm border-0 p-4">
-                <h3 class="fw-bold mb-3">Your journey starts here</h3>
-
-                <div class="mb-3">
-                    <h5>1. Tell us about your idea</h5>
-                    <p class="text-muted mb-0">
-                        Build your entrepreneur profile and provide information
-                        about your business.
-                    </p>
-                </div>
-
-                <div class="mb-3">
-                    <h5>2. Get your roadmap</h5>
-                    <p class="text-muted mb-0">
-                        BuzzGuide helps identify the steps relevant to your
-                        business journey.
-                    </p>
-                </div>
-
-                <div>
-                    <h5>3. Complete your journey</h5>
-                    <p class="text-muted mb-0">
-                        Work through documents, approvals, compliance and
-                        funding-readiness tasks.
-                    </p>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-
-</div>
+</section>
 
 <div class="row mt-5 pt-5">
     <div class="col-12 text-center mb-4">
@@ -90,7 +54,7 @@ ViewData["Title"] = "Home";
             <h4 class="fw-bold">BuzzGuide</h4>
             <p class="text-muted">
                 Get personalised guidance based on your business idea and
-                where you are in your entrepreneurial journey.
+                where you are in your entrepreneurial journey with the AI assistat.
             </p>
         </div>
     </div>
@@ -105,7 +69,7 @@ ViewData["Title"] = "Home";
         </div>
     </div>
 
-    <div class="col-md-4 mb-4">
+   @*  <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm border-0 p-4">
             <h4 class="fw-bold">Funding Readiness</h4>
             <p class="text-muted">
@@ -113,5 +77,5 @@ ViewData["Title"] = "Home";
                 for potential funding opportunities.
             </p>
         </div>
-    </div>
+    </div> *@
 </div>
