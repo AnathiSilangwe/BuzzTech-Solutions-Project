@@ -45,6 +45,8 @@ public class IndexModel : PageModel
     public List<BuzzGuideMessage> BuzzGuideConversation { get; private set; } = new();
     public List<JourneyStage> PersonalisedJourney { get; private set; } = new();
     public Dictionary<int, string> ApplicationStatuses {get; private set; } = new();
+    public List<Notification> RecentNotifications { get; private set; } = new();
+    public int UnreadNotificationCount {get; private set; }
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -67,6 +69,15 @@ public class IndexModel : PageModel
         }
 
         UserEmail = user.Email;
+
+        RecentNotifications = await _context.Notifications
+            .Where(n => n.SystemUserId == UserId.Value)
+            .OrderByDescending(n => n.CreatedAt)
+            .Take(5)
+            .ToListAsync();
+
+        UnreadNotificationCount = await _context.Notifications
+            .CountAsync(n => n.SystemUserId == UserId.Value && !n.IsRead);
 
         var profile = await _context.BusinessProfiles
             .Include(b => b.BusinessType)

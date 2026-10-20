@@ -1,5 +1,304 @@
 @page
 @model BusinessBuzz.Web.Pages.Dashboard.IndexModel
+@using System.Globalization
+@using BusinessBuzz.Core.Entities
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Entrepreneur Dashboard | Business Buzz";
+
+    var emailName = (Model.UserEmail ?? "Entrepreneur").Split('@')[0]
+        .Replace('.', ' ').Replace('_', ' ').Replace('-', ' ');
+    var displayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(emailName);
+    var hour = DateTime.Now.Hour;
+    var greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+
+    var completedStatuses = new[] { "Approved", "Completed" };
+    var completedCount = Model.PersonalisedJourney.Count(stage =>
+        completedStatuses.Contains(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), StringComparer.OrdinalIgnoreCase));
+    var inProgressCount = Model.PersonalisedJourney.Count(stage =>
+        string.Equals(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), "Submitted", StringComparison.OrdinalIgnoreCase));
+    var totalStages = Model.PersonalisedJourney.Count;
+    var upcomingCount = Math.Max(0, totalStages - completedCount - inProgressCount);
+    var progressPercent = totalStages == 0 ? 0 : (int)Math.Round((double)completedCount / totalStages * 100);
+    var nextStage = Model.PersonalisedJourney.FirstOrDefault(stage =>
+        !completedStatuses.Contains(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), StringComparer.OrdinalIgnoreCase));
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/entrepreneur.css" />
+</head>
+<body class="dashboard-body">
+    <div class="entrepreneur-layout">
+        <aside class="entrepreneur-sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <a asp-page="/Index">Business Buzz</a>
+                    <span>ENTREPRENEUR PORTAL</span>
+                </div>
+
+                <nav class="sidebar-nav" aria-label="Entrepreneur navigation">
+                    <a href="#dashboard-top" class="sidebar-link active"><span aria-hidden="true">▦</span> Dashboard</a>
+                    <a href="#journey" class="sidebar-link"><span aria-hidden="true">↗</span> My Journey</a>
+                    <a asp-page="/BusinessProfile/Create" class="sidebar-link"><span aria-hidden="true">♙</span> Business Profile</a>
+                    <a asp-page="/Documents/Index" class="sidebar-link"><span aria-hidden="true">▤</span> Documents</a>
+                    <a href="#compliance" class="sidebar-link"><span aria-hidden="true">✓</span> Compliance</a>
+                    <a href="#notifications" class="sidebar-link"><span aria-hidden="true">♢</span> Notifications
+                        @if (Model.UnreadNotificationCount > 0)
+                        {
+                            <span class="notification-count">@Model.UnreadNotificationCount</span>
+                        }
+                    </a>
+                    <a href="#readiness" class="sidebar-link"><span aria-hidden="true">☆</span> Business Readiness</a>
+                    <a href="#funding" class="sidebar-link">Funding Readiness</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-logout-container">
+                <form method="post" asp-page="/Account/Logout">
+                    <button type="submit" class="sidebar-logout-btn"><span aria-hidden="true">↪</span> Logout</button>
+                </form>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar">@(string.IsNullOrWhiteSpace(displayName) ? "E" : displayName[..1].ToUpperInvariant())</div>
+                <div>
+                    <strong>@displayName</strong>
+                    <small>@Model.UserEmail</small>
+                </div>
+                <a href="#account" class="account-settings">Account</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main" id="dashboard-top">
+            <section class="dashboard-heading">
+                <h1>@greeting, @displayName 👋</h1>
+                @if (Model.HasBusinessProfile)
+                {
+                    <p>Your journey is personalised using the information in your business profile.</p>
+                }
+                else
+                {
+                    <p>Start by creating your business profile so we can personalise your journey.</p>
+                }
+            </section>
+
+            @if (!Model.HasBusinessProfile)
+            {
+                <section class="next-step-card">
+                    <div>
+                        <span class="next-step-label">YOUR NEXT STEP</span>
+                        <h2>Create your business profile</h2>
+                        <p>Tell us about your business idea to get a journey tailored to your needs.</p>
+                        <a asp-page="/BusinessProfile/Create" class="btn continue-btn">Create Profile →</a>
+                    </div>
+                    <span class="progress-badge">Profile needed</span>
+                </section>
+            }
+            else if (nextStage != null)
+            {
+                var nextStatus = Model.ApplicationStatuses.GetValueOrDefault(nextStage.JourneyStageId, "Not Started");
+                <section class="next-step-card">
+                    <div>
+                        <span class="next-step-label">YOUR NEXT STEP</span>
+                        <h2>@nextStage.StageName</h2>
+                        <p>@(string.IsNullOrWhiteSpace(nextStage.StageDescription) ? "Continue with the next step in your personalised business journey." : nextStage.StageDescription)</p>
+                        @if (nextStage.StageName == "CIPC Registration" && (nextStatus == "Not Started" || nextStatus == "Rejected"))
+                        {
+                            <p>Use the official institution's website to submit your application, then record your submission here.</p>
+                            <a href="#journey" class="btn continue-btn">Continue to journey →</a>
+                        }
+                        else
+                        {
+                            <a href="#journey" class="btn continue-btn">View journey →</a>
+                        }
+                    </div>
+                    <span class="progress-badge">@(nextStatus == "Rejected" ? "Needs attention" : nextStatus == "Submitted" ? "Awaiting review" : "Up next")</span>
+                </section>
+            }
+            else if (Model.HasBusinessProfile)
+            {
+                <section class="next-step-card">
+                    <div>
+                        <span class="next-step-label">JOURNEY UPDATE</span>
+                        <h2>You've completed all listed stages</h2>
+                        <p>Keep your business information and documents up to date.</p>
+                    </div>
+                    <span class="progress-badge">Journey complete</span>
+                </section>
+            }
+
+            <div class="dashboard-grid">
+                <section class="dashboard-card journey-card" id="journey">
+                    <div class="card-heading">
+                        <h2>Your Business Journey</h2>
+                        <span>@completedCount / @totalStages stages</span>
+                    </div>
+
+                    @if (!Model.HasBusinessProfile)
+                    {
+                        <p>Create your business profile to see your personalised journey stages here.</p>
+                    }
+                    else if (totalStages == 0)
+                    {
+                        <p>No journey stages are currently available for this profile.</p>
+                    }
+                    else
+                    {
+                        @foreach (var stage in Model.PersonalisedJourney.OrderBy(stage => stage.StageOrder))
+                        {
+                            var status = Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started");
+                            var isComplete = completedStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
+                            var isCurrent = !isComplete && (nextStage?.JourneyStageId == stage.JourneyStageId);
+                            var stageClass = isComplete ? "completed" : isCurrent ? "current" : "";
+                            var statusClass = isComplete ? "complete" : status == "Submitted" || status == "Rejected" ? "in-progress" : "upcoming";
+                            var statusLabel = isComplete ? "✓ Complete" : status == "Submitted" ? "● Submitted" : status == "Rejected" ? "Needs attention" : isCurrent ? "Up next" : "Upcoming";
+                            <div class="business-stage @stageClass">
+                                <div class="stage-left">
+                                    <span class="stage-icon @(isComplete ? "" : isCurrent ? "current-icon" : "pending")">@(isComplete ? "✓" : stage.StageOrder.ToString())</span>
+                                    <div>
+                                        <span>@stage.StageName</span>
+                                        @if (!string.IsNullOrWhiteSpace(stage.InstitutionName))
+                                        {
+                                            <small>@stage.InstitutionName</small>
+                                        }
+                                    </div>
+                                </div>
+                                <span class="stage-status @statusClass">@statusLabel</span>
+                            </div>
+
+                            @if (stage.StageName == "CIPC Registration" && (status == "Not Started" || status == "Rejected"))
+                            {
+                                <div class="px-3 py-2">
+                                    <p class="small text-muted mb-2">After submitting through the official CIPC website, return here to record your submission.</p>
+                                    <form method="post" asp-page-handler="SubmitApplication" asp-route-journeyStageId="@stage.JourneyStageId">
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">I've submitted my application</button>
+                                    </form>
+                                </div>
+                            }
+                            else if (stage.StageName == "CIPC Registration" && status == "Submitted")
+                            {
+                                <p class="small text-success px-3">Your submission is recorded and awaiting an institutional outcome.</p>
+                            }
+                        }
+                    }
+                </section>
+
+                <div class="dashboard-side-column">
+                    <section class="dashboard-card progress-card">
+                        <h2>Overall Progress</h2>
+                        <div class="progress-circle" style="background: conic-gradient(var(--bb-gold) 0 @progressPercent%, #eceff3 @progressPercent% 100%);">
+                            <div><strong>@progressPercent%</strong><span>Complete</span></div>
+                        </div>
+                        <div class="progress-summary">
+                            <div><span>Completed</span><strong>@completedCount stages</strong></div>
+                            <div><span>In Progress</span><strong>@inProgressCount stages</strong></div>
+                            <div><span>Upcoming</span><strong>@upcomingCount stages</strong></div>
+                        </div>
+                    </section>
+
+                    <section class="dashboard-card notifications-card" id="notifications">
+                        <div class="card-heading">
+                            <h2>Recent Notifications</h2>
+                        </div>
+                        @if (Model.RecentNotifications.Count == 0)
+                        {
+                            <p class="text-muted small mt-3">You're all caught up. New notifications will appear here.</p>
+                        }
+                        else
+                        {
+                            @foreach (var notification in Model.RecentNotifications)
+                            {
+                                <div class="notification-item @(notification.IsRead ? "success" : "warning")">
+                                    <strong>@notification.Message</strong>
+                                    <small>@notification.CreatedAt.ToLocalTime().ToString("g") @(notification.IsRead ? "· Read" : "· Unread")</small>
+                                </div>
+                            }
+                        }
+                    </section>
+                </div>
+            </div>
+
+            <section class="dashboard-card mt-4" id="business-profile">
+                <div class="card-heading"><h2>Business Profile</h2>
+                    @if (!Model.HasBusinessProfile)
+                    {
+                        <a asp-page="/BusinessProfile/Create">Create profile</a>
+                    }
+                </div>
+                @if (Model.HasBusinessProfile)
+                {
+                    <div class="row g-3 small">
+                        <div class="col-md-4"><strong>Business name</strong><div>@Model.BusinessName</div></div>
+                        <div class="col-md-4"><strong>Business type</strong><div>@Model.BusinessType</div></div>
+                        <div class="col-md-4"><strong>Industry</strong><div>@Model.Industry</div></div>
+                        <div class="col-md-4"><strong>Location</strong><div>@Model.BusinessLocation</div></div>
+                        <div class="col-md-4"><strong>Employs people</strong><div>@(Model.EmploysPeople == true ? "Yes" : Model.EmploysPeople == false ? "No" : "Not specified")</div></div>
+                        <div class="col-md-4"><strong>Profile confirmed</strong><div>@(Model.IsProfileConfirmed == true ? "Yes" : "No")</div></div>
+                    </div>
+                }
+                else
+                {
+                    <p class="mb-0">Your business profile has not been created yet.</p>
+                }
+            </section>
+
+            <section class="dashboard-card mt-4" id="buzzguide">
+                <div class="card-heading"><h2>BuzzGuide</h2><span>Your business journey assistant</span></div>
+                @if (!Model.HasBusinessProfile)
+                {
+                    <p>Create your business profile first to get guidance tailored to your business.</p>
+                }
+                else
+                {
+                    <p>Ask BuzzGuide a question about your business or next steps.</p>
+                    @if (Model.BuzzGuideConversation.Any())
+                    {
+                        <div class="mb-3" style="max-height: 300px; overflow-y: auto;">
+                            @foreach (var message in Model.BuzzGuideConversation)
+                            {
+                                <div class="border rounded p-3 mb-2">
+                                    <strong>@message.Role</strong>
+                                    <p class="mb-1">@message.Message</p>
+                                    <small class="text-muted">@message.CreatedAt.ToLocalTime().ToString("g")</small>
+                                </div>
+                            }
+                        </div>
+                    }
+                    <form method="post" asp-page-handler="AskBuzzGuide">
+                        <label asp-for="BuzzGuideQuestion" class="form-label">Your question</label>
+                        <div class="input-group">
+                            <input asp-for="BuzzGuideQuestion" class="form-control" placeholder="Ask BuzzGuide something..." autocomplete="off" />
+                            <button type="submit" class="btn btn-primary">Ask BuzzGuide</button>
+                        </div>
+                    </form>
+                }
+            </section>
+
+            <section class="dashboard-card mt-4" id="documents">
+                <div class="card-heading"><h2>DigiDocs</h2><span>Business documents</span></div>
+                <p>Generate a business information document using details from your profile.</p>
+                <a asp-page="/Documents/Generate" class="btn continue-btn">Generate DigiDoc</a>
+                <a asp-page="/Documents/Index" class="btn btn-outline-secondary ms-2">My Documents</a>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+@* @page
+@model BusinessBuzz.Web.Pages.Dashboard.IndexModel
 
 @{
     ViewData["Title"] = "Dashboard";
@@ -257,4 +556,4 @@
         </p>
         
         
-</div>
+</div> *@
