@@ -1,0 +1,80 @@
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.DependencyInjection
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+    var roleId = Context.Session.GetInt32("RoleId");
+    var unreadNotificationCount = 0;
+
+    if (userId.HasValue)
+    {
+        var dbContext = Context.RequestServices
+            .GetRequiredService<BusinessBuzz.Infrastructure.Data.BusinessBuzzDbContext>();
+
+        unreadNotificationCount = await dbContext.Notifications
+            .CountAsync(n => n.SystemUserId == userId.Value && !n.IsRead);
+    }
+
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Business Buzz Approver Portal</title>
+
+    <link rel="stylesheet" href="~/css/banker.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="bank-layout">
+        <aside class="bank-sidebar">
+            <div class="bank-brand">
+                <h2>Business Buzz</h2>
+                <p>Approver Portal</p>
+            </div>
+
+            <nav class="bank-navigation" aria-label="Approver navigation">
+                <a asp-page="/Approver/Dashboard"
+                   class="@(currentPage == "/Approver/Dashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+                <a asp-page="/Approver/Index"
+                   class="@(currentPage == "/Approver/Index" ? "active" : "")">
+                    Review Applications
+                </a>
+
+                <a asp-page="/Notifications/Index"
+                   class="@(currentPage == "/Notifications/Index" ? "active" : "")">
+                    <span>Notifications</span>
+                    @if (unreadNotificationCount > 0)
+                    {
+                        <span class="notification-count">
+                            @unreadNotificationCount
+                        </span>
+                    }
+                </a>
+            </nav>
+
+            <form method="post" asp-page="/Account/Logout">
+                <button type="submit" class="logout-button">
+                    Log out
+                </button>
+            </form>
+        </aside>
+
+        <main class="bank-main">
+            @RenderBody()
+
+            <footer class="bank-footer">
+                Business Buzz · Application approval and review portal.
+            </footer>
+        </main>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

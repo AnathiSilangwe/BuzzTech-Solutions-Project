@@ -1,147 +1,196 @@
-
 @page
 @model BusinessBuzz.Web.Pages.Approver.IndexModel
 
 @{
-    ViewData["Title"] = "Approver Dashboard";
+    Layout = "/Pages/Shared/_ApproverLayout.cshtml";
+    ViewData["Title"] = "Review Applications";
+} 
+@section Styles{
+    <link rel= "stylesheet" href = "~/css/approver.css" asp-append-version="true"/>
 }
 
-<h1>Approver Dashboard</h1>
+<div class="approver-page">
 
-@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
-{
-    <div class = "alert-success" role = "alert">
-        @Model.SuccessMessage
-    </div>
-}
+    <header class="approver-page-header">
+        <div>
+            <span class="approver-eyebrow">BUSINESS BUZZ / APPLICATIONS</span>
+            <h1>Review Applications</h1>
+            <p>Review submissions and record decisions after checking the relevant official institutional system.</p>
+        </div>
+    </header>
 
-<p>
-    Review submitted applications and record the outcome after checking
-    the relevant official institutional system.
-</p>
+    @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+    {
+        <div class="approver-alert approver-alert-success" role="status">
+            ✓ @Model.SuccessMessage
+        </div>
+    }
 
-@if (!string.IsNullOrWhiteSpace(Model.Message))
-{
-    <div class="alert alert-info">@Model.Message</div>
-}
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="approver-alert approver-alert-info" role="alert">
+            @Model.Message
+        </div>
+    }
 
-@if (!Model.SubmittedApplications.Any())
-{
-    <div class="alert alert-info">
-        There are currently no submitted applications awaiting review.
-    </div>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Business</th>
-                <th>Application Stage</th>
-                <th>Submission Date</th>
-                <th>Status</th>
-                <th>Record Decision</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var application in Model.SubmittedApplications)
-            {
-                <tr>
-                    <td>@application.BusinessProfile.BusinessName</td>
-                    <td>@application.JourneyStage.StageName</td>
-                    <td>
-                        @(application.SubmissionDate?.ToLocalTime()
-                            .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
-                    </td>
-                    <td>@application.Status</td>
-                    <td>
-                        <form method="post"
-                              asp-page-handler="RecordDecision"
-                              class="d-flex flex-column gap-2">
+    <section class="approver-section">
+        <div class="approver-section-heading">
+            <div>
+                <span class="approver-section-label">ACTION REQUIRED</span>
+                <h2>Current Applications</h2>
+                <p>Applications awaiting your review and decision.</p>
+            </div>
 
-                            <input type="hidden"
-                                   name="ApplicationId"
-                                   value="@application.ApplicationId" />
+            <span class="approver-count">
+                @Model.SubmittedApplications.Count pending
+            </span>
+        </div>
 
-                            <label for="decision-@application.ApplicationId">
-                                Decision
-                            </label>
+        @if (!Model.SubmittedApplications.Any())
+        {
+            <div class="approver-empty-state">
+                <h3>All caught up!</h3>
+                <p>There are currently no submitted applications awaiting review.</p>
+            </div>
+        }
+        else
+        {
+            <div class="approver-table-wrapper">
+                <table class="approver-table">
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Application Stage</th>
+                            <th>Submission Date</th>
+                            <th>Status</th>
+                            <th>Record Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var application in Model.SubmittedApplications)
+                        {
+                            <tr>
+                                <td class="approver-business-name">
+                                    @application.BusinessProfile.BusinessName
+                                </td>
+                                <td>@application.JourneyStage.StageName</td>
+                                <td>
+                                    @(application.SubmissionDate?.ToLocalTime()
+                                        .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
+                                </td>
+                                <td>
+                                    <span class="approver-status approver-status-pending">
+                                        @application.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <form method="post"
+                                          asp-page-handler="RecordDecision"
+                                          class="approver-decision-form">
 
-                            <select id="decision-@application.ApplicationId"
-                                    name="Decision"
-                                    class="form-select"
-                                    required>
-                                <option value="">Select a decision</option>
-                                <option value="Approved">Approved</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Action required">Action required</option>
-                            </select>
+                                        <input type="hidden"
+                                               name="ApplicationId"
+                                               value="@application.ApplicationId" />
 
-                            <label for="reason-@application.ApplicationId">
-                                Reason or notes
-                            </label>
+                                        <label for="decision-@application.ApplicationId">
+                                            Decision
+                                        </label>
 
-                            <textarea id="reason-@application.ApplicationId"
-                                      name="ReasonText"
-                                      class="form-control"
-                                      rows="3"
-                                      placeholder="Required for rejection or action required"></textarea>
+                                        <select id="decision-@application.ApplicationId"
+                                                name="Decision"
+                                                class="approver-input"
+                                                required>
+                                            <option value="">Select a decision</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Action required">Action required</option>
+                                        </select>
 
-                            <button type="submit" class="btn btn-primary">
-                                Save Decision
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-<hr class="my-4" />
+                                        <label for="reason-@application.ApplicationId">
+                                            Reason or notes
+                                        </label>
 
-<h2>Review History</h2>
+                                        <textarea id="reason-@application.ApplicationId"
+                                                  name="ReasonText"
+                                                  class="approver-input"
+                                                  rows="3"
+                                                  placeholder="Required for rejection or action required"></textarea>
 
-<p>
-    Applications with a recorded decision are listed here
-    for reference.
-</p>
+                                        <button type="submit" class="approver-submit-btn">
+                                            Save Decision
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
 
-@if (!Model.ReviewedApplications.Any())
-{
-    <div class="alert alert-info">
-        No applications have been reviewed yet.
-    </div>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Business</th>
-                <th>Application Stage</th>
-                <th>Submission Date</th>
-                <th>Decision</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var application in Model.ReviewedApplications)
-            {
-                <tr>
-                    <td>
-                        @application.BusinessProfile.BusinessName
-                    </td>
-                    <td>
-                        @application.JourneyStage.StageName
-                    </td>
-                    <td>
-                        @(application.SubmissionDate?.ToLocalTime()
-                            .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
-                    </td>
-                    <td>
-                        @application.Status
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <section class="approver-section approver-history-section">
+        <div class="approver-section-heading">
+            <div>
+                <span class="approver-section-label">COMPLETED REVIEWS</span>
+                <h2>Review History</h2>
+                <p>Previously reviewed applications and their recorded outcomes.</p>
+            </div>
+
+            <span class="approver-count">
+                @Model.ReviewedApplications.Count reviewed
+            </span>
+        </div>
+
+        @if (!Model.ReviewedApplications.Any())
+        {
+            <div class="approver-empty-state">
+                <h3>No review history yet</h3>
+                <p>Applications with recorded decisions will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="approver-table-wrapper">
+                <table class="approver-table">
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Application Stage</th>
+                            <th>Submission Date</th>
+                            <th>Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var application in Model.ReviewedApplications)
+                        {
+                            <tr>
+                                <td class="approver-business-name">
+                                    @application.BusinessProfile.BusinessName
+                                </td>
+                                <td>@application.JourneyStage.StageName</td>
+                                <td>
+                                    @(application.SubmissionDate?.ToLocalTime()
+                                        .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
+                                </td>
+                                <td>
+                                    <span class="approver-status">
+                                        @application.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+
+    <footer class="approver-page-footer">
+        <a asp-page="/Dashboard/Index">← Back to dashboard</a>
+    </footer>
+
+</div>
+@section Scripts {
+    <scripts src="~/js/approver.js" asp-append-version= "true"></scripts>
 }
