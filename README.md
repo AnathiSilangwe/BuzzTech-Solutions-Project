@@ -5,7 +5,22 @@
 
 ---
 
-## Overview
+## 📖 Table of Contents
+
+- [Overview](#-overview)
+- [Problem Statement](#-problem-statement)
+- [Proposed Solution](#-proposed-solution)
+- [Key Modules & Features](#-key-modules--features)
+- [System Roles](#-system-roles)
+- [Technology Stack](#️-technology-stack)
+- [System Architecture](#️-system-architecture)
+- [Getting Started](#-getting-started)
+- [Development Team](#-development-team)
+- [License & Academic Disclaimer](#-license--academic-disclaimer)
+
+---
+
+## 📖 Overview
 
 Business Buzz is a Smart Compliance Guidance Platform developed to support Small, Medium and Micro Enterprises (SMMEs) and aspiring entrepreneurs in South Africa.
 
@@ -22,14 +37,14 @@ Business Buzz addresses this challenge by providing a centralised platform where
 - Identify missing requirements
 - Receive reminders for upcoming compliance activities
 - Access simplified guidance and official government resources
+- **Interact with an AI Assistant for instant guidance**
+- **Manage digital documents through the integrated DigiDocs module**
 
-Business Buzz does not replace official government registration platforms or submit applications on behalf of users.
-
-Instead, it acts as a preparation and guidance platform that helps entrepreneurs become registration-ready before accessing official government services.
+> ⚠️ **Important Notice:** Business Buzz does **not** replace official government registration platforms or submit applications on behalf of users. Instead, it acts as a preparation and guidance platform that helps entrepreneurs become registration-ready before accessing official government services. All institutional processes (CIPC, SARS, UIF, Home Affairs) are **simulated** for demonstration purposes.
 
 ---
 
-## Problem Statement
+## ❗ Problem Statement
 
 Many South African entrepreneurs, particularly first-time business owners, experience difficulties when attempting to establish and maintain a legally compliant business.
 
@@ -57,7 +72,7 @@ Business Buzz aims to reduce these difficulties by centralising guidance, prepar
 
 ---
 
-## Proposed Solution
+## 💡 Proposed Solution
 
 Business Buzz provides entrepreneurs with a structured digital environment for preparing and managing their business registration and compliance journey.
 
@@ -81,16 +96,140 @@ Generate Personalised Roadmap
 Complete Preparation Tasks
       |
       v
-Upload Required Documents
+Upload Required Documents (DigiDocs)
       |
       v
 Business Readiness Checker
       |
       v
 Identify Outstanding Requirements
-      |
-      v
-Improve Readiness
-      |
-      v
-Access Official Government Services
+
+
+✨ Key Modules & Features
+🤖 AI Assistant (BuzzGuide)
+Business Buzz includes an integrated AI Assistant designed to provide instant, conversational guidance to entrepreneurs.
+
+Natural Language Queries: Users can ask questions like "What documents do I need for CIPC?" and receive instant answers.
+
+Context-Aware: The AI uses the entrepreneur's business profile to provide relevant advice.
+
+Powered by Groq API: Utilises high-speed AI inference for quick responses.
+
+📁 DigiDocs Document Management
+A dedicated module for handling all business documentation securely.
+
+Digital Upload & Storage: Users can upload, categorise, and store critical documents (IDs, proof of address, financials).
+
+System-Generated Documents: Automatically generates registration and compliance forms based on captured profile data.
+
+Print-Ready & Watermarked: Generated PDFs include a "SIMULATED - DEMONSTRATION ONLY" watermark and a footer disclaimer.
+
+📊 Personalised Readiness Roadmap
+Conditional Logic: The roadmap dynamically changes based on user inputs (e.g., UIF registration only appears if the user indicates they employ people).
+
+Progress Tracking: A visual dashboard shows completed, in-progress, and outstanding tasks.
+
+🔒 Security & Role-Based Access
+Role-Based Access Control (RBAC): Separate environments for Entrepreneur, Approver, and Bank roles.
+
+Secure Authentication: Passwords are never stored in plain text; they are hashed using Microsoft's PasswordHasher<TUser>.
+
+Audit Trails: Significant user actions (submissions, approvals) are logged for accountability.
+
+👥 System Roles
+The system implements strict Role-Based Access Control (RBAC) to separate the user journeys:
+
+Entrepreneur (Primary User): Creates profiles, follows the roadmap, uses the AI assistant, generates documents via DigiDocs, and tracks readiness.
+
+Approver (Simulated Reviewer): Reviews submitted applications and can approve, reject, or request more information.
+
+Bank (Simulated Assessor): Reviews the entrepreneur's compliance readiness for a simulated financial assessment.
+
+## 🛠️ Technology Stack 
+Business Buzz is built using a modern, enterprise-grade technology stack:
+
+Backend
+Framework: ASP.NET Core Web API (C#)
+
+ORM: Entity Framework Core
+
+Authentication: ASP.NET Core Identity (Password Hashing)
+
+PDF Generation: iTextSharp (for generating watermarked compliance documents)
+
+AI Integration: Groq API (for the AI Assistant)
+
+External API Integration: HttpClient (for DigiDocs simulations)
+
+Frontend
+Markup & Styling: HTML5, CSS3
+
+Framework: Bootstrap 5.3 (Responsive design)
+
+Interactivity: JavaScript (ES6+)
+
+Database & Tools
+Database: Microsoft SQL Server (Relational Database)
+
+Version Control: Git & GitHub
+
+IDE: Visual Studio 2022, Visual Studio Code
+
+🏗️ System Architecture
+The application follows a standard 3-Tier Layered Architecture:
+
+Presentation Layer: The Bootstrap frontend that interacts with the user.
+
+Application Layer: The ASP.NET Core API that enforces business logic, conditional workflows, AI integration, and security.
+
+Data Layer: Entity Framework Core managing the SQL Server database.
+
+Database Design (14 Core Entities)
+The relational database includes the following core tables to manage the workflow:
+
+UserRole, SystemUser, BusinessType, BusinessProfile, JourneyStage, Application, ApprovalReview, DocumentType, Document, ComplianceRecord, ReadinessTask, FundingAssessment, Notification, AuditLog.
+
+## 🚀 Getting Started
+Prerequisites
+.NET 8.0 SDK
+
+Microsoft SQL Server
+
+Visual Studio 2022 (with ASP.NET and web development workload)
+
+Groq API Key (for the AI Assistant)
+
+Installation & Setup
+Clone the repository:
+
+bash
+git clone https://github.com/YourUsername/BuzzTech-Solutions-Project.git
+Open the Solution:
+
+Open BusinessBuzz.sln in Visual Studio 2022.
+
+Configure the Database:
+
+Open appsettings.json.
+
+Update the DefaultConnection string to point to your local SQL Server instance.
+
+Configure the AI Assistant (Groq API):
+
+Obtain an API key from Groq.
+
+Add your API key to appsettings.json:
+
+json
+{
+  "GroqApiKey": "YOUR_API_KEY_HERE"
+}
+Apply Migrations:
+
+Open the Package Manager Console in Visual Studio and run:
+
+powershell
+Update-Database
+Run the Application:
+
+Press F5 or click the "Run" button in Visual Studio.
