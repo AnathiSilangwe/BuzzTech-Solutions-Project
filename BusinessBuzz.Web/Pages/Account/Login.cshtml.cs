@@ -67,7 +67,7 @@ public class LoginModel : PageModel
         if (user.RoleId == 3)
         {
             // We'll create the Bank User dashboard later.
-            return RedirectToPage("/Dashboard/Index");
+            return RedirectToPage("/Bank/Index");
         }
 
         HttpContext.Session.Clear();

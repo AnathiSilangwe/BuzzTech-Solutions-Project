@@ -1,0 +1,577 @@
+/* ==========================================
+   BUSINESS BUZZ - BANKER PORTAL
+   Navy and gold theme
+   ========================================== */
+
+:root {
+    --bank-navy: #07112f;
+    --bank-navy-light: #18274e;
+    --bank-gold: #f4ad24;
+    --bank-background: #f5f7fb;
+    --bank-white: #ffffff;
+    --bank-text: #344054;
+    --bank-muted: #667085;
+    --bank-border: #e5e7eb;
+    --bank-success: #067647;
+    --bank-success-bg: #dcfae6;
+    --bank-danger: #b42318;
+    --bank-danger-bg: #fee4e2;
+    --bank-warning: #875b00;
+    --bank-warning-bg: #fff4d6;
+    --bank-info: #175cd3;
+    --bank-info-bg: #e8f1ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 25px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bank-background);
+    color: var(--bank-navy);
+    line-height: 1.5;
+}
+
+/* Main layout */
+
+.bank-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+
+.bank-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: var(--bank-navy);
+    color: var(--bank-white);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.bank-brand h2 {
+    margin: 0;
+    color: var(--bank-gold);
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.bank-brand p {
+    margin: 8px 0 0;
+    color: #c9cfdd;
+    font-size: 14px;
+}
+
+.bank-navigation {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bank-navigation a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: #c9cfdd;
+    text-decoration: none;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bank-navigation a:hover,
+.bank-navigation a.active {
+    background: var(--bank-navy-light);
+    color: var(--bank-gold);
+}
+
+.bank-navigation a:focus-visible,
+.logout-button:focus-visible,
+.review-button:focus-visible,
+.bank-primary-button:focus-visible {
+    outline: 3px solid var(--bank-gold);
+    outline-offset: 3px;
+}
+
+.notification-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 50px;
+    background: var(--bank-danger-bg);
+    color: var(--bank-danger);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Logout */
+
+.bank-sidebar form {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.logout-button {
+    width: 100%;
+    background: transparent;
+    color: var(--bank-white);
+    border: 1px solid #56617d;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    font: inherit;
+    transition: background 0.2s ease;
+}
+
+.logout-button:hover {
+    background: var(--bank-navy-light);
+}
+
+/* Main content */
+
+.bank-main {
+    flex: 1;
+    min-width: 0;
+    padding: 35px;
+}
+
+.bank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.bank-header h1 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.bank-header p {
+    color: var(--bank-muted);
+    margin: 0;
+}
+
+.demo-badge {
+    display: inline-block;
+    flex-shrink: 0;
+    background: var(--bank-warning-bg);
+    color: var(--bank-warning);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Dashboard statistics */
+
+.bank-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--bank-white);
+    border: 1px solid var(--bank-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 5px rgb(7 17 47 / 3%);
+}
+
+.stat-card h3 {
+    margin: 0 0 15px;
+    color: var(--bank-muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--bank-navy);
+    overflow-wrap: anywhere;
+}
+
+/* Content panels */
+
+.bank-panel {
+    background: var(--bank-white);
+    border: 1px solid var(--bank-border);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgb(7 17 47 / 3%);
+}
+
+.panel-heading h2 {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.panel-heading p {
+    color: var(--bank-muted);
+    margin: 0 0 25px;
+    font-size: 14px;
+}
+
+.empty-message {
+    color: var(--bank-muted);
+    padding: 20px 0;
+    margin: 0;
+}
+
+/* Tables */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.bank-main table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.bank-main th {
+    background: #f8fafc;
+    color: #475467;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.bank-main td {
+    padding: 16px 15px;
+    border-bottom: 1px solid #eaecf0;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.bank-main tbody tr:hover {
+    background: #fafbff;
+}
+
+.bank-main tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status labels */
+
+.status-pill {
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--bank-warning-bg);
+    color: var(--bank-warning);
+}
+
+.status-under-review {
+    background: var(--bank-info-bg);
+    color: var(--bank-info);
+}
+
+.status-approved {
+    background: var(--bank-success-bg);
+    color: var(--bank-success);
+}
+
+.status-declined {
+    background: var(--bank-danger-bg);
+    color: var(--bank-danger);
+}
+
+/* Links and buttons */
+
+.review-button {
+    display: inline-block;
+    background: var(--bank-navy);
+    color: var(--bank-white);
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+.review-button:hover {
+    background: var(--bank-navy-light);
+    color: var(--bank-white);
+}
+
+.bank-primary-button {
+    margin-top: 20px;
+    background: var(--bank-navy);
+    color: var(--bank-white);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.bank-primary-button:hover {
+    background: var(--bank-navy-light);
+}
+
+.bank-primary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Funding assessment details */
+
+#reviewContent {
+    display: grid;
+    gap: 20px;
+}
+
+#reviewContent[hidden] {
+    display: none;
+}
+
+.funding-detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.funding-detail strong {
+    color: #475467;
+    font-size: 14px;
+}
+
+.funding-detail span {
+    font-size: 14px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+#fundingDecisionForm label {
+    display: block;
+    margin: 20px 0 8px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#fundingDecisionForm select,
+#fundingDecisionForm textarea,
+.bank-form input,
+.bank-form select,
+.bank-form textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: var(--bank-white);
+    color: var(--bank-text);
+    font: inherit;
+}
+
+#fundingDecisionForm textarea,
+.bank-form textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+#fundingDecisionForm select:focus,
+#fundingDecisionForm textarea:focus,
+.bank-form input:focus,
+.bank-form select:focus,
+.bank-form textarea:focus {
+    outline: 2px solid var(--bank-info);
+    outline-offset: 1px;
+}
+
+.form-error {
+    color: var(--bank-danger);
+    margin-top: 12px;
+}
+
+.form-success {
+    color: var(--bank-success);
+    margin-top: 12px;
+}
+
+.decision-history-item {
+    border-bottom: 1px solid #eaecf0;
+    padding: 15px 0;
+}
+
+.decision-history-item p {
+    color: #475467;
+    margin: 8px 0;
+}
+
+.decision-history-item small {
+    color: var(--bank-muted);
+}
+
+.funding-description {
+    margin-top: 20px;
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid var(--bank-border);
+    border-radius: 8px;
+}
+
+.funding-description strong {
+    display: block;
+    color: var(--bank-text);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.funding-description p {
+    color: #475467;
+    line-height: 1.7;
+    font-size: 14px;
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Validation and alerts */
+
+.bank-main .validation-summary-errors,
+.bank-main .field-validation-error {
+    color: var(--bank-danger);
+}
+
+.bank-main .alert {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.bank-main .alert-success {
+    background: var(--bank-success-bg);
+    color: var(--bank-success);
+}
+
+.bank-main .alert-danger {
+    background: var(--bank-danger-bg);
+    color: var(--bank-danger);
+}
+
+.bank-main .alert-info {
+    background: var(--bank-info-bg);
+    color: var(--bank-info);
+}
+
+/* Footer */
+
+.bank-footer {
+    color: var(--bank-muted);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 30px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 1200px) {
+    .bank-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .bank-main {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bank-layout {
+        flex-direction: column;
+    }
+
+    .bank-sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 22px 20px;
+    }
+
+    .bank-navigation {
+        margin-top: 20px;
+        gap: 5px;
+    }
+
+    .bank-navigation a {
+        padding: 12px;
+    }
+
+    .bank-sidebar form {
+        margin-top: 15px;
+        padding-top: 0;
+    }
+
+    .bank-main {
+        padding: 20px;
+    }
+
+    .bank-header {
+        flex-direction: column;
+    }
+
+    .bank-header h1 {
+        font-size: 26px;
+    }
+
+    .bank-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .bank-panel {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .funding-detail {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .funding-detail span {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

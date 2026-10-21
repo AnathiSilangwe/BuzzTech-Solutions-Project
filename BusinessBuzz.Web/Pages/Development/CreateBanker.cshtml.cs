@@ -46,7 +46,7 @@ public class CreateBankerModel : PageModel
         if (!_environment.IsDevelopment())
             return NotFound();
 
-        var expectedKey = _configuration["DevelopmentSetup:ApproverSetupKey"];
+        var expectedKey = _configuration["DevelopmentSetup:BankerSetupKey"];
 
         if (string.IsNullOrWhiteSpace(expectedKey) ||
             !string.Equals(SetupKey, expectedKey, StringComparison.Ordinal))

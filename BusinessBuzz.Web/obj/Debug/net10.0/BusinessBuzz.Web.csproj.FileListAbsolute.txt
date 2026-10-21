@@ -264,3 +264,5 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\runtimes\win-x64\n
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\runtimes\win-x86\native\QuestPdfSkia.dll
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\runtimes\win-x86\native\qpdf.dll
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\35yv96nrmo-{0}-38mnaul1cc-38mnaul1cc.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\porwlei6sv-{0}-2rvmngbris-2rvmngbris.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\mdb9l79ebi-{0}-nd3t4hsg5t-nd3t4hsg5t.gz

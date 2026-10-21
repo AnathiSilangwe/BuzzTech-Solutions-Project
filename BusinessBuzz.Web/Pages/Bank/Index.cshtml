@@ -2,148 +2,154 @@
 @model BusinessBuzz.Web.Pages.Bank.IndexModel
 
 @{
+    Layout = "/Pages/Shared/_BankLayout.cshtml";
     ViewData["Title"] = "Banker Portal";
 }
 
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1>Banker Portal</h1>
-            <p class="text-muted">
-                Review business funding enquiries and record simulated assessment decisions.
-            </p>
-        </div>
-        <div class="text-end">
-            <span class="badge bg-primary">
-                Unread notifications: @Model.UnreadNotifications
-            </span>
-        </div>
+<header class="bank-header">
+    <div>
+        <h1>Banker Dashboard</h1>
+        <p>Review business funding enquiries and record simulated assessment decisions.</p>
     </div>
 
-    <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Pending Enquiries</h5>
-                    <h2>@Model.PendingAssessments.Count</h2>
-                    <p class="text-muted mb-0">Awaiting assessment</p>
-                </div>
-            </div>
-        </div>
+    <span class="demo-badge">DEMO ENVIRONMENT</span>
+</header>
 
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Completed Assessments</h5>
-                    <h2>@Model.CompletedAssessments.Count</h2>
-                    <p class="text-muted mb-0">Decisions recorded</p>
-                </div>
-            </div>
-        </div>
+<section class="bank-stats" aria-label="Dashboard statistics">
+    <article class="stat-card">
+        <h3>Pending Enquiries</h3>
+        <strong>@Model.PendingAssessments.Count</strong>
+    </article>
+
+    <article class="stat-card">
+        <h3>Completed Assessments</h3>
+        <strong>@Model.CompletedAssessments.Count</strong>
+    </article>
+
+    <article class="stat-card">
+        <h3>Unread Notifications</h3>
+        <strong>@Model.UnreadNotifications</strong>
+    </article>
+
+    <article class="stat-card">
+        <h3>Portal Status</h3>
+        <strong style="font-size: 20px;">Active</strong>
+    </article>
+</section>
+
+<section class="bank-panel" id="pending-enquiries">
+    <div class="panel-heading">
+        <h2>Pending Funding Enquiries</h2>
+        <p>Review business information before recording an assessment outcome.</p>
     </div>
 
-    <section class="card shadow-sm mb-4">
-        <div class="card-header">
-            <h2 class="h5 mb-0">Pending Funding Enquiries</h2>
+    @if (Model.PendingAssessments.Count == 0)
+    {
+        <p class="empty-message">
+            There are currently no pending funding enquiries.
+            New enquiries will appear here when entrepreneurs submit them.
+        </p>
+    }
+    else
+    {
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Business Type</th>
+                        <th>Industry</th>
+                        <th>Submitted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enquiry in Model.PendingAssessments)
+                    {
+                        <tr>
+                            <td>
+                                @(string.IsNullOrWhiteSpace(enquiry.BusinessProfile?.BusinessName)
+                                    ? "Unnamed business"
+                                    : enquiry.BusinessProfile.BusinessName)
+                            </td>
+                            <td>
+                                @(enquiry.BusinessProfile?.BusinessType?.TypeName ?? "Not specified")
+                            </td>
+                            <td>
+                                @(string.IsNullOrWhiteSpace(enquiry.BusinessProfile?.Industry)
+                                    ? "Not specified"
+                                    : enquiry.BusinessProfile.Industry)
+                            </td>
+                            <td>@enquiry.SubmittedAt.ToLocalTime().ToString("dd MMM yyyy")</td>
+                            <td>
+                                <a asp-page="/Bank/Enquiry/Details"
+                                   asp-route-id="@enquiry.FundingAssessmentId"
+                                   class="review-button">
+                                    Review
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-        <div class="card-body">
-            @if (Model.PendingAssessments.Count == 0)
-            {
-                <p class="mb-0">
-                    There are currently no pending funding enquiries.
-                    New enquiries will appear here when entrepreneurs submit them.
-                </p>
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>Business</th>
-                                <th>Business Type</th>
-                                <th>Industry</th>
-                                <th>Submitted</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var enquiry in Model.PendingAssessments)
-                            {
-                                <tr>
-                                    <td>
-                                        @(enquiry.BusinessProfile?.BusinessName ?? "Unnamed business")
-                                    </td>
-                                    <td>
-                                        @(enquiry.BusinessProfile?.BusinessType?.TypeName ?? "Not specified")
-                                    </td>
-                                    <td>
-                                        @(enquiry.BusinessProfile?.Industry ?? "Not specified")
-                                    </td>
-                                    <td>
-                                        @enquiry.SubmittedAt.ToLocalTime().ToString("dd MMM yyyy")
-                                    </td>
-                                    <td>
-                                        <a asp-page="/Bank/Enquiry/Details" asp-route-id="@enquiry.FundingAssessmentId" class="btn btn-primary btn-sm">
-                                        View Details
-                                        </a>
-                                        
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-        </div>
-    </section>
+    }
+</section>
 
-    <section class="card shadow-sm">
-        <div class="card-header">
-            <h2 class="h5 mb-0">Assessment History</h2>
-        </div>
-        <div class="card-body">
-            @if (Model.CompletedAssessments.Count == 0)
-            {
-                <p class="mb-0">No assessments have been completed yet.</p>
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>Business</th>
-                                <th>Outcome</th>
-                                <th>Banker</th>
-                                <th>Assessed On</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var assessment in Model.CompletedAssessments)
-                            {
-                                <tr>
-                                    <td>
-                                        @(assessment.BusinessProfile?.BusinessName ?? "Unnamed business")
-                                    </td>
-                                    <td>@assessment.SimulatedOutcome</td>
-                                    <td>
-                                        @(assessment.BankUser?.Email ?? "Not assigned")
-                                    </td>
-                                    <td>
-                                        @(assessment.AssessedAt?.ToLocalTime().ToString("dd MMM yyyy") ?? "—")
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-        </div>
-    </section>
+<section class="bank-panel" id="assessment-history" style="margin-top: 25px;">
+    <div class="panel-heading">
+        <h2>Assessment History</h2>
+        <p>View funding assessments that have already been recorded.</p>
+    </div>
 
-    <p class="text-muted small mt-3">
-        Business Buzz uses simulated funding assessments for demonstration purposes.
-        This portal does not make real lending decisions.
-    </p>
-</div>
+    @if (Model.CompletedAssessments.Count == 0)
+    {
+        <p class="empty-message">No assessments have been completed yet.</p>
+    }
+    else
+    {
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Outcome</th>
+                        <th>Banker</th>
+                        <th>Assessed On</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var assessment in Model.CompletedAssessments)
+                    {
+                        <tr>
+                            <td>
+                                @(assessment.BusinessProfile?.BusinessName ?? "Unnamed business")
+                            </td>
+                            <td>
+                                <span class="status-pill @(assessment.SimulatedOutcome == "Approved" ? "status-approved" : assessment.SimulatedOutcome == "Declined" ? "status-declined" : "status-under-review")">
+                                    @assessment.SimulatedOutcome
+                                </span>
+                            </td>
+                            <td>@(assessment.BankUser?.Email ?? "Not assigned")</td>
+                            <td>
+                                @(assessment.AssessedAt?.ToLocalTime().ToString("dd MMM yyyy") ?? "—")
+                            </td>
+                            <td>
+                                <a asp-page="/Bank/Enquiry/Details"
+                                   asp-route-id="@assessment.FundingAssessmentId"
+                                   class="review-button">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+<p class="bank-footer">
+    All funding outcomes in this prototype are simulated and do not represent real lending decisions.
+</p>
