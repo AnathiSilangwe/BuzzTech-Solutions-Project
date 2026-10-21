@@ -4,20 +4,6 @@
 > A web-based platform designed to help South African entrepreneurs prepare for business registration, understand compliance requirements, organise important documents, and track their business readiness.
 
 ---
-
-## 📖 Table of Contents
-
-- [Overview](#-overview)
-- [Problem Statement](#-problem-statement)
-- [Proposed Solution](#-proposed-solution)
-- [Key Modules & Features](#-key-modules--features)
-- [System Roles](#-system-roles)
-- [Technology Stack](#️-technology-stack)
-- [System Architecture](#️-system-architecture)
-- [Getting Started](#-getting-started)
-- [Development Team](#-development-team)
-- [License & Academic Disclaimer](#-license--academic-disclaimer)
-
 ---
 
 ## 📖 Overview
