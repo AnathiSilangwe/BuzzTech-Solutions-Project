@@ -336,7 +336,10 @@ namespace BusinessBuzz.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FundingAssessmentId"));
 
-                    b.Property<int>("BankUserId")
+                    b.Property<DateTime?>("AssessedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("BankUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("BusinessProfileId")
@@ -349,6 +352,13 @@ namespace BusinessBuzz.Infrastructure.Migrations
                     b.Property<string>("SimulatedOutcome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("FundingAssessmentId");
 
@@ -826,8 +836,7 @@ namespace BusinessBuzz.Infrastructure.Migrations
                     b.HasOne("BusinessBuzz.Core.Entities.SystemUser", "BankUser")
                         .WithMany("FundingAssessments")
                         .HasForeignKey("BankUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BusinessBuzz.Core.Entities.BusinessProfile", "BusinessProfile")
                         .WithMany("FundingAssessments")

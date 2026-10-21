@@ -1,0 +1,247 @@
+@page "{id:int}"
+@model BusinessBuzz.Web.Pages.Bank.Enquiry.DetailsModel
+
+@{
+    ViewData["Title"] = "Funding Enquiry Details";
+}
+
+<div class="container py-4">
+    @if (Model.Assessment?.BusinessProfile is { } business)
+    {
+        <div class="mb-4">
+            <a asp-page="/Bank/Index" class="btn btn-outline-secondary mb-3">
+                &larr; Back to Banker Portal
+            </a>
+
+            <h1>Funding Enquiry Details</h1>
+            <p class="text-muted">
+                Review business readiness and compliance before recording
+                a simulated funding assessment.
+            </p>
+        </div>
+
+        <section class="card shadow-sm mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Business Information</h2>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Business Name</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrWhiteSpace(business.BusinessName)
+                            ? "Unnamed business"
+                            : business.BusinessName)
+                    </dd>
+
+                    <dt class="col-sm-4">Business Type</dt>
+                    <dd class="col-sm-8">
+                        @(business.BusinessType?.TypeName ?? "Not specified")
+                    </dd>
+
+                    <dt class="col-sm-4">Industry</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrWhiteSpace(business.Industry)
+                            ? "Not specified"
+                            : business.Industry)
+                    </dd>
+
+                    <dt class="col-sm-4">Location</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrWhiteSpace(business.BusinessLocation)
+                            ? "Not specified"
+                            : business.BusinessLocation)
+                    </dd>
+
+                    <dt class="col-sm-4">Employs People</dt>
+                    <dd class="col-sm-8">
+                        @(business.EmploysPeople ? "Yes" : "No")
+                    </dd>
+
+                    <dt class="col-sm-4">Enquiry Submitted</dt>
+                    <dd class="col-sm-8">
+                        @Model.Assessment.SubmittedAt
+                            .ToLocalTime().ToString("dd MMM yyyy")
+                    </dd>
+
+                    <dt class="col-sm-4">Assessment Status</dt>
+                    <dd class="col-sm-8">
+                        @Model.Assessment.Status
+                    </dd>
+                </dl>
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Readiness Tasks</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.ReadinessTasks.Count == 0)
+                {
+                    <p class="mb-0">No readiness tasks recorded.</p>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        @foreach (var task in Model.ReadinessTasks)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>@task.TaskName</span>
+                                <span class="badge @(task.IsComplete
+                                    ? "bg-success" : "bg-warning text-dark")">
+                                    @(task.IsComplete ? "Complete" : "Pending")
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </section>
+
+        <section class="card shadow-sm mb-4">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Compliance Records</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.ComplianceRecords.Count == 0)
+                {
+                    <p class="mb-0">No compliance records recorded.</p>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Compliance Type</th>
+                                    <th>Expiry Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var record in Model.ComplianceRecords)
+                                {
+                                    var expired = record.CheckExpiry();
+
+                                    <tr>
+                                        <td>@record.ComplianceType</td>
+                                        <td>
+                                            @(record.ExpiryDate.HasValue
+                                                ? record.ExpiryDate.Value
+                                                    .ToString("dd MMM yyyy")
+                                                : "No expiry date")
+                                        </td>
+                                        <td>
+                                            @if (!record.ExpiryDate.HasValue)
+                                            {
+                                                <span>Not specified</span>
+                                            }
+                                            else if (expired)
+                                            {
+                                                <span class="text-danger">Expired</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-success">Valid</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <section class="card shadow-sm">
+            <div class="card-header">
+                <h2 class="h5 mb-0">Funding Assessment</h2>
+            </div>
+
+            <div class="card-body">
+                @if (TempData["SuccessMessage"] is string successMessage)
+                {
+                    <div class="alert alert-success">
+                        @successMessage
+                    </div>
+                }
+
+                <div asp-validation-summary="All"
+                    class="text-danger mb-3"></div>
+
+                @if (Model.Assessment.Status == "Pending")
+                {
+                    <form method="post"
+                        asp-page-handler="Assess"
+                        asp-route-id="@Model.Assessment.FundingAssessmentId">
+
+                        <div class="mb-3">
+                            <label for="SimulatedOutcome"
+                                class="form-label">
+                                Assessment Outcome
+                            </label>
+
+                            <select id="SimulatedOutcome"
+                                    name="SimulatedOutcome"
+                                    class="form-select"
+                                    required>
+                                <option value="">Select an outcome</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Declined">Declined</option>
+                                <option value="More information required">
+                                    More information required
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Remarks" class="form-label">
+                                Assessment Remarks
+                            </label>
+
+                            <textarea id="Remarks"
+                                    name="Remarks"
+                                    class="form-control"
+                                    rows="4"
+                                    maxlength="2000"
+                                    required
+                                    placeholder="Explain the assessment decision..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Record Assessment
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <p>
+                        <strong>Outcome:</strong>
+                        @Model.Assessment.SimulatedOutcome
+                    </p>
+
+                    <p>
+                        <strong>Remarks:</strong>
+                        @Model.Assessment.Remarks
+                    </p>
+
+                    <p>
+                        <strong>Assessed on:</strong>
+                        @(Model.Assessment.AssessedAt?.ToLocalTime()
+                            .ToString("dd MMM yyyy HH:mm") ?? "Not recorded")
+                    </p>
+
+                    <p class="text-success mb-0">
+                        This enquiry has been assessed.
+                    </p>
+                }
+            </div>
+        </section>
+
+        <p class="text-muted small mt-3">
+            This is a simulated assessment for the Business Buzz prototype,
+            not a real lending decision.
+        </p>
+    }
+</div>
