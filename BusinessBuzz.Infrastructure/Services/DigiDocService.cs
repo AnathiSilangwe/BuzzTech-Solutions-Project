@@ -49,9 +49,11 @@ public class DigiDocsService : IDigiDocsService
         QuestPDF.Settings.License = LicenseType.Community;
 
         // Save generated files outside wwwroot.
-        var documentsFolder = Path.Combine(
-            AppContext.BaseDirectory,
-            "GeneratedDocuments");
+        var documentsFolder = Path.GetFullPath(
+        Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "App_Data",
+            "GeneratedDocuments"));
 
         Directory.CreateDirectory(documentsFolder);
 

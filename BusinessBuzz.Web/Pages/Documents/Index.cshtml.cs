@@ -10,6 +10,7 @@ namespace BusinessBuzz.Web.Pages.Documents;
 public class IndexModel : PageModel
 {
     private readonly BusinessBuzzDbContext _context;
+    public string? UserEmail { get; private set; }
 
     public IndexModel(BusinessBuzzDbContext context)
     {
@@ -21,6 +22,11 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         var userId = HttpContext.Session.GetInt32("UserId");
+
+        UserEmail = await _context.SystemUsers
+            .Where(u => u.SystemUserId == userId.Value)
+            .Select(u => u.Email)
+            .FirstOrDefaultAsync();
 
         if (userId == null)
         {

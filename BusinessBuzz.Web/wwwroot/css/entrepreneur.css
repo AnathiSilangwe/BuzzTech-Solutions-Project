@@ -3144,3 +3144,128 @@ a.generate-document-link {
         background: var(--bb-gold);
         color: var(--bb-navy);
     }
+    
+/* ========================================
+   DOCUMENTS PAGE - ADDITIONAL STYLES
+   ======================================== */
+
+.documents-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 28px 0 18px;
+}
+
+.documents-section-heading h2 {
+    color: var(--bb-navy);
+    font-size: 1.2rem;
+    font-weight: 750;
+    margin: 4px 0 0;
+}
+
+.documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.document-verification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 6px 11px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.document-verification-badge.verified {
+    background-color: #e5f8ee;
+    color: #16814f;
+}
+
+.document-verification-badge.unverified {
+    background-color: #fff3cd;
+    color: #946b00;
+}
+
+.documents-empty-state {
+    background-color: #ffffff;
+    border: 1px dashed #cfd4dc;
+    border-radius: 12px;
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.empty-document-icon {
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    border-radius: 14px;
+    background-color: #f0f2f7;
+    color: var(--bb-navy);
+    font-size: 1.8rem;
+}
+
+.documents-empty-state h2 {
+    color: var(--bb-navy);
+    font-size: 1.15rem;
+    font-weight: 750;
+    margin-bottom: 8px;
+}
+
+.documents-empty-state p {
+    max-width: 480px;
+    margin: 0 auto 22px;
+    color: #6b7280;
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.documents-help-card {
+    margin-top: 24px;
+}
+
+.documents-bottom-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+@media (max-width: 768px) {
+    .documents-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .documents-section-heading .generate-document-link {
+        width: 100%;
+    }
+
+    .documents-bottom-navigation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .documents-bottom-navigation a {
+        text-align: center;
+    }
+
+    .document-card-top {
+        grid-template-columns: 50px minmax(0, 1fr);
+    }
+
+    .document-verification-badge {
+        grid-column: 2;
+    }
+}
