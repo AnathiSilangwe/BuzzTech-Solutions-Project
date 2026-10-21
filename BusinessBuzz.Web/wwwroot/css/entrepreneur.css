@@ -3269,3 +3269,460 @@ a.generate-document-link {
         grid-column: 2;
     }
 }
+
+
+/* ========================================
+   BUSINESS BUZZ - ENTREPRENEUR DASHBOARD
+   DESIGN REFINEMENT
+   ======================================== */
+
+.dashboard-body {
+    --entrepreneur-navy: #142d4e;
+    --entrepreneur-gold: #d6ad55;
+    --entrepreneur-bg: #f1f3f7;
+    --entrepreneur-white: #ffffff;
+    --entrepreneur-text: #243247;
+    --entrepreneur-muted: #697586;
+    --entrepreneur-border: #e3e8ef;
+
+    min-height: 100vh;
+    margin: 0;
+    background: var(--entrepreneur-bg);
+    color: var(--entrepreneur-text);
+}
+
+/* Main layout */
+
+.entrepreneur-layout {
+    min-height: 100vh;
+    background: var(--entrepreneur-bg);
+}
+
+/* Sidebar */
+
+.entrepreneur-sidebar {
+    width: 250px;
+    background: var(--entrepreneur-navy);
+    color: var(--entrepreneur-white);
+    border-right: 1px solid rgb(255 255 255 / 7%);
+    box-shadow: 3px 0 18px rgb(20 45 78 / 8%);
+}
+
+.sidebar-brand {
+    padding: 28px 24px 25px;
+    border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+.sidebar-brand a {
+    color: var(--entrepreneur-white);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+.sidebar-brand span {
+    color: var(--entrepreneur-gold);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+/* Navigation links */
+
+.sidebar-nav {
+    padding: 22px 12px;
+}
+
+.sidebar-link {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #d1d9e6;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.sidebar-link:hover {
+    color: var(--entrepreneur-white);
+    background: rgb(255 255 255 / 8%);
+}
+
+.sidebar-link.active {
+    color: var(--entrepreneur-white);
+    background: rgb(214 173 85 / 15%);
+    border-color: rgb(214 173 85 / 28%);
+    border-left: 3px solid var(--entrepreneur-gold);
+    padding-left: 12px;
+    font-weight: 700;
+}
+
+.notification-count {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    border-radius: 50%;
+    background: var(--entrepreneur-gold);
+    color: var(--entrepreneur-navy);
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+/* Sidebar user section */
+
+.sidebar-user {
+    padding: 20px;
+    border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+.user-avatar {
+    background: var(--entrepreneur-gold);
+    color: var(--entrepreneur-navy);
+    font-weight: 800;
+}
+
+.sidebar-user strong {
+    color: var(--entrepreneur-white);
+}
+
+.sidebar-user small,
+.account-settings {
+    color: #b5c0d1;
+}
+
+.account-settings:hover {
+    color: var(--entrepreneur-gold);
+}
+
+/* Main dashboard area */
+
+.dashboard-main {
+    min-width: 0;
+    background: var(--entrepreneur-bg);
+    padding: 36px 40px 55px;
+}
+
+.dashboard-heading {
+    margin-bottom: 28px;
+}
+
+.dashboard-heading h1 {
+    color: var(--entrepreneur-navy);
+    font-size: clamp(1.65rem, 2.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-heading p {
+    color: var(--entrepreneur-muted);
+    line-height: 1.7;
+}
+
+/* Next step banner */
+
+.next-step-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--entrepreneur-navy);
+    border: 1px solid rgb(20 45 78 / 8%);
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgb(20 45 78 / 10%);
+    padding: 28px 30px;
+}
+
+.next-step-label {
+    color: var(--entrepreneur-gold);
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.next-step-card h2 {
+    color: var(--entrepreneur-white);
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.next-step-card p {
+    color: #d2dbea;
+    line-height: 1.7;
+}
+
+.continue-btn,
+.dashboard-continue-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 19px;
+    background: var(--entrepreneur-gold);
+    color: var(--entrepreneur-navy);
+    border: 1px solid var(--entrepreneur-gold);
+    border-radius: 7px;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.continue-btn:hover,
+.dashboard-continue-link:hover {
+    background: #e5bd6a;
+    color: var(--entrepreneur-navy);
+    transform: translateY(-1px);
+}
+
+/* Dashboard cards */
+
+.dashboard-grid {
+    align-items: start;
+    gap: 22px;
+}
+
+.dashboard-card {
+    min-width: 0;
+    background: var(--entrepreneur-white);
+    border: 1px solid var(--entrepreneur-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgb(20 45 78 / 4%);
+}
+
+.card-heading {
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.card-heading h2,
+.dashboard-card > h2 {
+    color: var(--entrepreneur-navy);
+    font-size: 1.02rem;
+    font-weight: 800;
+}
+
+.card-heading span {
+    color: var(--entrepreneur-muted);
+}
+
+.card-heading a {
+    color: #947126;
+    font-weight: 750;
+}
+
+.card-heading a:hover {
+    color: var(--entrepreneur-navy);
+    text-decoration: underline;
+}
+
+/* Business journey stages */
+
+.business-stage {
+    border-bottom: 1px solid #edf0f4;
+    border-radius: 7px;
+    padding: 13px 12px;
+    transition: background-color 0.2s ease;
+}
+
+.business-stage:hover {
+    background: #f8f9fb;
+}
+
+.business-stage.current {
+    background: #fff8e8;
+    border: 1px solid #ead5a0;
+}
+
+.stage-left {
+    color: var(--entrepreneur-text);
+    line-height: 1.5;
+}
+
+.stage-left small {
+    color: var(--entrepreneur-muted);
+}
+
+.stage-icon {
+    background: #e3f4eb;
+    color: #23714f;
+}
+
+.stage-icon.pending {
+    background: #edf0f4;
+    color: #697586;
+}
+
+.current-icon {
+    background: var(--entrepreneur-gold);
+    color: var(--entrepreneur-navy);
+}
+
+.stage-status {
+    display: inline-block;
+    font-weight: 750;
+    line-height: 1.5;
+}
+
+.stage-status.complete {
+    background: #e4f4ec;
+    color: #23714f;
+}
+
+.stage-status.in-progress {
+    background: #fff2d5;
+    color: #8a6411;
+}
+
+.stage-status.upcoming,
+.stage-status.locked {
+    background: #eef0f4;
+    color: #697586;
+}
+
+/* Progress card */
+
+.progress-circle {
+    background: conic-gradient(
+        var(--entrepreneur-gold) 0 29%,
+        #e8ecf2 29% 100%
+    );
+}
+
+.progress-circle::before {
+    background: var(--entrepreneur-white);
+}
+
+.progress-circle strong {
+    color: var(--entrepreneur-navy);
+    font-weight: 800;
+}
+
+.progress-circle span {
+    color: var(--entrepreneur-muted);
+}
+
+.progress-summary {
+    gap: 11px;
+}
+
+.progress-summary div {
+    color: var(--entrepreneur-text);
+}
+
+.progress-summary span {
+    color: var(--entrepreneur-muted);
+}
+
+/* Notification cards */
+
+.notification-item {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.notification-item strong {
+    color: var(--entrepreneur-text);
+    line-height: 1.5;
+}
+
+.notification-item small {
+    color: var(--entrepreneur-muted);
+}
+
+.notification-item.warning {
+    background: #fff3f1;
+    border-color: #f3d6d1;
+}
+
+.notification-item.success {
+    background: #eaf7f0;
+    border-color: #cce8d8;
+}
+
+/* Focus visibility */
+
+.sidebar-link:focus-visible,
+.continue-btn:focus-visible,
+.dashboard-continue-link:focus-visible,
+.card-heading a:focus-visible {
+    outline: 3px solid var(--entrepreneur-gold);
+    outline-offset: 3px;
+}
+
+/* Responsive dashboard */
+
+@media (max-width: 992px) {
+    .entrepreneur-sidebar {
+        width: 210px;
+    }
+
+    .dashboard-main {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+        padding: 28px 24px 45px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .entrepreneur-layout {
+        display: block;
+    }
+
+    .entrepreneur-sidebar {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .dashboard-main {
+        width: 100%;
+        margin-left: 0;
+        padding: 24px 16px 40px;
+    }
+
+    .dashboard-card {
+        padding: 19px 16px;
+    }
+
+    .next-step-card {
+        padding: 23px 20px;
+    }
+
+    .business-stage {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-heading h1 {
+        font-size: 1.55rem;
+    }
+
+    .card-heading {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .stage-status {
+        white-space: normal;
+    }
+}

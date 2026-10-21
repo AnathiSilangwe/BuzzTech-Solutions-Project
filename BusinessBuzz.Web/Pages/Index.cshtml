@@ -1,82 +1,98 @@
 ﻿@page
 @model IndexModel
+
 @{
-    Layout = null;
-ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home";
+    ViewData["HideNavbar"] = true;
 }
 
 @section Styles {
     <link rel="stylesheet"
-          href="~/css/main.css"
+          href="~/css/home.css"
           asp-append-version="true" />
 }
 
-<section class="hero-section">
-    <div class="container text-center">
-        <p class="hero-label">
+<section class="bb-home-hero">
+    <div class="bb-hero-content">
+
+        <p class="bb-hero-label">
             SOUTH AFRICAN BUSINESS PLATFORM
         </p>
 
-        <h1 class="hero-title">
+        <h1 class="bb-hero-title">
             From Business Idea
             <br class="d-none d-md-block" />
             to Business Ready.
         </h1>
 
-        <p class="hero-description">
+        <p class="bb-hero-description">
             Business Buzz helps you understand, prepare for and
             track the steps involved in building your business.
         </p>
 
-        <div class="hero-buttons">
+        <div class="bb-hero-buttons">
             <a asp-page="/Account/Register"
-               class="btn btn-start">
+               class="bb-btn bb-btn-primary">
                 Start Your Journey
+                <span aria-hidden="true">&rarr;</span>
             </a>
 
             <a href="#how-it-works"
-               class="btn btn-learn">
+               class="bb-btn bb-btn-secondary">
                 Learn How It Works
             </a>
         </div>
+
+    </div>
+
+    <div class="bb-hero-bottom">
+        YOUR IDEA. YOUR JOURNEY. YOUR FUTURE.
     </div>
 </section>
 
-<div class="row mt-5 pt-5">
-    <div class="col-12 text-center mb-4">
-        <h2 class="fw-bold">Everything you need to start with confidence</h2>
-        <p class="text-muted">
-            Business Buzz brings the important parts of your business journey together.
+<main class="bb-home-features" id="how-it-works">
+
+    <div class="bb-features-heading">
+        <p class="bb-section-label">
+            BUILT FOR YOUR JOURNEY
+        </p>
+
+        <h2>
+            Everything you need to start with confidence
+        </h2>
+
+        <p>
+            Business Buzz brings the important parts of your
+            business journey together in one place.
         </p>
     </div>
 
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 p-4">
-            <h4 class="fw-bold">BuzzGuide</h4>
-            <p class="text-muted">
-                Get personalised guidance based on your business idea and
-                where you are in your entrepreneurial journey with the AI assistat.
+    <div class="bb-feature-grid">
+
+        <article class="bb-feature-card">
+            <span class="bb-feature-number">01</span>
+
+            <h3>BuzzGuide</h3>
+
+            <p>
+                Get personalised guidance based on your business
+                idea and where you are in your entrepreneurial
+                journey with your AI assistant.
             </p>
-        </div>
+        </article>
+
+        <article class="bb-feature-card">
+            <span class="bb-feature-number">02</span>
+
+            <h3>Business Documents</h3>
+
+            <p>
+                Keep track of the documents you need and access
+                generated documents through your Business Buzz
+                profile.
+            </p>
+        </article>
+
     </div>
 
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 p-4">
-            <h4 class="fw-bold">Business Documents</h4>
-            <p class="text-muted">
-                Keep track of the documents you need and access generated
-                documents through your Business Buzz profile.
-            </p>
-        </div>
-    </div>
-
-   @*  <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0 p-4">
-            <h4 class="fw-bold">Funding Readiness</h4>
-            <p class="text-muted">
-                Understand what may be required when preparing your business
-                for potential funding opportunities.
-            </p>
-        </div>
-    </div> *@
-</div>
+</main>

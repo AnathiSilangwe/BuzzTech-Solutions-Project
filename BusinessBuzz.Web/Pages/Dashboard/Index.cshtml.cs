@@ -37,6 +37,8 @@ public class IndexModel : PageModel
     public bool? EmploysPeople { get; private set; }
     public bool? IsProfileConfirmed { get; private set; }
     public BuzzGuideContext? BuzzGuideContext { get; private set; }
+    
+    [BindProperty]
     public string? BuzzGuideQuestion { get; set; }
     public string? BuzzGuideResponse { get; private set; }
 
@@ -114,7 +116,7 @@ public class IndexModel : PageModel
             BuzzGuideConversation = await _buzzGuideConversationService.GetConversationAsync(profile.BusinessProfileId);
         }
 
-
+        ViewData["BuzzGuideConversation"] = BuzzGuideConversation;
 
         return Page();
     }

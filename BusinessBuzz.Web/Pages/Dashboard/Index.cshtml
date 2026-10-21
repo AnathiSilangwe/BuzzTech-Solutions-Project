@@ -9,21 +9,62 @@
     ViewData["BuzzGuideResponse"] = Model.BuzzGuideResponse;
 
     var emailName = (Model.UserEmail ?? "Entrepreneur").Split('@')[0]
-        .Replace('.', ' ').Replace('_', ' ').Replace('-', ' ');
-    var displayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(emailName);
-    var hour = DateTime.Now.Hour;
-    var greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+        .Replace('.', ' ')
+        .Replace('_', ' ')
+        .Replace('-', ' ');
 
+    var displayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(emailName);
+
+    var hour = DateTime.Now.Hour;
+
+    var greeting = hour < 12
+        ? "Good morning"
+        : hour < 18
+            ? "Good afternoon"
+            : "Good evening";
+
+    // Application statuses that count as completed.
     var completedStatuses = new[] { "Approved", "Completed" };
+
+    // Count completed stages, including Business Profile when one exists.
     var completedCount = Model.PersonalisedJourney.Count(stage =>
-        completedStatuses.Contains(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), StringComparer.OrdinalIgnoreCase));
+        (stage.StageName == "Business Profile" && Model.HasBusinessProfile) ||
+        completedStatuses.Contains(
+            Model.ApplicationStatuses.GetValueOrDefault(
+                stage.JourneyStageId,
+                "Not Started"),
+            StringComparer.OrdinalIgnoreCase));
+
+    // Count submitted applications that are not completed.
     var inProgressCount = Model.PersonalisedJourney.Count(stage =>
-        string.Equals(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), "Submitted", StringComparison.OrdinalIgnoreCase));
+        !(stage.StageName == "Business Profile" && Model.HasBusinessProfile) &&
+        string.Equals(
+            Model.ApplicationStatuses.GetValueOrDefault(
+                stage.JourneyStageId,
+                "Not Started"),
+            "Submitted",
+            StringComparison.OrdinalIgnoreCase));
+
     var totalStages = Model.PersonalisedJourney.Count;
-    var upcomingCount = Math.Max(0, totalStages - completedCount - inProgressCount);
-    var progressPercent = totalStages == 0 ? 0 : (int)Math.Round((double)completedCount / totalStages * 100);
+
+    var upcomingCount = Math.Max(
+        0,
+        totalStages - completedCount - inProgressCount);
+
+    // Calculate overall journey progress.
+    var progressPercent = totalStages == 0
+        ? 0
+        : (int)Math.Round(
+            (double)completedCount / totalStages * 100);
+
+    // Find the next stage that has not been completed.
     var nextStage = Model.PersonalisedJourney.FirstOrDefault(stage =>
-        !completedStatuses.Contains(Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started"), StringComparer.OrdinalIgnoreCase));
+        !(stage.StageName == "Business Profile" && Model.HasBusinessProfile) &&
+        !completedStatuses.Contains(
+            Model.ApplicationStatuses.GetValueOrDefault(
+                stage.JourneyStageId,
+                "Not Started"),
+            StringComparer.OrdinalIgnoreCase));
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -156,7 +197,9 @@
                         @foreach (var stage in Model.PersonalisedJourney.OrderBy(stage => stage.StageOrder))
                         {
                             var status = Model.ApplicationStatuses.GetValueOrDefault(stage.JourneyStageId, "Not Started");
-                            var isComplete = completedStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
+                            var isProfileStageComplete = stage.StageName == "Business Profile" &&  Model.HasBusinessProfile;
+
+                            var isComplete = isProfileStageComplete ||  completedStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
                             var isCurrent = !isComplete && (nextStage?.JourneyStageId == stage.JourneyStageId);
                             var stageClass = isComplete ? "completed" : isCurrent ? "current" : "";
                             var statusClass = isComplete ? "complete" : status == "Submitted" || status == "Rejected" ? "in-progress" : "upcoming";

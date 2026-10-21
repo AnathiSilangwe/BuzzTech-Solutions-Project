@@ -1,5 +1,8 @@
+@using BusinessBuzz.Core.Entities
+
 @{
-    var buzzGuideResponse = ViewData["BuzzGuideResponse"] as string;
+    var conversation = ViewData["BuzzGuideConversation"]
+        as IEnumerable<BuzzGuideMessage>;
 }
 
 <div class="buzzguide-widget" id="buzzGuideWidget">
@@ -27,44 +30,58 @@
         </header>
 
         <div class="buzzguide-messages" id="buzzGuideMessages">
-            <div class="buzzguide-message buzzguide-message-assistant">
-                <strong>Hello, entrepreneur!</strong>
-                <p>
-                    I'm BuzzGuide. I can help you understand your business
-                    profile, registration requirements and next steps.
-                </p>
-            </div>
 
-            @if (!string.IsNullOrWhiteSpace(buzzGuideResponse))
+            @if (conversation == null || !conversation.Any())
             {
                 <div class="buzzguide-message buzzguide-message-assistant">
-                    <strong>BuzzGuide</strong>
-                    <p>@buzzGuideResponse</p>
+                    <strong>Hello, entrepreneur!</strong>
+                    <p>
+                        I'm BuzzGuide. I can help you understand your business
+                        profile, registration requirements and next steps.
+                    </p>
                 </div>
             }
+            else
+            {
+                @foreach (var message in conversation
+                    .OrderBy(m => m.CreatedAt)
+                    .ThenBy(m => m.BuzzGuideMessageId))
+                {
+                    var isEntrepreneur = message.Role == "Entrepreneur";
+
+                    <div class="buzzguide-message @(isEntrepreneur
+                        ? "buzzguide-message-user"
+                        : "buzzguide-message-assistant")">
+                        <strong>@(isEntrepreneur ? "You" : "BuzzGuide")</strong>
+                        <p>@message.Message</p>
+                    </div>
+                }
+            }
+
         </div>
 
         <div class="buzzguide-suggestions">
-            <button type="button" data-question="Help me review my business profile.">
+            <button type="button"
+                    data-question="Help me review my business profile.">
                 Review my profile
             </button>
 
-            <button type="button" data-question="Explain the CIPC registration process.">
+            <button type="button"
+                    data-question="Explain the CIPC registration process.">
                 CIPC registration
             </button>
 
-            <button type="button" data-question="What should I do next in my business journey?">
+            <button type="button"
+                    data-question="What should I do next in my business journey?">
                 My next step
             </button>
         </div>
 
-        
-    <form method="post"
-        asp-page="/Dashboard/Index"
-        asp-page-handler="AskBuzzGuide"
-        class="buzzguide-form"
-        id="buzzGuideForm">
-
+        <form method="post"
+              asp-page="/Dashboard/Index"
+              asp-page-handler="AskBuzzGuide"
+              class="buzzguide-form"
+              id="buzzGuideForm">
 
             <label class="visually-hidden" for="buzzGuideQuestion">
                 Ask BuzzGuide a question
@@ -72,7 +89,7 @@
 
             <input type="text"
                    id="buzzGuideQuestion"
-                   name="Question"
+                   name="BuzzGuideQuestion"
                    placeholder="Ask BuzzGuide anything..."
                    autocomplete="off"
                    maxlength="1000"
@@ -83,7 +100,9 @@
             </button>
         </form>
 
-        <p class="buzzguide-footer">Business Buzz · Your journey, guided.</p>
+        <p class="buzzguide-footer">
+            Business Buzz · Your journey, guided.
+        </p>
     </section>
 
     <button type="button"

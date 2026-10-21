@@ -5,6 +5,8 @@
     var userId = Context.Session.GetInt32("UserId");
     var roleId = Context.Session.GetInt32("RoleId");
     var isLoggedIn = userId.HasValue;
+    var hideNavbar = ViewData["HideNavbar"] as bool? == true;
+    var isHomePage = hideNavbar;
     var unreadNotificationCount = 0;
 
     if (userId.HasValue)
@@ -17,120 +19,199 @@
     }
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BusinessBuzz.Web</title>
+
+    <title>@ViewData["Title"] - Business Buzz</title>
+
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BusinessBuzz.Web.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/buzzguide-widget.css" asp-append-version="true"/>
-    @await RenderSectionAsync("Styles", required:false)
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/BusinessBuzz.Web.styles.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/buzzguide-widget.css"
+          asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand fw-bold" asp-area="" asp-page="/Index">Business Buzz</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                        </li>
 
-                        @if (isLoggedIn && roleId == 1)
-                        {
+    @if (!hideNavbar)
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+                <div class="container">
+
+                    <a class="navbar-brand fw-bold"
+                       asp-area=""
+                       asp-page="/Index">
+                        Business Buzz
+                    </a>
+
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target=".navbar-collapse"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                        <ul class="navbar-nav flex-grow-1">
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Dashboard/Index">
-                                    My Dashboard
+                                <a class="nav-link text-dark"
+                                   asp-page="/Index">
+                                    Home
                                 </a>
                             </li>
-                        }
 
-                        @if (isLoggedIn && roleId == 2)
-                        {
+                            @if (isLoggedIn && roleId == 1)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-page="/Dashboard/Index">
+                                        My Dashboard
+                                    </a>
+                                </li>
+                            }
+
+                            @if (isLoggedIn && roleId == 2)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-page="/Approver/Index">
+                                        Review Applications
+                                    </a>
+                                </li>
+                            }
+
+                            @if (isLoggedIn)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark"
+                                       asp-page="/Notifications/Index">
+                                        Notifications
+
+                                        @if (unreadNotificationCount > 0)
+                                        {
+                                            <span class="badge bg-danger ms-1">
+                                                @unreadNotificationCount
+                                            </span>
+                                        }
+                                    </a>
+                                </li>
+                            }
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Approver/Index">
-                                    Review Applications
+                                <a class="nav-link text-dark"
+                                   asp-page="/Privacy">
+                                    About
                                 </a>
                             </li>
-                        }
 
-                        @if (isLoggedIn)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Notifications/Index">
-                                    Notifications
-                                    @if (unreadNotificationCount > 0)
-                                    {
-                                        <span class="badge bg-danger ms-1">
-                                            @unreadNotificationCount
-                                        </span>
-                                    }
+                        </ul>
+
+                        <div class="d-flex gap-2">
+
+                            @if (!isLoggedIn)
+                            {
+                                <a asp-page="/Account/Login"
+                                   class="btn btn-outline-primary">
+                                    Login
                                 </a>
-                            </li>
-                        }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Privacy">About</a>
-                        </li>
-                    </ul>
-                    
+                                <a asp-page="/Account/Register"
+                                   class="btn btn-primary">
+                                    Get Started
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="navbar-text me-2">
+                                    Signed in
+                                </span>
 
-                    <div class="d-flex gap-2">
-                        @if (!isLoggedIn)
-                        {
-                            <a asp-page="/Account/Login" class="btn btn-outline-primary">
-                                Login
-                            </a>
+                                <form method="post"
+                                      asp-page="/Account/Logout"
+                                      id="logoutForm">
 
-                            <a asp-page="/Account/Register" class="btn btn-primary">
-                                Get Started
-                            </a>
-                        }
-                        else
-                        {
-                            <span class="navbar-text me-2">Signed in</span>
+                                    <button type="submit"
+                                            class="btn btn-outline-danger"
+                                            id="logoutBtn">
+                                        Logout
+                                    </button>
 
-                            <form method="post" asp-page="/Account/Logout" id="logoutForm">
-                                <button type="submit" class="btn btn-outline-danger" id = "logoutBtn">
-                                    Logout
-                                </button>
-                            </form>
-                            
-                        }
+                                </form>
+                            }
+
+                        </div>
+
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            </nav>
+        </header>
+    }
+
+    @if (isHomePage)
+    {
+        <main role="main">
             @RenderBody()
         </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    }
+    else
+    {
         <div class="container">
-            &copy; 2026 - BusinessBuzz.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    }
+
+    @if (!isHomePage)
+    {
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2026 - Business Buzz -
+                <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/Logout.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/buzzguide-widget.js" asp-append-version="true"></script>
+
+    <script src="~/js/Logout.js"
+            asp-append-version="true"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
+    <script src="~/js/buzzguide-widget.js"
+            asp-append-version="true"></script>
+
     @await Html.PartialAsync("_BuzzGuideWidget")
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

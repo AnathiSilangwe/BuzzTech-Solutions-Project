@@ -1,0 +1,335 @@
+/* ============================================
+   BUSINESS BUZZ
+   HOME PAGE — NAVY AND GOLD THEME
+   ============================================ */
+
+:root {
+    --home-navy: #0b1733;
+    --home-navy-light: #14264a;
+    --home-gold: #e5bd59;
+    --home-white: #ffffff;
+    --home-text: #30394b;
+    --home-muted: #667085;
+    --home-background: #f7f8fb;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.bb-home-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 78vh;
+    padding: 100px 24px 110px;
+
+    overflow: hidden;
+
+    background-color: var(--home-navy);
+    color: var(--home-gold);
+
+    text-align: center;
+}
+
+.bb-hero-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.bb-hero-label {
+    margin-bottom: 28px;
+
+    color: var(--home-gold);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+}
+
+.bb-hero-title {
+    margin: 0 0 26px;
+
+    color: var(--home-gold);
+
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+}
+
+.bb-hero-description {
+    max-width: 680px;
+    margin: 0 auto 36px;
+
+    color: var(--home-gold);
+
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.8;
+
+    opacity: 0.9;
+}
+
+/* ============================================
+   HERO BUTTONS
+   ============================================ */
+
+.bb-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.bb-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 52px;
+    padding: 14px 26px;
+
+    border: 2px solid var(--home-gold);
+    border-radius: 6px;
+
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Primary button */
+
+.bb-btn-primary {
+    background-color: var(--home-gold);
+    color: var(--home-navy);
+}
+
+/* Secondary button */
+
+.bb-btn-secondary {
+    background-color: transparent;
+    color: var(--home-gold);
+}
+
+/* Both buttons turn white on hover */
+
+.bb-btn:hover,
+.bb-btn:focus-visible {
+    background-color: var(--home-white);
+    border-color: var(--home-white);
+    color: var(--home-navy);
+
+    transform: translateY(-2px);
+}
+
+/* Keyboard accessibility */
+
+.bb-btn:focus-visible {
+    outline: 3px solid var(--home-gold);
+    outline-offset: 4px;
+}
+
+/* ============================================
+   HERO FOOTER TEXT
+   ============================================ */
+
+.bb-hero-bottom {
+    position: absolute;
+    bottom: 28px;
+    left: 16px;
+    right: 16px;
+
+    color: var(--home-gold);
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+
+    opacity: 0.7;
+}
+
+/* ============================================
+   FEATURES SECTION
+   ============================================ */
+
+.bb-home-features {
+    padding: 80px 24px 100px;
+
+    background-color: var(--home-background);
+}
+
+/* Section heading */
+
+.bb-features-heading {
+    max-width: 760px;
+    margin: 0 auto 42px;
+
+    text-align: center;
+}
+
+.bb-section-label {
+    margin-bottom: 12px;
+
+    color: #9a7520;
+
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+}
+
+.bb-features-heading h2 {
+    margin-bottom: 16px;
+
+    color: var(--home-navy);
+
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+}
+
+.bb-features-heading > p:last-child {
+    color: var(--home-muted);
+    line-height: 1.8;
+}
+
+/* Feature card layout */
+
+.bb-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+/* Individual cards */
+
+.bb-feature-card {
+    padding: 32px;
+
+    background-color: var(--home-white);
+
+    border: 1px solid #e7eaf0;
+    border-top: 4px solid var(--home-gold);
+    border-radius: 8px;
+
+    box-shadow: 0 8px 28px rgb(11 23 51 / 5%);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.bb-feature-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 14px 32px rgb(11 23 51 / 10%);
+}
+
+.bb-feature-number {
+    display: inline-block;
+    margin-bottom: 20px;
+
+    color: #9a7520;
+
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.bb-feature-card h3 {
+    margin-bottom: 12px;
+
+    color: var(--home-navy);
+
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.bb-feature-card p {
+    margin-bottom: 0;
+
+    color: var(--home-muted);
+    line-height: 1.8;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 640px) {
+
+    .bb-home-hero {
+        min-height: 72vh;
+        padding: 80px 20px 100px;
+    }
+
+    .bb-hero-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+    }
+
+    .bb-hero-title {
+        font-size: clamp(2.4rem, 11vw, 3.5rem);
+    }
+
+    .bb-hero-description {
+        font-size: 1rem;
+    }
+
+    .bb-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+
+        width: 100%;
+        max-width: 340px;
+
+        margin: 0 auto;
+    }
+
+    .bb-btn {
+        width: 100%;
+    }
+
+    .bb-hero-bottom {
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+    }
+
+    .bb-home-features {
+        padding: 60px 20px;
+    }
+
+    .bb-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bb-feature-card {
+        padding: 26px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    .bb-btn,
+    .bb-feature-card {
+        transition: none;
+    }
+
+    .bb-btn:hover,
+    .bb-feature-card:hover {
+        transform: none;
+    }
+}
