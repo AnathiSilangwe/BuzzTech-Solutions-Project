@@ -242,8 +242,6 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\d9cpc9y
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\su0bxmaf5j-{0}-b8kt76gdor-b8kt76gdor.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\zsj8ar2ayp-{0}-spircmgx7e-spircmgx7e.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\j9gyxhfudf-{0}-g64yrafhho-g64yrafhho.gz
-C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\27uwn4r38o-{0}-exdvjdzrqj-exdvjdzrqj.gz
-C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\6kiu7u9bjb-{0}-p4h8ludeby-p4h8ludeby.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\oqd5an7u6y-{0}-6jy9f8hk4e-6jy9f8hk4e.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\QuestPDF.Fonts.Lato.br
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\bin\Debug\net10.0\QuestPDF.dll
@@ -268,3 +266,5 @@ C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\porwlei
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\mdb9l79ebi-{0}-nd3t4hsg5t-nd3t4hsg5t.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\wkdjfmn5j7-{0}-hncnwfgje4-hncnwfgje4.gz
 C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\960bxoesqy-{0}-v1gabkgg68-v1gabkgg68.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\6kiu7u9bjb-{0}-gd8pe015s8-gd8pe015s8.gz
+C:\Users\Dell\BusinessBuzz\BusinessBuzz.Web\obj\Debug\net10.0\compressed\27uwn4r38o-{0}-kmvdsc7dny-kmvdsc7dny.gz

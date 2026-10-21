@@ -58,11 +58,13 @@
             </button>
         </div>
 
-        <form method="post"
-              asp-page="/Dashboard/Index"
-              asp-page-handler="AskBuzzGuide"
-              class="buzzguide-form"
-              id="buzzGuideForm">
+        
+    <form method="post"
+        asp-page="/Dashboard/Index"
+        asp-page-handler="AskBuzzGuide"
+        class="buzzguide-form"
+        id="buzzGuideForm">
+
 
             <label class="visually-hidden" for="buzzGuideQuestion">
                 Ask BuzzGuide a question
@@ -70,7 +72,7 @@
 
             <input type="text"
                    id="buzzGuideQuestion"
-                   name="BuzzGuideQuestion"
+                   name="Question"
                    placeholder="Ask BuzzGuide anything..."
                    autocomplete="off"
                    maxlength="1000"

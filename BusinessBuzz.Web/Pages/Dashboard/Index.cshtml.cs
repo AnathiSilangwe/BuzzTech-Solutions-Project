@@ -118,62 +118,97 @@ public class IndexModel : PageModel
 
         return Page();
     }
+    
     public async Task<IActionResult> OnPostAskBuzzGuideAsync()
     {
         var userId = HttpContext.Session.GetInt32("UserId");
 
         if (userId == null)
         {
-            return RedirectToPage("/Account/Login");
+            return new JsonResult(new
+            {
+                success = false,
+                message = "Your session has expired. Please log in again."
+            })
+            {
+                StatusCode = StatusCodes.Status401Unauthorized
+            };
         }
 
         if (string.IsNullOrWhiteSpace(BuzzGuideQuestion))
         {
-            return Page();
+            return BadRequest(new
+            {
+                success = false,
+                message = "Please enter a question."
+            });
+        }
+
+        var question = BuzzGuideQuestion.Trim();
+
+        if (question.Length > 1000)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                message = "Your question must not exceed 1000 characters."
+            });
         }
 
         var profile = await _context.BusinessProfiles
-            .Include(b => b.BusinessType)
             .FirstOrDefaultAsync(b => b.SystemUserId == userId.Value);
 
         if (profile == null)
         {
-            return Page();
+            return BadRequest(new
+            {
+                success = false,
+                message = "Please create your business profile first."
+            });
         }
 
-        BuzzGuideContext =
-            await _buzzGuideContextService
-                .GetContextAsync(profile.BusinessProfileId);
+        var businessProfileId = profile.BusinessProfileId;
 
-        if (BuzzGuideContext == null)
+        var buzzGuideContext =
+            await _buzzGuideContextService.GetContextAsync(businessProfileId);
+
+        if (buzzGuideContext == null)
         {
-            return Page();
+            return BadRequest(new
+            {
+                success = false,
+                message = "Your business information could not be loaded."
+            });
         }
 
         await _buzzGuideConversationService.AddMessageAsync(
-            profile.BusinessProfileId,
+            businessProfileId,
             "Entrepreneur",
-            BuzzGuideQuestion);
+            question);
 
-        BuzzGuideResponse =
-            await _buzzGuideService.GetResponseAsync(
-                BuzzGuideContext,
-                BuzzGuideConversation,
-                BuzzGuideQuestion);
+        // Load the updated history, including the latest question.
+        var conversation =
+            await _buzzGuideConversationService
+                .GetConversationAsync(businessProfileId);
+
+        var answer = await _buzzGuideService.GetResponseAsync(
+            buzzGuideContext,
+            conversation,
+            question);
 
         await _buzzGuideConversationService.AddMessageAsync(
-            profile.BusinessProfileId,
+            businessProfileId,
             "BuzzGuide",
-            BuzzGuideResponse);
+            answer);
 
-        BuzzGuideConversation =
-            await _buzzGuideConversationService
-                .GetConversationAsync(profile.BusinessProfileId);
-
-        BuzzGuideQuestion = string.Empty;
-
-        return Page();
+        return new JsonResult(new
+        {
+            success = true,
+            question,
+            answer
+        });
     }
+
     
     public async Task<IActionResult> OnPostSubmitApplicationAsync(int journeyStageId)
     {

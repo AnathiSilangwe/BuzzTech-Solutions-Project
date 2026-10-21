@@ -2,6 +2,14 @@
 @model BusinessBuzz.Web.Pages.Notifications.IndexModel
 
 @{
+    var roleId = HttpContext.Session.GetInt32("RoleId");
+
+    var isApprover = roleId == 2;
+
+    Layout = isApprover
+        ? "/Pages/Shared/_ApproverLayout.cshtml"
+        : "/Pages/Shared/_Layout.cshtml";
+
     ViewData["Title"] = "My Notifications";
 
     var unreadCount = Model.Notifications.Count(n => !n.IsRead);
@@ -11,12 +19,15 @@
     <link rel="stylesheet"
           href="~/css/notifications.css"
           asp-append-version="true" />
+
+
 }
 
 <div class="notifications-page">
+
     <header class="notifications-header">
         <div>
-            <span class="notifications-eyebrow">BUSINESS BUZZ</span>
+            <span class="notifications-eyebrow">BUSINESS BUZZ / UPDATES</span>
             <h1>My Notifications</h1>
             <p>Stay up to date with your business applications and next steps.</p>
         </div>
@@ -25,15 +36,14 @@
             <span class="notifications-overview-icon" aria-hidden="true">♢</span>
             <div>
                 <strong>@unreadCount</strong>
-                <span>Unread</span>
+                <span>Unread notifications</span>
             </div>
         </div>
     </header>
 
     @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
     {
-        <div class="notification-alert notification-alert-success"
-             role="status">
+        <div class="notification-alert notification-alert-success" role="status">
             <span aria-hidden="true">✓</span>
             <p>@Model.SuccessMessage</p>
         </div>
@@ -42,7 +52,7 @@
     <section class="notifications-content">
         <div class="notifications-section-heading">
             <div>
-                <h2>All notifications</h2>
+                <h2>All Notifications</h2>
                 <p>Your latest updates, newest first.</p>
             </div>
 
@@ -61,9 +71,21 @@
                     You don't have any notifications yet.
                     Updates about your business journey will appear here.
                 </p>
-                <a asp-page="/Dashboard/Index" class="notifications-primary-btn">
-                    Return to dashboard
-                </a>
+
+                @if (isApprover)
+                {
+                    <a asp-page="/Approver/Index"
+                       class="notifications-primary-btn">
+                        Return to Approver Dashboard
+                    </a>
+                }
+                else
+                {
+                    <a asp-page="/Dashboard/Index"
+                       class="notifications-primary-btn">
+                        Return to Dashboard
+                    </a>
+                }
             </div>
         }
         else
@@ -79,45 +101,36 @@
                         <div class="notification-details">
                             <div class="notification-title-row">
                                 <h3>
-                                    @(notification.IsRead ? "Notification" : "New update")
+                                    @(notification.IsRead ? "Notification" : "New Update")
                                 </h3>
 
                                 @if (notification.IsRead)
                                 {
-                                    <span class="notification-status read-status">
-                                        Read
-                                    </span>
+                                    <span class="notification-status read-status">Read</span>
                                 }
                                 else
                                 {
-                                    <span class="notification-status unread-status">
-                                        Unread
-                                    </span>
+                                    <span class="notification-status unread-status">Unread</span>
                                 }
                             </div>
 
-                            <p class="notification-message">
-                                @notification.Message
-                            </p>
+                            <p class="notification-message">@notification.Message</p>
 
                             <time class="notification-date"
                                   datetime="@notification.CreatedAt.ToUniversalTime().ToString("O")">
-                                <span aria-hidden="true">◷</span>
-                                @notification.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, HH:mm")
+                                ◷ @notification.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, HH:mm")
                             </time>
                         </div>
 
                         @if (!notification.IsRead)
                         {
                             <div class="notification-actions">
-                                <form method="post"
-                                      asp-page-handler="MarkAsRead">
+                                <form method="post" asp-page-handler="MarkAsRead">
                                     <input type="hidden"
                                            name="notificationId"
                                            value="@notification.NotificationId" />
 
-                                    <button type="submit"
-                                            class="notification-read-btn">
+                                    <button type="submit" class="notification-read-btn">
                                         Mark as read
                                     </button>
                                 </form>
@@ -130,6 +143,14 @@
     </section>
 
     <footer class="notifications-footer">
-        <a asp-page="/Dashboard/Index">← Back to dashboard</a>
+        @if (isApprover)
+        {
+            <a asp-page="/Approver/Index">← Back to Approver Dashboard</a>
+        }
+        else
+        {
+            <a asp-page="/Dashboard/Index">← Back to Dashboard</a>
+        }
     </footer>
+
 </div>
