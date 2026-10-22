@@ -1,0 +1,77 @@
+@page
+@model BusinessBuzz.Web.Pages.Compliance.IndexModel
+
+@{
+    ViewData["Title"] = "Compliance Records";
+}
+
+<div class="container mt-4">
+    <h1>Compliance Records</h1>
+    <p class="text-muted">
+        View compliance records associated with your business.
+        Dates marked as simulated are for demonstration only and
+        are not official CIPC expiry dates.
+    </p>
+
+    <hr />
+
+    @if (Model.Records.Count == 0)
+    {
+        <div class="alert alert-info">
+            <h5>No compliance records yet</h5>
+            <p>
+                Your simulated CIPC record will appear here after
+                your CIPC application is approved by an approver.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Record</th>
+                        <th>Simulated Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.Records)
+                    {
+                        var expired = record.CheckExpiry();
+
+                        <tr>
+                            <td>@record.BusinessProfile.BusinessName</td>
+                            <td>@record.ComplianceType</td>
+                            <td>
+                                @(record.ExpiryDate.HasValue
+                                    ? record.ExpiryDate.Value.ToLocalTime().ToString("dd MMM yyyy")
+                                    : "Not set")
+                            </td>
+                            <td>
+                                @if (!record.ExpiryDate.HasValue)
+                                {
+                                    <span class="badge bg-secondary">No date</span>
+                                }
+                                else if (expired)
+                                {
+                                    <span class="badge bg-danger">Simulated date passed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Within simulated period</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a asp-page="/Dashboard/Index" class="btn btn-secondary mt-3">
+        Back to Dashboard
+    </a>
+</div>

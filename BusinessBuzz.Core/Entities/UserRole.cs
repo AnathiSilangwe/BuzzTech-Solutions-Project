@@ -31,6 +31,15 @@ public class UserRole
                 "RequestAdditionalInformation",
                 "UpdateWorkflowStatus"
             },
+            // "SARS Approver" => new List<string>
+            // {
+            //     "Review SARS Applications",
+            //     "ReviewDocuments",
+            //     "ApproveApplication",
+            //     "RejectApplication",
+            //     "RequestAdditionalInformation",
+            //     "UpdateWorkflowStatus"
+            // },
             "Bank User" => new List<string>
             {
                 "ViewBusinesses",

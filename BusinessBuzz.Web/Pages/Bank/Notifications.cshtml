@@ -1,0 +1,101 @@
+
+@page
+@model BusinessBuzz.Web.Pages.Bank.NotificationsModel
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="container py-5">
+    <a asp-page="/Dashboard/Index" class="text-decoration-none">
+        &larr; Back to dashboard
+    </a>
+
+    <div class="d-flex justify-content-between align-items-center
+                flex-wrap gap-3 mt-4 mb-4">
+        <div>
+            <h1>Notifications</h1>
+            <p class="text-muted mb-0">
+                Keep track of funding enquiries and important updates.
+            </p>
+        </div>
+
+        <span class="badge bg-primary fs-6">
+            @Model.UnreadCount unread
+        </span>
+    </div>
+
+    @if (Model.Notifications.Count == 0)
+    {
+        <div class="card border-0 shadow-sm p-5 text-center">
+            <h4>You're all caught up!</h4>
+            <p class="text-muted mb-0">
+                New notifications will appear here when available.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column gap-3">
+            @foreach (var notification in Model.Notifications)
+            {
+                <article class="card border-0 shadow-sm
+                    @(notification.IsRead ? "" : "border-start border-primary border-4")">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between
+                                    align-items-start flex-wrap gap-2">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center
+                                            flex-wrap gap-2 mb-2">
+                                    <strong>
+                                        @(notification.IsRead
+                                            ? "Notification"
+                                            : "New notification")
+                                    </strong>
+
+                                    @if (!notification.IsRead)
+                                    {
+                                        <span class="badge bg-primary">
+                                            Unread
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Read
+                                        </span>
+                                    }
+                                </div>
+
+                                <p class="mb-2">
+                                    @notification.Message
+                                </p>
+
+                                <small class="text-muted">
+                                    @notification.CreatedAt
+                                        .ToLocalTime()
+                                        .ToString("dd MMM yyyy, HH:mm")
+                                </small>
+                            </div>
+
+                            @if (!notification.IsRead)
+                            {
+                                <form method="post"
+                                      asp-page-handler="MarkAsRead">
+                                    <input type="hidden"
+                                           name="notificationId"
+                                           value="@notification.NotificationId" />
+
+                                    <button type="submit"
+                                            class="btn btn-outline-primary btn-sm">
+                                        Mark as read
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</div>

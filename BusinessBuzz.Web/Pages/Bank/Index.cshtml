@@ -26,10 +26,11 @@
         <strong>@Model.CompletedAssessments.Count</strong>
     </article>
 
-    <article class="stat-card">
+    <a asp-page="/Bank/Notifications" class="stat-card" style="text-decoration: none; color: inherit;">
         <h3>Unread Notifications</h3>
         <strong>@Model.UnreadNotifications</strong>
-    </article>
+        <span>View notifications →</span>
+    </a>
 
     <article class="stat-card">
         <h3>Portal Status</h3>

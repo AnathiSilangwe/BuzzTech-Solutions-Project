@@ -55,12 +55,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFua1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Bank/Notifications.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFua1xOb3RpZmljYXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/BusinessProfile/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnVzaW5lc3NQcm9maWxlXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/BuzzGuide/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQnV6ekd1aWRlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Compliance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGxpYW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Dashboard/Index.cshtml]
@@ -85,6 +93,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Funding/Readiness.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRnVuZGluZ1xSZWFkaW5lc3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Dell/BusinessBuzz/BusinessBuzz.Web/Pages/Index.cshtml]

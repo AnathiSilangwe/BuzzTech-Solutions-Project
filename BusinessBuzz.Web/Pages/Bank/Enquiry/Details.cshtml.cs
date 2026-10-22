@@ -75,8 +75,8 @@ public class DetailsModel : PageModel
         }
 
         var assessment = await _context.FundingAssessments
+            .Include(f => f.BusinessProfile)
             .FirstOrDefaultAsync(f => f.FundingAssessmentId == id);
-
         if (assessment == null)
         {
             return NotFound();
@@ -122,13 +122,34 @@ public class DetailsModel : PageModel
             return Page();
         }
 
+
         assessment.SimulatedOutcome = outcome;
         assessment.Remarks = remarks;
         assessment.Status = "Completed";
         assessment.BankUserId = userId.Value;
         assessment.AssessedAt = DateTime.UtcNow;
 
+        var businessName = assessment.BusinessProfile?.BusinessName;
+
+        if (string.IsNullOrWhiteSpace(businessName))
+        {
+            businessName = "your business";
+        }
+
+        var notification = new Notification
+        {
+            SystemUserId = assessment.BusinessProfile!.SystemUserId,
+            Message = $"The simulated funding assessment for {businessName} " +
+                    $"has been completed. Outcome: {outcome}. " +
+                    "Sign in to Business Buzz to view the assessment remarks.",
+            IsRead = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _context.Notifications.Add(notification);
+
         await _context.SaveChangesAsync();
+
 
         TempData["SuccessMessage"] =
             "Funding assessment recorded successfully.";

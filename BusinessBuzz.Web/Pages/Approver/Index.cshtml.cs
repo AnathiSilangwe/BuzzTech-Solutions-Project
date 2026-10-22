@@ -138,6 +138,35 @@ public class IndexModel : PageModel
         };
 
         _context.ApprovalReviews.Add(review);
+  // Create a simulated CIPC compliance record only after approval.
+        bool isCipcApplication = application.JourneyStage.StageName
+            .Contains("CIPC", StringComparison.OrdinalIgnoreCase);
+
+        if (Decision == "Approved" && isCipcApplication)
+        {
+            var existingCipcRecord = await _context.ComplianceRecords
+                .FirstOrDefaultAsync(c =>
+                    c.BusinessProfileId == application.BusinessProfileId &&
+                    c.ComplianceType == "CIPC Approval (Simulated)");
+
+            // Prevent duplicate records for the same business.
+            if (existingCipcRecord == null)
+            {
+                var cipcRecord = new ComplianceRecord
+                {
+                    BusinessProfileId = application.BusinessProfileId,
+                    ComplianceType = "CIPC Approval (Simulated)",
+                    ExpiryDate = now.AddYears(1)
+                };
+
+                _context.ComplianceRecords.Add(cipcRecord);
+            }
+            else
+            {
+                // Refresh the simulated date if this business is approved again.
+                existingCipcRecord.ExpiryDate = now.AddYears(1);
+            }
+        }
         _context.Notifications.Add(notification);
 
         await _context.SaveChangesAsync();
