@@ -167,6 +167,13 @@
                     </div>
                 }
 
+                @if (TempData["ErrorMessage"] is string errorMessage)
+                {
+                    <div class="alert alert-danger">
+                        @errorMessage
+                    </div>
+                }
+
                 <div asp-validation-summary="All"
                     class="text-danger mb-3"></div>
 

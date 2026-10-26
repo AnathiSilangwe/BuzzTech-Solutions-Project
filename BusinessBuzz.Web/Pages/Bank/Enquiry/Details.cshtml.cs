@@ -99,7 +99,7 @@ public class DetailsModel : PageModel
             "More information required"
         };
 
-        var outcome = Request.Form["SimulatedOutcome"].ToString();
+        var outcome = Request.Form["SimulatedOutcome"].ToString().Trim();
         var remarks = Request.Form["Remarks"].ToString().Trim();
 
         if (!allowedOutcomes.Contains(outcome))
